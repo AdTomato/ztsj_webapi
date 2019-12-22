@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>登录-云枢</title>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- 移动设备 viewport -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui">
+	<meta name="author" content="admui.com">
+	<!-- 360浏览器默认使用Webkit内核 -->
+	<meta name="renderer" content="webkit">
+	<!-- 禁止搜索引擎抓取 -->
+	<meta name="robots" content="nofollow">
+	<!-- 禁止百度SiteAPP转码 -->
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<!-- Chrome浏览器添加桌面快捷方式（安卓） -->
+	<link rel="icon" type="image/png" href="images/favicon.png">
+	<meta name="mobile-web-app-capable" content="yes">
+	<!-- Safari浏览器添加到主屏幕（IOS） -->
+	<link rel="icon" sizes="192x192" href="images/apple-touch-icon.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Admui">
+	<!-- Win8标题栏及ICON图标 -->
+	<link rel="apple-touch-icon-precomposed" href="images/apple-touch-icon.png">
+	<meta name="msapplication-TileImage" content="images/app-icon72x72@2x.png">
+	<meta name="msapplication-TileColor" content="#62a8ea">
+	<!-- 样式 -->
+	<link rel="stylesheet" th:href="@{themes/classic/global/css/bootstrap.css}">
+	<link rel="stylesheet" th:href="@{themes/classic/base/css/site.css}">
+    <!-- 插件 -->
+    <link rel="stylesheet" th:href="@{vendor/animsition/animsition.css}">
+    <!-- 图标 -->
+    <link rel="stylesheet" th:href="@{fonts/web-icons/web-icons.css}">
+    <!-- 插件 -->
+    <link rel="stylesheet" th:href="@{vendor/formvalidation/formValidation.css}">
+    <link type="text/css" href="//g.alicdn.com/sd/ncpc/nc.css?t=1513735118103" rel="stylesheet"/>
+    <!-- 自定义 -->
+    <link rel="stylesheet" th:href="@{css/login.css}">
+</head>
+
+<body class="page page-login layout-full page-dark">
+	<!-- 此段必须要引入 -->
+	<div id="_umfp" style="display:inline;width:1px;height:1px;overflow:hidden"></div>
+	<!-- 引入结束 -->
+	<div class="height-full">
+	    <div class="page-content height-full">
+	        <div class="page-brand-info vertical-align animation-slide-left hidden-xs">
+	            <div class="page-brand vertical-align-middle">
+	                <div class="brand">
+	                    <!-- <img class="brand-img" src="images/logo.png" height="50" alt="LOGO"> -->
+	                </div>
+	                <h3>&copy; 云枢</h3>
+	                <p class="solo-gan"> 为中国企业成长而思考 <br>
+	                	ALL UNDERSTANDING IS THINE</p>
+	            </div>
+	        </div>
+	        <div class="page-login-main animation-fade">
+	            <div th:if="${param.error}" class="alert alert-danger alert-dismissible" role="alert">
+	            		账号或密码有误.
+	            </div>
+	            <div th:if="${param.accessdenied}" class="alert alert-danger alert-dismissible" role="alert">
+	            		您无登录后台权限.
+	            </div>
+	            <div th:if="${param.logout}" class="alert alert-success alert-dismissible" role="alert"> 
+	                您已成功退出登录.
+	            </div>
+	            <div class="vertical-align">
+	                <div class="vertical-align-middle">
+						<!--扫码-->
+						<!--<div id="login_container"></div>-->
+	                    <div class="brand text-center">
+	                        <img class="brand-img" src="images/logo.png" height="100" alt="Logo">
+	                        <hr>
+	                        <p>统一登录|鉴权中心</p>
+	                    </div>
+	                    <form class="login-form" th:action="@{login}" method="post" id="loginForm">
+	                        <!-- <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" /> -->
+	                        <div class="form-group">
+	                            <label class="sr-only" for="username">用户名</label>
+	                            <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+	                        </div>
+	                        <div class="form-group">
+	                            <label class="sr-only" for="password">密码</label>
+	                            <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+	                        </div>
+	                        <!--<div class="form-group">
+                       			<input type='hidden' id='afs' name='afs'/>
+                        		<div id="dom_id" class="nc-container"></div>
+	                        </div>-->
+	                        <div class="form-group clearfix">
+	                            <div class="checkbox-custom checkbox-inline checkbox-default pull-left">
+	                                <input type="checkbox" id="remember" name="remember-me">
+	                                <label for="remember">自动登录</label>
+	                            </div>
+	                            <a class="pull-right collapsed" data-toggle="collapse" href="#forgetPassword" aria-expanded="false" aria-controls="forgetPassword">
+	                                忘记密码了？
+	                            </a>
+	                        </div>
+	                        <div class="collapse" id="forgetPassword" aria-expanded="true">
+	                            <div class="alert alert-warning alert-dismissible" role="alert">
+	                                请联系管理员重置密码。
+	                            </div>
+	                        </div>
+	                        <button type="submit" class="btn btn-primary btn-block margin-top-30">登 录</button>
+	                    </form>
+	                </div>
+	            </div>
+	            <footer class="page-copyright">
+	                <p>&copy; 2019
+	                    <a href="http://www.authine.com" target="_blank">云枢</a>
+	                </p>
+	            </footer>
+	        </div>
+	    </div>
+	</div>
+	
+	<script th:src="@{vendor/jquery/jquery.min.js}"></script>
+	<script th:src="@{vendor/bootstrap/bootstrap.min.js}"></script>
+	<script th:src="@{vendor/formvalidation/formValidation.min.js}" data-name="formValidation"></script>
+	<script th:src="@{vendor/formvalidation/framework/bootstrap.min.js}" data-deps="formValidation"></script>
+	<!--<script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=2015052012"></script>-->
+	<!--修改:注释掉钉钉扫码登陆-->
+<!--	<script type="text/javascript" charset="utf-8" src="//g.alicdn.com/dingding/dinglogin/0.0.5/ddLogin.js"></script>-->
+	<script th:src="@{js/login.js?v=20181101}"></script>
+	<!--修改:注释掉钉钉扫码登陆-->
+<!--	<script th:src="@{js/ding.js}"></script>-->
+</body>
+
+</html>

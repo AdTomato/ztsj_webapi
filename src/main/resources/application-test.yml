@@ -1,0 +1,53 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+  servlet:
+    context-path: /    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
+
+spring:
+  #redis
+  redis:
+    host: 127.0.0.1     #地址
+    database: 1         #
+    password: H3yuncom  #密码
+    port: 6379          #端口
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 200MB         #上传单个文件大小限制
+      max-request-size: 200MB      #多个同时上传总大小限制
+
+logging:
+  level:
+    com.authine.cloudpivot: info   # 云枢产品日志输出级别
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1  #服务注册地址
+    port: 2181          #端口
+    timeout: 3000       #超时时间
+    check: true
+  consumer:
+    check: false
+    retries: 0          #重试次数
+
+cloudpivot:
+  login:
+    dingtalk: true #钉钉方式登录
+    accountpassword: false #账号密码登录
+    dingtalk&accountpassword: false #钉钉扫码和账号密码方式登录
+  switch:
+    multi_language_toggle_switch: false  #多语言开关 默认关
+  attachment:   # 文件存储方式
+    oss:
+      enabled: true     #是否启用
+    sftp:
+      enabled: false      #是否启用
+  bizlog:
+    endpoint:        #地域节点 如：oss-cn-shenzhen.aliyuncs.com
+    accessKeyId:     #用户AccessKey
+    accessKeySecret: #Access Key Secret
+    project:         #SLS项目名称
+    logStore: webapi_log    #web-sso日志库

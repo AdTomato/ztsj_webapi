@@ -1,0 +1,158 @@
+server:
+  port: 8080
+  address: 0.0.0.0
+  compression:
+    enabled: true
+  tomcat:
+    max-swallow-size: -1
+    remote-ip-header: x-forwarded-for
+    protocol-header: x-forwarded-proto
+  servlet:
+    context-path: /    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
+
+#info:
+#  blog-url: https://www.cloudpivot.cn/
+#  author: Authine
+#  version: @project.version@
+
+spring:
+  application:
+    name: cloudpivot-web-api
+#  boot:
+#    admin:
+#      client:
+#        url: http://127.0.0.1:9999
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: local
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  cache:
+    type: redis
+
+  #redis
+  redis:
+    host: 127.0.0.1     #地址
+    database: 1         #
+    password: H3yuncom  #密码
+    port: 6379          #端口
+
+  #spring session
+  session:
+    store-type: redis   #存储类型
+
+  mvc:
+    locale: zh_CN
+    date-format: yyyy-MM-dd HH:mm:ss
+
+  thymeleaf:
+    cache: false
+    check-template: false
+
+  security:
+    oauth:
+      sso_uri: http://127.0.0.1:8080
+
+  servlet:
+    multipart:
+      enabled: true                #默认支持文件上传
+      max-file-size: 200MB         #上传单个文件大小限制
+      max-request-size: 200MB      #多个同时上传总大小限制
+
+logging:
+  config: classpath:logback-spring.xml  #logback日志配置文件
+  level:
+    org.springframework.boot: error
+    org.springframework.security.oauth2: error
+    com.alibaba.dubbo: error
+    com.authine.cloudpivot: info   # 云枢产品日志输出级别
+
+# 日志输出路径
+log:
+  path: logs
+
+dubbo:
+  application:
+    name: cloudpivot-web-api-consumer
+    qos-enable: false
+    parameters:
+      protocol: dubbo
+  registry:
+    protocol: zookeeper
+    address: 127.0.0.1  #服务注册地址
+    port: 2181          #端口
+    timeout: 3000       #超时时间
+    check: true
+  consumer:
+    check: false
+    retries: 0          #重试次数
+  provider:
+    token: h3bpmtoken
+
+cloudpivot:
+  system:
+    update:
+      log:
+        url: http://help.cloudpivot.cn/channels/7.html  #产品更新日志地址
+  login:
+    dingtalk: true #钉钉方式登录
+    accountpassword: false #账号密码登录
+    dingtalk&accountpassword: false #钉钉扫码和账号密码方式登录
+  switch:
+    multi_language_toggle_switch: false  #多语言开关 默认关
+  attachment:   # 文件存储方式
+    oss:
+      enabled: true     #是否启用
+      #accesskeyid:      #用户AccessKey
+      #accesskeysecret:  #Access Key Secret
+      #endpoint:         #地域节点 如：oss-cn-shenzhen.aliyuncs.com
+      #bucket:           #Bucket域名 如：xxx.oss-cn-shenzhen.aliyuncs.com, 其中xxx表示OSS Bucket 名称
+      #expirtime: 600000 #默认十分钟
+    sftp:
+      enabled: false      #是否启用
+      #ftpserver:    #IP 如：120.66.88.11
+      #ftpport: 22   #端口 如：22
+      #ftpaccount:   #账号 如：root
+      #ftppassword:  #密码 如：123456
+      #ftppath:      #ftp存放地址 如./ftp  .表示当前路径，不配置表示默认当前路径
+  convert:
+      html2pdf: flyingsaucer #HTML转PDF，两种方式phantomjs 和 flyingsaucer
+  api:
+    oauth:
+      enabled: true   # 是否开启权限校验
+      test:
+        userid:       # 模拟测试用户ID，不能用于生产环境
+  webmvc:
+    corsmappings: true          #配置是否允许跨域，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
+    corsAllowedOrigins: '*'      #跨域请求白名单,多个地址以逗号分割
+  dingtalk:
+    client:
+      aes_key: e6e18d0a42dd027cade89c213c75f477e6e18d0a42d
+      aes_token: 2cc69a199b644f9ca0d21360f242d98d
+      #钉钉组织机构同步事件
+      callback_tag:
+        user_add_org,
+        user_modify_org,
+        user_leave_org,
+        org_admin_add,
+        org_admin_remove,
+        org_dept_create,
+        org_dept_modify,
+        org_dept_remove,
+        org_remove,
+        org_change,
+        label_user_change,
+        label_conf_add,
+        label_conf_del,
+        label_conf_modify
+      callback_url: /public/dingtalk/notify #增量同步回到地址
+  bizlog:
+    endpoint:          #地域节点 如：oss-cn-shenzhen.aliyuncs.com
+    accessKeyId:       #用户AccessKey
+    accessKeySecret:   #Access Key Secret
+    project:                #SLS项目名称
+    logStore: webapi_log    #web-sso日志库
