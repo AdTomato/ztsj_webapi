@@ -1,0 +1,43 @@
+package com.authine.cloudpivot.web.api.bean;
+
+import lombok.Data;
+
+/**
+ * @Author: wangyong
+ * @Date: 2019-12-22 10:42
+ * @Description: 班子成员民主测评表
+ */
+@Data
+public class Appraisal {
+
+    /**
+     * 领导人员
+     */
+    private String leadershipName;
+
+    /**
+     * 职称
+     */
+    private String leadershipDuty;
+
+    /**
+     * 优秀票数
+     */
+    private String excellentPoll;
+
+    /**
+     * 称职票数
+     */
+    private String competentPoll;
+
+    /**
+     * 基本称职票数
+     */
+    private String basicCompetentPoll;
+
+    /**
+     * 不称职票数
+     */
+    private String notCompetentPoll;
+
+}
