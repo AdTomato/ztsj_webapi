@@ -20,4 +20,8 @@ public interface SeasonAssessMapper {
     List<TotalScore> countTotal(String id);
 
     int updateTotalScore(TotalScore totalScore);
+
+    int checkRepeat(String seasonassessmentId, String userId);
+
+    void deleteWorkitemfinished(String instanceid);
 }

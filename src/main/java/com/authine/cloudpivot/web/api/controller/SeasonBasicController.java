@@ -41,8 +41,11 @@ public class SeasonBasicController extends BaseController {
         String seasonassessmentId = saveScoreSubmit.getSeasonassessmentId();
         List<DeptEffect> deptEffectList = saveScoreSubmit.getDeptEffectList();
 //        List<String> depteffectIds = new ArrayList<>();
-        log.info("执行：saveScore");
-        log.info("存储数据：" + saveScoreSubmit);
+        log.info("执行：checkRepeat");
+        int num = seasonAssessService.checkRepeat(seasonassessmentId,userId);
+        if (num!=0){
+            return  this.getOkResponseResult("error", "重复储存分数");
+        }
         List<VoteInfo> voteInfos = new ArrayList<>();
         try{
 
@@ -80,7 +83,7 @@ public class SeasonBasicController extends BaseController {
     }
 
     @RequestMapping("/countavg")
-    public ResponseResult<String> countavg(@RequestParam(required = false) String id) {
+    public ResponseResult<String> countavg(@RequestParam(required = false) String id, String instanceid) {
 
         try {
 
@@ -90,6 +93,9 @@ public class SeasonBasicController extends BaseController {
             if (results.size() == 0) {
                 return this.getOkResponseResult("error", "计算平均数出错");
             }
+
+            log.info("删除基层打分全部已办：deleteWorkitemfinished");
+            seasonAssessService.deleteWorkitemfinished(instanceid);
 
             for (int i = 0; i < results.size(); i++) {
                 AvgScore avgScore = results.get(i);

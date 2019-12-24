@@ -24,4 +24,8 @@ public interface SeasonAssessService {
     List<TotalScore> countTotal(String id);
 
     int updateTotal(TotalScore totalScore);
+
+    int checkRepeat(String seasonassessmentId, String userId);
+
+    void deleteWorkitemfinished(String instanceid);
 }

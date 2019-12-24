@@ -49,4 +49,14 @@ public class SeasonAssessServiceImpl implements SeasonAssessService {
     public int updateTotal(TotalScore totalScore) {
         return seasonAssessMapper.updateTotalScore(totalScore);
     }
+
+    @Override
+    public int checkRepeat(String seasonassessmentId, String userId) {
+        return seasonAssessMapper.checkRepeat(seasonassessmentId, userId);
+    }
+
+    @Override
+    public void deleteWorkitemfinished(String instanceid) {
+        seasonAssessMapper.deleteWorkitemfinished(instanceid);
+    }
 }

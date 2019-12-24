@@ -42,5 +42,12 @@
         UPDATE i6rlc_dept_effect SET total_score = #{score} where id = #{deptEffectId}
     </update>
 
+    <select id="checkRepeat" resultType="java.lang.Integer">
+        select  count(*) from  dept_season_voteinfo WHERE parentid = #{parentId} AND user_id = #{userId}
+    </select>
+    <delete id="deleteWorkitemfinished">
+        delete from biz_workitem_finished where instanceId = #{instanceid} and activityCode = 'Activity3'
+    </delete>
+
 
 </mapper>
