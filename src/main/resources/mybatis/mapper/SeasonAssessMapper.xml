@@ -43,7 +43,7 @@
     </update>
 
     <select id="checkRepeat" resultType="java.lang.Integer">
-        select  count(*) from  dept_season_voteinfo WHERE parentid = #{parentId} AND user_id = #{userId}
+        select  count(*) from  dept_season_voteinfo WHERE parentid = #{seasonassessmentId} AND user_id = #{userId}
     </select>
     <delete id="deleteWorkitemfinished">
         delete from biz_workitem_finished where instanceId = #{instanceid} and activityCode = 'Activity3'

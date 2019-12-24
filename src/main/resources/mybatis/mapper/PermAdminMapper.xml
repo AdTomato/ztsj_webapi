@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper>
-    <select id="getPermAdminByUserId" parameterType="java.lang.String">
-        select id from h_perm_admin where userId = #{value}
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.PermAdminMapper">
+    <select id="getPermAdminByUserId" resultType="java.lang.String">
+        select id from h_perm_admin where userId = #{userId}
     </select>
 </mapper>

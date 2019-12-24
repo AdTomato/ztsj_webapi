@@ -3,6 +3,7 @@ package com.authine.cloudpivot.web.api.controller;
 import com.authine.cloudpivot.web.api.service.IPermAdmin;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class PermAdminController {
      * @return : boolean
      * @Description: 根据传过来的userId判断该userId是否是管理员
      */
-    @RequestMapping("/isAdmin")
+    @GetMapping("/isAdmin")
     public boolean isAdmin(String userId) {
         log.info("获取userId值为:" + userId);
         String adminId = permAdmin.getPermAdminIdByUserId(userId);
