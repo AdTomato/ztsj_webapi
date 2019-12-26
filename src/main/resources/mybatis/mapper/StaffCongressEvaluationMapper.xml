@@ -5,7 +5,72 @@
 
 <!-- 职代会测评Mapper -->
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.StaffCongressEvaluationMapper">
-    <select id="getAllAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.Appraisal">
-        select * from StartAssessmentCongress where parentId = #{value}
+
+    <!-- 获取发起职代会测评表中主表的所有信息 -->
+    <select id="getStaffCongressEvaluationInfo" resultType="com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation">
+        select * from i6rlc_StartAssessmentCongress where id = #{id}
     </select>
+
+    <!-- 获取所有的发起职代会测评表中的民主测评表信息 -->
+    <select id="getAllAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.Appraisal">
+        select * from i6rlc_ACAppraisal where parentId = #{id}
+    </select>
+
+    <!-- 更新发起职代会测评表中的民主测评表 -->
+    <!--<update id="updateAllAppraisalData" parameterType="com.authine.cloudpivot.web.api.bean.Appraisal">-->
+        <!--update i6rlc_ACAppraisal set excellentPoll=#{excellentPoll}, competentPoll=#{competentPoll}, basicCompetentPoll=#{basicCompetentPoll}, notCompetentPoll=#{notCompetentPoll} where id=#{id}-->
+    <!--</update>-->
+
+    <!-- 更新发起职代会测评表中的民主测评表 -->
+    <update id="updateAllAppraisalData" parameterType="java.util.List">
+        update i6rlc_ACAppraisal
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="excellentPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.excellentPoll != null">
+                        when id=#{item.id} then #{item.excellentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="competentPoll = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.competentPoll != null">
+                        when id = #{item.id} then #{item.competentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="basicCompetentPoll = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.basicCompetentPoll != null">
+                        when id = #{item.id} then #{item.basicCompetentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="notCompetentPoll = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.notCompetentPoll != null">
+                        when id = #{item.id} then #{item.notCompetentPoll}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="item" index="index">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+    <!-- 根据unit获取从0到最大投票人数的职代会测评表的id -->
+    <select id="getAssessmentCongressData" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max}
+    </select>
+
+    <!-- 获取职代会测评表中的所有的民主测评表信息 -->
+    <select id="getAllDemocraticAppraisalByPId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DemocraticAppraisal">
+        select * from i6rlc_ACDemocraticAppraisal where p_id = #{id}
+    </select>
+
 </mapper>

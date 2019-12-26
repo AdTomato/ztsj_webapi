@@ -11,6 +11,16 @@ import lombok.Data;
 public class Appraisal {
 
     /**
+     * 班子成员民主测评表id
+     */
+    private String id;
+
+    /**
+     * 班子成员民主测评表parentId
+     */
+    private String parentId;
+
+    /**
      * 领导人员
      */
     private String leadershipName;

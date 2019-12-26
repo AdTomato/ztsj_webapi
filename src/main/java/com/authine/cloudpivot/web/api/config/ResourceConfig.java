@@ -120,6 +120,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                     .antMatchers("/ext/leadperson/**").permitAll()
                     .antMatchers("/ext/seasonbasic/**").permitAll()
                     .antMatchers("/ext/permAdmin/**").permitAll()
+                    .antMatchers("/ext/staffCongressEvaluation/**").permitAll()
                     .antMatchers("/api/organization/department/tree").permitAll()
                     //test
                     .antMatchers("/api/licenseExt/**").permitAll()

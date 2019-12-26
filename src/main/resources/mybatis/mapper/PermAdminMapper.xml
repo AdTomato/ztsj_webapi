@@ -5,6 +5,6 @@
 
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.PermAdminMapper">
     <select id="getPermAdminByUserId" resultType="java.lang.String">
-        select id from h_perm_admin where userId = #{userId}
+        select id from h_perm_admin where userId = #{userId} and adminType='SYS_MNG'
     </select>
 </mapper>
