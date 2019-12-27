@@ -17,9 +17,11 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.7.11.35:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
+#    url: jdbc:mysql://10.7.11.35:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    url: jdbc:mysql://127.0.0.1:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: root
-    password: Rlzyb_1910
+#    password: Rlzyb_1910
+    password: Wy_123456
     hikari:
       maximum-pool-size: 30                #根据系统并发用户数
       data-source-properties:

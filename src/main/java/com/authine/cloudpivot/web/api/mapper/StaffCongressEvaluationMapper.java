@@ -48,4 +48,7 @@ public interface StaffCongressEvaluationMapper {
      */
     public List<DemocraticAppraisal> getAllDemocraticAppraisalByPId(String id);
 
+
+    public void updateAppraisalData(Appraisal ap);
+
 }

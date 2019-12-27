@@ -17,9 +17,9 @@
     </select>
 
     <!-- 更新发起职代会测评表中的民主测评表 -->
-    <!--<update id="updateAllAppraisalData" parameterType="com.authine.cloudpivot.web.api.bean.Appraisal">-->
-        <!--update i6rlc_ACAppraisal set excellentPoll=#{excellentPoll}, competentPoll=#{competentPoll}, basicCompetentPoll=#{basicCompetentPoll}, notCompetentPoll=#{notCompetentPoll} where id=#{id}-->
-    <!--</update>-->
+    <update id="updateAppraisalData" parameterType="com.authine.cloudpivot.web.api.bean.Appraisal">
+        update i6rlc_ACAppraisal set excellentPoll=#{excellentPoll}, competentPoll=#{competentPoll}, basicCompetentPoll=#{basicCompetentPoll}, notCompetentPoll=#{notCompetentPoll} where id=#{id}
+    </update>
 
     <!-- 更新发起职代会测评表中的民主测评表 -->
     <update id="updateAllAppraisalData" parameterType="java.util.List">
@@ -27,31 +27,31 @@
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="excellentPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
-                    <if test="item.excellentPoll != null">
+                    <if test="item.excellentPoll!=null">
                         when id=#{item.id} then #{item.excellentPoll}
                     </if>
                 </foreach>
             </trim>
 
-            <trim prefix="competentPoll = case" suffix="end,">
+            <trim prefix="competentPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
-                    <if test="item.competentPoll != null">
+                    <if test="item.competentPoll!=null">
                         when id = #{item.id} then #{item.competentPoll}
                     </if>
                 </foreach>
             </trim>
 
-            <trim prefix="basicCompetentPoll = case" suffix="end,">
+            <trim prefix="basicCompetentPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
-                    <if test="item.basicCompetentPoll != null">
+                    <if test="item.basicCompetentPoll!=null">
                         when id = #{item.id} then #{item.basicCompetentPoll}
                     </if>
                 </foreach>
             </trim>
 
-            <trim prefix="notCompetentPoll = case" suffix="end,">
+            <trim prefix="notCompetentPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
-                    <if test="item.notCompetentPoll != null">
+                    <if test="item.notCompetentPoll!=null">
                         when id = #{item.id} then #{item.notCompetentPoll}
                     </if>
                 </foreach>

@@ -33,21 +33,21 @@ public class Appraisal {
     /**
      * 优秀票数
      */
-    private String excellentPoll;
+    private Integer excellentPoll;
 
     /**
      * 称职票数
      */
-    private String competentPoll;
+    private Integer competentPoll;
 
     /**
      * 基本称职票数
      */
-    private String basicCompetentPoll;
+    private Integer basicCompetentPoll;
 
     /**
      * 不称职票数
      */
-    private String notCompetentPoll;
+    private Integer notCompetentPoll;
 
 }

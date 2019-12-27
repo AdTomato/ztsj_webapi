@@ -3,6 +3,7 @@ package com.authine.cloudpivot.web.api.service;
 import com.authine.cloudpivot.web.api.bean.Appraisal;
 import com.authine.cloudpivot.web.api.bean.DemocraticAppraisal;
 import com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation;
+import com.github.javafaker.App;
 
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,9 @@ public interface IStaffCongressEvaluation {
      * @param list 班子民主测评表
      */
     public void updateAllAppraisalData(List<Appraisal> list);
+
+
+    public void updateAppraisalData(Appraisal ap);
 
     /**
      * 获取职代会测评表中的所有的民主测评表信息

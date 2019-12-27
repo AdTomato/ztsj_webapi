@@ -70,6 +70,11 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
         staffCongressEvaluationMapper.updateAllAppraisalData(list);
     }
 
+    @Override
+    public void updateAppraisalData(Appraisal ap) {
+        staffCongressEvaluationMapper.updateAppraisalData(ap);
+    }
+
     /**
      * @Author: wangyong
      * @Date: 2019/12/26 11:25
