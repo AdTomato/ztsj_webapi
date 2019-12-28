@@ -4,6 +4,7 @@ import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import com.authine.cloudpivot.web.api.service.IStaffCongressEvaluation;
+import com.authine.cloudpivot.web.api.utils.Points;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +45,9 @@ public class StaffCongressEvaluationController extends BaseController {
 
         // 计算“四好”领导班子评价表
         calculateLeadBodyEvaluate(idList, id);
+
+        // 计算领导班子民主测评表
+        calculateLeaderBodyAppraisal(idList, id);
     }
 
     /**
@@ -129,7 +133,7 @@ public class StaffCongressEvaluationController extends BaseController {
     }
 
     /**
-     * @param idList :
+     * @param idList : 从0到最大参选人数的id集合
      * @param id     : 发起职代会测评表的id
      * @return : void
      * @Author: wangyong
@@ -156,7 +160,9 @@ public class StaffCongressEvaluationController extends BaseController {
                 acList) {
             if (idList.contains(ac.getParentId())) {
                 SACLeadBodyEvaluate sac = sacMap.get(ac.getReviewKeyPoints());
-                sac.setEvaluationStores(sac.getEvaluationStores() + ac.getEvaluationStores());
+                if (null != sac) {
+                    sac.setEvaluationStores(sac.getEvaluationStores() + ac.getEvaluationStores());
+                }
             }
         }
 
@@ -172,6 +178,51 @@ public class StaffCongressEvaluationController extends BaseController {
 
         staffCongressEvaluation.updateAllSACLeadBodyEvaluateData(sacList);
         log.info("计算“四好”领导班子评价表成功");
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 15:33
+     * @param idList : 从0到最大参选人数的id集合
+     * @param id : 发起职代会测评表的id
+     * @return : void
+     * @Description: 计算领导班子民主测评表
+     */
+    private void calculateLeaderBodyAppraisal(List<String> idList, String id) {
+        // 获取所有的发起职代会测评表中的领导班子民主测评表
+        List<SACLeaderBodyAppraisal> sacList = staffCongressEvaluation.getAllSACLeaderBodyAppraisalData(id);
+
+        // 获取所有的职代会测评表中的领导班子民主测评表
+        List<ACLeaderBodyAppraisal> acList = staffCongressEvaluation.getAllACLeaderBodyAppraisalData(id);
+
+        Map<String, SACLeaderBodyAppraisal> sacMap = new HashMap<>();
+
+        for (SACLeaderBodyAppraisal sac :
+                sacList) {
+            sac.setGoodPoll(0);
+            sac.setOrdinaryPoll(0);
+            sac.setPreferablyPoll(0);
+            sac.setBadPoll(0);
+            sacMap.put(sac.getAssessmentProject(), sac);
+        }
+
+        for (ACLeaderBodyAppraisal ac :
+                acList) {
+            if (idList.contains(ac.getParentId())) {
+                SACLeaderBodyAppraisal sac = sacMap.get(ac.getAssessmentProject());
+                if (null != sac) {
+                    switch (ac.getEvaluationOpinions()) {
+                        case Points.GOOD_POINT: sac.setGoodPoll(sac.getGoodPoll() + 1);break;
+                        case Points.PREFERABLY_POINT: sac.setPreferablyPoll(sac.getPreferablyPoll() + 1);break;
+                        case Points.ORDINARY_POINT: sac.setOrdinaryPoll(sac.getOrdinaryPoll() + 1);break;
+                        case Points.POOL_POINT: sac.setBadPoll(sac.getBadPoll() + 1);break;
+                    }
+                }
+            }
+        }
+
+        staffCongressEvaluation.updateAllSACLeaderBodyAppraisalData(sacList);
+        log.info("计算领导班子民主测评成功");
     }
 
 }

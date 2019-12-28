@@ -53,9 +53,15 @@ public interface StaffCongressEvaluationMapper {
      */
     public void updateAppraisalData(Appraisal ap);
 
-    List<SACLeadBodyEvaluate> getAllSACLeadBodyEvaluateData(String id);
+    public List<SACLeadBodyEvaluate> getAllSACLeadBodyEvaluateData(String id);
 
-    void updateAllSACLeadBodyEvaluateData(List<SACLeadBodyEvaluate> sacList);
+    public void updateAllSACLeadBodyEvaluateData(List<SACLeadBodyEvaluate> sacList);
 
-    List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id);
+    public List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id);
+
+    public List<SACLeaderBodyAppraisal> getAllSACLeaderBodyAppraisalData(String id);
+
+    public void updateAllSACLeaderBodyAppraisalData(List<SACLeaderBodyAppraisal> sacList);
+
+    public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id);
 }

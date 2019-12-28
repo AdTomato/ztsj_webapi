@@ -69,4 +69,24 @@ public interface IStaffCongressEvaluation {
      * @return 所有的职代会测评表中的“四好”领导班子评价表
      */
     public List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id);
+
+    /**
+     * 获取所有的发起职代会测评表中的领导班子民主测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的发起职代会测评表中的领导班子民主测评表
+     */
+    public List<SACLeaderBodyAppraisal> getAllSACLeaderBodyAppraisalData(String id);
+
+    /**
+     * 更新所有的发起职代会测评表中的领导班子民主测评表
+     * @param sacList 所有的发起职代会测评表中的领导班子民主测评表
+     */
+    public void updateAllSACLeaderBodyAppraisalData(List<SACLeaderBodyAppraisal> sacList);
+
+    /**
+     * 获取所有的职代会测评表中的领导班子民主测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的职代会测评表中的领导班子民主测评表
+     */
+    public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id);
 }

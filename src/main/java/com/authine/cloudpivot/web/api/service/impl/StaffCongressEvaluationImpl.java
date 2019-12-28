@@ -120,4 +120,40 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     public List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id) {
         return staffCongressEvaluationMapper.getAllACLeadBodyEvaluateData(id);
     }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:10
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACLeaderBodyAppraisal>
+     * @Description: 获取所有的发起职代会测评表中的领导班子民主测评表
+     */
+    @Override
+    public List<SACLeaderBodyAppraisal> getAllSACLeaderBodyAppraisalData(String id) {
+        return staffCongressEvaluationMapper.getAllSACLeaderBodyAppraisalData(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:10
+     * @param sacList : 所有的发起职代会测评表中的领导班子民主测评表
+     * @return : void
+     * @Description: 更新所有的发起职代会测评表中的领导班子民主测评表
+     */
+    @Override
+    public void updateAllSACLeaderBodyAppraisalData(List<SACLeaderBodyAppraisal> sacList) {
+        staffCongressEvaluationMapper.updateAllSACLeaderBodyAppraisalData(sacList);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:11
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACLeaderBodyAppraisal>
+     * @Description: 获取所有的职代会测评表中的领导班子民主测评表
+     */
+    @Override
+    public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id) {
+        return staffCongressEvaluationMapper.getAllACLeaderBodyAppraisalData(id);
+    }
 }
