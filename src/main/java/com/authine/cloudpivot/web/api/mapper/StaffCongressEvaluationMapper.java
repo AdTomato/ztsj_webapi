@@ -1,8 +1,6 @@
 package com.authine.cloudpivot.web.api.mapper;
 
-import com.authine.cloudpivot.web.api.bean.Appraisal;
-import com.authine.cloudpivot.web.api.bean.DemocraticAppraisal;
-import com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation;
+import com.authine.cloudpivot.web.api.bean.*;
 
 import java.util.List;
 import java.util.Map;
@@ -49,6 +47,15 @@ public interface StaffCongressEvaluationMapper {
     public List<DemocraticAppraisal> getAllDemocraticAppraisalByPId(String id);
 
 
+    /**
+     * 更新发起职代会测评表中的民主测评表
+     * @param ap
+     */
     public void updateAppraisalData(Appraisal ap);
 
+    List<SACLeadBodyEvaluate> getAllSACLeadBodyEvaluateData(String id);
+
+    void updateAllSACLeadBodyEvaluateData(List<SACLeadBodyEvaluate> sacList);
+
+    List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id);
 }

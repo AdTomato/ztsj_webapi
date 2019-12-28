@@ -1,8 +1,6 @@
 package com.authine.cloudpivot.web.api.service;
 
-import com.authine.cloudpivot.web.api.bean.Appraisal;
-import com.authine.cloudpivot.web.api.bean.DemocraticAppraisal;
-import com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation;
+import com.authine.cloudpivot.web.api.bean.*;
 import com.github.javafaker.App;
 
 import java.util.List;
@@ -52,4 +50,23 @@ public interface IStaffCongressEvaluation {
      */
     public List<DemocraticAppraisal> getAllDemocraticAppraisalByPId(String id);
 
+    /**
+     * 获取所有的发起职代会测评表中的“四好”领导班子评价表
+     * @param id 发起职代会测评表id
+     * @return 所有的发起职代会测评表中的“四好”领导班子评价表
+     */
+    public List<SACLeadBodyEvaluate> getAllSACLeadBodyEvaluateData(String id);
+
+    /**
+     * 更新所有的发起职代会测评表中的“四好”领导班子评价表
+     * @param sacList 所有的发起职代会测评表中的“四好”领导班子评价表
+     */
+    public void updateAllSACLeadBodyEvaluateData(List<SACLeadBodyEvaluate> sacList);
+
+    /**
+     * 获取所有的职代会测评表中的“四好”领导班子评价表
+     * @param id 发起职代会测评表id
+     * @return 所有的职代会测评表中的“四好”领导班子评价表
+     */
+    public List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id);
 }

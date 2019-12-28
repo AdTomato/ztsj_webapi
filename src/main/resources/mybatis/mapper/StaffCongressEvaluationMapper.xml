@@ -11,6 +11,13 @@
         select * from i6rlc_StartAssessmentCongress where id = #{id}
     </select>
 
+    <!-- 根据unit获取从0到最大投票人数的职代会测评表的id -->
+    <select id="getAssessmentCongressData" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max}
+    </select>
+
+    <!-- 民主测评表信息 -->
+
     <!-- 获取所有的发起职代会测评表中的民主测评表信息 -->
     <select id="getAllAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.Appraisal">
         select * from i6rlc_ACAppraisal where parentId = #{id}
@@ -63,14 +70,39 @@
         </foreach>
     </update>
 
-    <!-- 根据unit获取从0到最大投票人数的职代会测评表的id -->
-    <select id="getAssessmentCongressData" parameterType="java.util.Map" resultType="java.lang.String">
-        select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max}
-    </select>
-
     <!-- 获取职代会测评表中的所有的民主测评表信息 -->
     <select id="getAllDemocraticAppraisalByPId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DemocraticAppraisal">
         select * from i6rlc_ACDemocraticAppraisal where p_id = #{id}
+    </select>
+
+    <!-- “四好”领导班子评价表 -->
+
+    <!-- 获取所有的发起职代会测评表中的“四好”领导班子评价表 -->
+    <select id="getAllSACLeadBodyEvaluateData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SACLeadBodyEvaluate">
+        select * from i6rlc_SACLeadBodyEvaluate where parentId = #{id}
+    </select>
+
+    <!-- 更新所有的发起职代会测评表中的“四好”领导班子评价表 -->
+    <update id="updateAllSACLeadBodyEvaluateData" parameterType="java.util.List">
+        update i6rlc_SACLeadBodyEvaluate
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="evaluationStores =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.evaluationStores!=null">
+                        when id=#{item.id} then #{item.evaluationStores}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+    
+    <!-- 获取所有的职代会测评表中的“四好”领导班子评价表 -->
+    <select id="getAllACLeadBodyEvaluateData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACLeadBodyEvaluate">
+        select * from i6rlc_ACLeadBodyEvaluate where p_Id = #{id}
     </select>
 
 </mapper>

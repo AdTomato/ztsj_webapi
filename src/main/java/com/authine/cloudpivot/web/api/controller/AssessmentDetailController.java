@@ -112,6 +112,7 @@ public class AssessmentDetailController extends BaseController {
 //            assessmentDetail.insertEvaluationTable(evaluationTables);
             // 开启机关部门打分表流程
             workflowInstanceFacade.startWorkflowInstance(user.getDepartmentId(), user.getId(), "departments_assessment_wf", objectId, true);
+//            workflowInstanceFacade.submitWorkItem()
         }
         return getOkResponseResult("success", ErrCode.OK.getErrMsg());
     }

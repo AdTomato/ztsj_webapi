@@ -7,6 +7,8 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IAssessmentDetail;
 import com.authine.cloudpivot.web.api.service.SeasonAssessService;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
+import jodd.util.StringUtil;
+import org.dom4j.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,7 @@ public class SeasonBasicController extends BaseController {
         List<DeptEffect> deptEffectList = saveScoreSubmit.getDeptEffectList();
 //        List<String> depteffectIds = new ArrayList<>();
         log.info("执行：checkRepeat");
+        log.info("存储的数据为:" + saveScoreSubmit);
         int num = seasonAssessService.checkRepeat(seasonassessmentId,userId);
         if (num!=0){
             return  this.getOkResponseResult("error", "重复储存分数");
@@ -50,7 +53,7 @@ public class SeasonBasicController extends BaseController {
         try{
 
             for (int i = 0; i < deptEffectList.size(); i++) {
-                if (null == deptEffectList.get(i).getId()||"".equals(deptEffectList.get(i).getId())){
+                if (null == deptEffectList.get(i).getId() || "".equals(deptEffectList.get(i).getId())){
                     continue;
                 }
                 VoteInfo voteInfo = new VoteInfo();
@@ -72,6 +75,7 @@ public class SeasonBasicController extends BaseController {
             }
             seasonAssessService.saveScore(voteInfos);
             seasonAssessService.resetScore(seasonassessmentId);
+            log.info("存储分数成功,当前存储分数的userId为:" + userId);
             return this.getOkResponseResult("success", "存储分数成功");
 
         }

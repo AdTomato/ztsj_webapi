@@ -1,8 +1,6 @@
 package com.authine.cloudpivot.web.api.service.impl;
 
-import com.authine.cloudpivot.web.api.bean.Appraisal;
-import com.authine.cloudpivot.web.api.bean.DemocraticAppraisal;
-import com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation;
+import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.mapper.StaffCongressEvaluationMapper;
 import com.authine.cloudpivot.web.api.service.IStaffCongressEvaluation;
 import org.springframework.stereotype.Service;
@@ -85,5 +83,41 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     @Override
     public List<DemocraticAppraisal> getAllDemocraticAppraisalByPId(String id) {
         return staffCongressEvaluationMapper.getAllDemocraticAppraisalByPId(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:47
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACLeadBodyEvaluate>
+     * @Description: 获取所有的发起职代会测评表中的“四好”领导班子评价表
+     */
+    @Override
+    public List<SACLeadBodyEvaluate> getAllSACLeadBodyEvaluateData(String id) {
+        return staffCongressEvaluationMapper.getAllSACLeadBodyEvaluateData(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:47
+     * @param sacList : 所有的发起职代会测评表中的“四好”领导班子评价表
+     * @return : void
+     * @Description: 更新所有的发起职代会测评表中的“四好”领导班子评价表
+     */
+    @Override
+    public void updateAllSACLeadBodyEvaluateData(List<SACLeadBodyEvaluate> sacList) {
+        staffCongressEvaluationMapper.updateAllSACLeadBodyEvaluateData(sacList);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:48
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACLeadBodyEvaluate>
+     * @Description: 获取所有的职代会测评表中的“四好”领导班子评价表
+     */
+    @Override
+    public List<ACLeadBodyEvaluate> getAllACLeadBodyEvaluateData(String id) {
+        return staffCongressEvaluationMapper.getAllACLeadBodyEvaluateData(id);
     }
 }
