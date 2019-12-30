@@ -3,7 +3,9 @@ package com.authine.cloudpivot.web.api.service.impl;
 import com.authine.cloudpivot.engine.api.facade.BizObjectFacade;
 import com.authine.cloudpivot.engine.api.model.runtime.BizObjectModel;
 import com.authine.cloudpivot.web.api.bean.AssessmentResult;
+import com.authine.cloudpivot.web.api.mapper.AssessmentResultMapper;
 import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +20,10 @@ import java.util.Map;
  */
 @Service
 public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
+
+    @Autowired
+    AssessmentResultMapper assessmentResultMapper;
+
     @Override
     public List<String> createAssessmentResults(BizObjectFacade objectFacade, String userId, List<AssessmentResult> arList) {
 
@@ -33,9 +39,21 @@ public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
             data.put("assess_content", ar.getAssessContent());
             data.put("assess_time", ar.getAssessTime());
             data.put("assess_result", ar.getAssessResult());
+            data.put("time", ar.getTime());
+            data.put("p_id", ar.getPId());
             model.put(data);
             bizObjects.add(model);
         }
         return objectFacade.addBizObjects(userId, bizObjects, "id");
+    }
+
+    @Override
+    public String isHaveAssessmentResult(AssessmentResult ar) {
+        return assessmentResultMapper.isHaveAssessmentResult(ar);
+    }
+
+    @Override
+    public void updateAssessmentResult(List<AssessmentResult> arList) {
+        assessmentResultMapper.updateAssessmentResult(arList);
     }
 }

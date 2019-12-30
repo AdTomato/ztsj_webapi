@@ -5,8 +5,8 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import com.authine.cloudpivot.web.api.service.IStaffCongressEvaluation;
 import com.authine.cloudpivot.web.api.utils.Points;
+import com.authine.cloudpivot.web.api.view.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
-import org.redisson.misc.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +30,9 @@ public class StaffCongressEvaluationController extends BaseController {
     @Autowired
     ICreateAssessmentResult createAssessmentResult;
 
+
     @RequestMapping("/calculateResoult")
-    public void calculateResult(String id) {
+    public ResponseResult<Void> calculateResult(String id) {
         log.info("开始执行职代会测评计算方法");
         log.info("当前传入的id值为:" + id);
         StaffCongressEvaluation sce = staffCongressEvaluation.getStaffCongressEvaluationInfo(id);
@@ -52,6 +53,17 @@ public class StaffCongressEvaluationController extends BaseController {
 
         // 计算党风廉政建设情况测评表
         calculateHonestEvaluationForm(idList, id);
+
+        // 计算中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+        calculateAutonomicEvaluationForm(idList, id);
+
+        //更新发起职代会测评表主表信息
+        Map<String, Object> info = new HashMap<>();
+        info.put("votePeoples", idList.size());
+        info.put("id", id);
+        staffCongressEvaluation.updateStaffCongressEvaluationInfo(info);
+        log.info("职代会测评投票结果计算完毕");
+        return getOkResponseResult("计算完毕");
     }
 
     /**
@@ -61,6 +73,9 @@ public class StaffCongressEvaluationController extends BaseController {
      * @Description: 计算班子成员民主测评表
      */
     private void calculateDemocraticAppraisal(List<String> idList, String id) {
+
+        log.info("开始计算班子成员民主测评");
+
         // 获取全部的发起职代会测评表中的班子成员民主测评表
         List<Appraisal> apList = staffCongressEvaluation.getAllAppraisalData(id);
         // 获取全部的职代会测评表中的班子成员民主测评表
@@ -103,12 +118,17 @@ public class StaffCongressEvaluationController extends BaseController {
             }
         }
 
-        List<AssessmentResult> arList = new ArrayList<>();
+        List<AssessmentResult> carList = new ArrayList<>();
+        List<AssessmentResult> uarList = new ArrayList<>();
         String msg = null;
+        String arId = null;
+        Date time = new Date();
         for (Appraisal ap :
                 apMap.values()) {
             AssessmentResult ar = new AssessmentResult();
-            ar.setAssessTime(new Date());
+            ar.setPId(id);
+            ar.setAssessTime(time);
+            ar.setTime(time.getYear() + "-" + time.getMonth() + "-" + time.getDay());
             ar.setLeadershipPerson(ap.getLeadershipName());
             ar.setAssessContent("职代会测评-班子成员民主测评");
             msg = "";
@@ -121,8 +141,13 @@ public class StaffCongressEvaluationController extends BaseController {
             msg += "不称职票数:";
             msg += ap.getNotCompetentPoll() == null ? 0 : ap.getNotCompetentPoll() + "\n";
             ar.setAssessResult(msg);
-            arList.add(ar);
-//            staffCongressEvaluation.updateAppraisalData(ap);
+            arId = createAssessmentResult.isHaveAssessmentResult(ar);
+            if (null != arId) {
+                ar.setId(arId);
+                uarList.add(ar);
+            } else {
+                carList.add(ar);
+            }
         }
 
         // 将每个领导人员的考核结果存储在考核结果表中
@@ -131,9 +156,19 @@ public class StaffCongressEvaluationController extends BaseController {
             userId = "2c9280a26706a73a016706a93ccf002b";
         }
         // 将每个领导人员的考核结果存储在考核结果表中
-        createAssessmentResult.createAssessmentResults(this.getBizObjectFacade(), userId, arList);
+        if (0 != carList.size()) {
+            log.info("新增考核结果");
+            createAssessmentResult.createAssessmentResults(this.getBizObjectFacade(), userId, carList);
+        }
+
+        if (0 != uarList.size()) {
+            log.info("更新考核结果");
+            createAssessmentResult.updateAssessmentResult(uarList);
+        }
+        log.info("更新班子成员民主测评结果");
         // 更新最终的结果
         staffCongressEvaluation.updateAllAppraisalData(apList);
+        log.info("班子成员民主测评计算完成");
     }
 
     /**
@@ -145,6 +180,9 @@ public class StaffCongressEvaluationController extends BaseController {
      * @Description: 计算“四好”领导班子评价表
      */
     private void calculateLeadBodyEvaluate(List<String> idList, String id) {
+
+        log.info("开始计算“四好”领导班子");
+
         // 获取所有的发起职代会测评表中的“四好”领导班子评价表
         List<SACLeadBodyEvaluate> sacList = staffCongressEvaluation.getAllSACLeadBodyEvaluateData(id);
 
@@ -185,14 +223,17 @@ public class StaffCongressEvaluationController extends BaseController {
     }
 
     /**
+     * @param idList : 从0到最大参选人数的id集合
+     * @param id     : 发起职代会测评表的id
+     * @return : void
      * @Author: wangyong
      * @Date: 2019/12/28 15:33
-     * @param idList : 从0到最大参选人数的id集合
-     * @param id : 发起职代会测评表的id
-     * @return : void
      * @Description: 计算领导班子民主测评表
      */
     private void calculateLeaderBodyAppraisal(List<String> idList, String id) {
+
+        log.info("开始计算领导班子民主测评");
+
         // 获取所有的发起职代会测评表中的领导班子民主测评表
         List<SACLeaderBodyAppraisal> sacList = staffCongressEvaluation.getAllSACLeaderBodyAppraisalData(id);
 
@@ -216,10 +257,18 @@ public class StaffCongressEvaluationController extends BaseController {
                 SACLeaderBodyAppraisal sac = sacMap.get(ac.getAssessmentProject());
                 if (null != sac) {
                     switch (ac.getEvaluationOpinions()) {
-                        case Points.GOOD_POINT: sac.setGoodPoll(sac.getGoodPoll() + 1);break;
-                        case Points.PREFERABLY_POINT: sac.setPreferablyPoll(sac.getPreferablyPoll() + 1);break;
-                        case Points.ORDINARY_POINT: sac.setOrdinaryPoll(sac.getOrdinaryPoll() + 1);break;
-                        case Points.POOL_POINT: sac.setBadPoll(sac.getBadPoll() + 1);break;
+                        case Points.GOOD_POINT:
+                            sac.setGoodPoll(sac.getGoodPoll() + 1);
+                            break;
+                        case Points.PREFERABLY_POINT:
+                            sac.setPreferablyPoll(sac.getPreferablyPoll() + 1);
+                            break;
+                        case Points.ORDINARY_POINT:
+                            sac.setOrdinaryPoll(sac.getOrdinaryPoll() + 1);
+                            break;
+                        case Points.POOL_POINT:
+                            sac.setBadPoll(sac.getBadPoll() + 1);
+                            break;
                     }
                 }
             }
@@ -230,16 +279,18 @@ public class StaffCongressEvaluationController extends BaseController {
     }
 
     /**
+     * @param idList : 从0到最大参选人数的id集合
+     * @param id     : 发起职代会测评表的id
+     * @return : void
      * @Author: wangyong
      * @Date: 2019/12/28 17:25
-     * @param idList : 从0到最大参选人数的id集合
-     * @param id : 发起职代会测评表的id
-     * @return : void
      * @Description: 计算党风廉政建设情况测评表
      */
     private void calculateHonestEvaluationForm(List<String> idList, String id) {
 
-        // 后去所有的发起职代会测评表中的党风廉政建设情况测评表
+        log.info("开始计算党风廉政建设情况");
+
+        // 获取所有的发起职代会测评表中的党风廉政建设情况测评表
         List<ASCHonestEvaluationForm> ascList = staffCongressEvaluation.getAllASCHonestEvaluationFormData(id);
 
         // 获取所有的职代会测评表中的党风廉政建设情况测评表
@@ -263,17 +314,129 @@ public class StaffCongressEvaluationController extends BaseController {
                 ASCHonestEvaluationForm asc = ascMap.get(ac.getReviewContent());
                 if (null != asc) {
                     switch (ac.getReviewOpinion()) {
-                        case Points.GOOD_POINT: asc.setGoodPoll(asc.getGoodPoll() + 1); break;
-                        case Points.PREFERABLY_POINT: asc.setPreferablyPoll(asc.getPreferablyPoll() + 1); break;
-                        case Points.ORDINARY_POINT: asc.setOrdinaryPoll(asc.getOrdinaryPoll() + 1); break;
-                        case Points.BAD_POINT: asc.setBadPoll(asc.getBadPoll() + 1); break;
-                        case Points.WAIVER_POINT: asc.setWaiverPoll(asc.getWaiverPoll() + 1); break;
+                        case Points.GOOD_POINT:
+                            asc.setGoodPoll(asc.getGoodPoll() + 1);
+                            break;
+                        case Points.PREFERABLY_POINT:
+                            asc.setPreferablyPoll(asc.getPreferablyPoll() + 1);
+                            break;
+                        case Points.ORDINARY_POINT:
+                            asc.setOrdinaryPoll(asc.getOrdinaryPoll() + 1);
+                            break;
+                        case Points.BAD_POINT:
+                            asc.setBadPoll(asc.getBadPoll() + 1);
+                            break;
+                        case Points.WAIVER_POINT:
+                            asc.setWaiverPoll(asc.getWaiverPoll() + 1);
+                            break;
                     }
                 }
             }
         }
         staffCongressEvaluation.updateAllASCHonestEvaluationFormData(ascList);
         log.info("计算党风廉政建设情况成功");
+    }
+
+    /**
+     * @param idList : 从0到最大参选人数的id集合
+     * @param id     : 发起职代会测评表的id
+     * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/30 11:00
+     * @Description: 计算中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    private void calculateAutonomicEvaluationForm(List<String> idList, String id) {
+
+        log.info("开始计算领导人员落实党风廉政建设责任制和廉洁自律情况");
+
+        // 获取所有的发起职代会测评表中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+        List<SACautonomicEvaluationForm> sacList = staffCongressEvaluation.getAllSACautonomicEvaluationForm(id);
+
+        // 获取所有的职代会测评表中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+        List<ACautonomicEvaluationForm> acList = staffCongressEvaluation.getAllACautonomicEvaluationForm(id);
+
+        Map<String, SACautonomicEvaluationForm> sacMap = new HashMap<>();
+        for (SACautonomicEvaluationForm sac :
+                sacList) {
+            sac.setBadPoll(0);
+            sac.setGoodPoll(0);
+            sac.setOrdinaryPoll(0);
+            sac.setPreferablyPoll(0);
+            sac.setWaiverPoll(0);
+            sacMap.put(sac.getLeadershipName(), sac);
+        }
+
+        for (ACautonomicEvaluationForm ac :
+                acList) {
+            if (idList.contains(ac.getParentId())) {
+                SACautonomicEvaluationForm sac = sacMap.get(ac.getLeadershipName());
+                if (null != sac) {
+                    switch (ac.getOption()) {
+                        case Points.GOOD_POINT:
+                            sac.setGoodPoll(sac.getGoodPoll() + 1);
+                            break;
+                        case Points.PREFERABLY_POINT:
+                            sac.setPreferablyPoll(sac.getPreferablyPoll() + 1);
+                            break;
+                        case Points.ORDINARY_POINT:
+                            sac.setOrdinaryPoll(sac.getOrdinaryPoll() + 1);
+                            break;
+                        case Points.BAD_POINT:
+                            sac.setBadPoll(sac.getBadPoll() + 1);
+                            break;
+                        case Points.WAIVER_POINT:
+                            sac.setWaiverPoll(sac.getWaiverPoll() + 1);
+                            break;
+                    }
+                }
+            }
+        }
+
+        List<AssessmentResult> carList = new ArrayList<>();
+        List<AssessmentResult> uarList = new ArrayList<>();
+        String arId = null;
+        String msg = "";
+        Date time = new Date();
+        for (SACautonomicEvaluationForm sac :
+                sacList) {
+            AssessmentResult ar = new AssessmentResult();
+            ar.setPId(id);
+            ar.setLeadershipPerson(sac.getLeadershipName());
+            ar.setAssessTime(time);
+            ar.setTime(time.getYear() + "-" + time.getMonth() + "-" + time.getDay());
+            ar.setAssessContent("职代会测评-落实党风廉政建设责任制和廉洁自律情况");
+            msg = "";
+            msg += Points.GOOD_POINT + "票数:" + sac.getGoodPoll() + "\n";
+            msg += Points.PREFERABLY_POINT + "票数:" + sac.getPreferablyPoll() + "\n";
+            msg += Points.ORDINARY_POINT + "票数:" + sac.getOrdinaryPoll() + "\n";
+            msg += Points.BAD_POINT + "票数:" + sac.getBadPoll() + "\n";
+            msg += Points.WAIVER_POINT + "票数:" + sac.getWaiverPoll() + "\n";
+            ar.setAssessResult(msg);
+            arId = createAssessmentResult.isHaveAssessmentResult(ar);
+            if (null != arId) {
+                ar.setId(arId);
+                uarList.add(ar);
+            } else {
+                carList.add(ar);
+            }
+
+        }
+        String userId = getUserId();
+        if (null == userId) {
+            userId = "2c9280a26706a73a016706a93ccf002b";
+        }
+        if (0 != carList.size()) {
+            createAssessmentResult.createAssessmentResults(getBizObjectFacade(), userId, carList);
+            log.info("创建领导人员考核结果成功");
+        }
+
+        if (0 != uarList.size()) {
+            createAssessmentResult.updateAssessmentResult(uarList);
+            log.info("更新领导人员考核结果成功");
+        }
+
+        staffCongressEvaluation.updateAllSACautonomicEvaluationForm(sacList);
+        log.info("计算中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况成功");
     }
 
 }

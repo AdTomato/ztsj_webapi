@@ -192,4 +192,52 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id) {
         return staffCongressEvaluationMapper.getAllACHonestEvaluationFormData(id);
     }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACautonomicEvaluationForm>
+     * @Description: 获取所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    @Override
+    public List<SACautonomicEvaluationForm> getAllSACautonomicEvaluationForm(String id) {
+        return staffCongressEvaluationMapper.getAllSACautonomicEvaluationForm(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
+     * @param sacList : 所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     * @return : void
+     * @Description: 更新所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    @Override
+    public void updateAllSACautonomicEvaluationForm(List<SACautonomicEvaluationForm> sacList) {
+        staffCongressEvaluationMapper.updateAllSACautonomicEvaluationForm(sacList);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm>
+     * @Description: 获取所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    @Override
+    public List<ACautonomicEvaluationForm> getAllACautonomicEvaluationForm(String id) {
+        return staffCongressEvaluationMapper.getAllACautonomicEvaluationForm(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/30 11:54
+     * @param info : 更新信息
+     * @return : void
+     * @Description: 更新发起职代会测评表主表信息
+     */
+    @Override
+    public void updateStaffCongressEvaluationInfo(Map info) {
+        staffCongressEvaluationMapper.updateStaffCongressEvaluationInfo(info);
+    }
 }

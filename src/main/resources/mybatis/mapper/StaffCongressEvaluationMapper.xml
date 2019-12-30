@@ -11,6 +11,11 @@
         select * from i6rlc_StartAssessmentCongress where id = #{id}
     </select>
 
+    <!-- 更新发起职代会测评表主表信息 -->
+    <update id="updateStaffCongressEvaluationInfo" parameterType="java.util.Map">
+        update i6rlc_StartAssessmentCongress set vote_peoples=#{votePeoples}, is_or_not_close_vote='是' where id=#{id}
+    </update>
+
     <!-- 根据unit获取从0到最大投票人数的职代会测评表的id -->
     <select id="getAssessmentCongressData" parameterType="java.util.Map" resultType="java.lang.String">
         select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max}
@@ -218,6 +223,69 @@
     <!-- 获取所有的职代会测评表中的领导班子党风廉政建设情况测评表 -->
     <select id="getAllACHonestEvaluationFormData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm">
         select * from i6rlc_ACHonestEvaluationForm where p_id = #{id}
+    </select>
+
+
+    <!-- 中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
+    
+    <!-- 获取所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
+    <select id="getAllSACautonomicEvaluationForm" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SACautonomicEvaluationForm">
+        select * from i6rlc_ACautonomicEvaluationForm where parentId = #{id}
+    </select>
+
+    <!-- 更新所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
+    <update id="updateAllSACautonomicEvaluationForm" parameterType="java.util.List">
+        update i6rlc_ACautonomicEvaluationForm
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="goodPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.goodPoll!=null">
+                        when id=#{item.id} then #{item.goodPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="preferablyPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.preferablyPoll!=null">
+                        when id=#{item.id} then #{item.preferablyPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="ordinaryPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.ordinaryPoll!=null">
+                        when id=#{item.id} then #{item.ordinaryPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="badPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.badPoll!=null">
+                        when id=#{item.id} then #{item.badPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="waiverPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.waiverPoll!=null">
+                        when id=#{item.id} then #{item.waiverPoll}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id=#{item.id}
+        </foreach>
+    </update>
+
+    <!-- 获取所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
+    <select id="getAllACautonomicEvaluationForm" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACautonomicEvaluationForm">
+        select * from i6rlc_autonomicEvaluationForm where p_id=#{id}
     </select>
 
 </mapper>

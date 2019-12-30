@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.mapper;
 
+import com.alibaba.dubbo.qos.command.impl.Ls;
 import com.authine.cloudpivot.web.api.bean.*;
 
 import java.util.List;
@@ -70,4 +71,12 @@ public interface StaffCongressEvaluationMapper {
     public void updateAllASCHonestEvaluationFormData(List<ASCHonestEvaluationForm> ascList);
 
     public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id);
+
+    public List<SACautonomicEvaluationForm> getAllSACautonomicEvaluationForm(String id);
+
+    public void updateAllSACautonomicEvaluationForm(List<SACautonomicEvaluationForm> sacList);
+
+    public List<ACautonomicEvaluationForm> getAllACautonomicEvaluationForm(String id);
+
+    public void updateStaffCongressEvaluationInfo(Map info);
 }

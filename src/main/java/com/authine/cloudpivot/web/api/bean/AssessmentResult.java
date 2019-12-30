@@ -12,9 +12,12 @@ import java.util.Date;
 @Data
 public class AssessmentResult extends BaseBean {
 
+    private String id;
     private String leadershipPerson;
     private String assessContent;
     private Date assessTime;
     private String assessResult;
+    private String pId;
+    private String time;
 
 }

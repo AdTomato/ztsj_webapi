@@ -109,4 +109,30 @@ public interface IStaffCongressEvaluation {
      * @return 所有的职代会测评表中的领导班子党风廉政建设情况测评表
      */
     public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id);
+
+    /**
+     * 获取所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    public List<SACautonomicEvaluationForm> getAllSACautonomicEvaluationForm(String id);
+
+    /**
+     * 更新所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     * @param sacList 所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    public void updateAllSACautonomicEvaluationForm(List<SACautonomicEvaluationForm> sacList);
+
+    /**
+     * 获取所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
+     */
+    public List<ACautonomicEvaluationForm> getAllACautonomicEvaluationForm(String id);
+
+    /**
+     * 更新发起职代会测评表主表信息
+     * @param info 更新信息
+     */
+    public void updateStaffCongressEvaluationInfo(Map info);
 }
