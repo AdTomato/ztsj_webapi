@@ -12,5 +12,6 @@ public abstract class Points {
     public static final String ORDINARY_POINT = "一般";
     public static final String BAD_POINT = "差";
     public static final String POOL_POINT = "较差";
+    public static final String WAIVER_POINT = "弃权";
 
 }

@@ -89,4 +89,24 @@ public interface IStaffCongressEvaluation {
      * @return 所有的职代会测评表中的领导班子民主测评表
      */
     public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id);
+
+    /**
+     * 获取所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    public List<ASCHonestEvaluationForm> getAllASCHonestEvaluationFormData(String id);
+
+    /**
+     * 更新所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     * @param ascList 所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    public void updateAllASCHonestEvaluationFormData(List<ASCHonestEvaluationForm> ascList);
+
+    /**
+     * 获取所有的职代会测评表中的领导班子党风廉政建设情况测评表
+     * @param id 发起职代会测评表id
+     * @return 所有的职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id);
 }

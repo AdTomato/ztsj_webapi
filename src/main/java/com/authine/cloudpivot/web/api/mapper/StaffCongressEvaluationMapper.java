@@ -64,4 +64,10 @@ public interface StaffCongressEvaluationMapper {
     public void updateAllSACLeaderBodyAppraisalData(List<SACLeaderBodyAppraisal> sacList);
 
     public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id);
+
+    public List<ASCHonestEvaluationForm> getAllASCHonestEvaluationFormData(String id);
+
+    public void updateAllASCHonestEvaluationFormData(List<ASCHonestEvaluationForm> ascList);
+
+    public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id);
 }

@@ -6,6 +6,7 @@ import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import com.authine.cloudpivot.web.api.service.IStaffCongressEvaluation;
 import com.authine.cloudpivot.web.api.utils.Points;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.misc.Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +49,9 @@ public class StaffCongressEvaluationController extends BaseController {
 
         // 计算领导班子民主测评表
         calculateLeaderBodyAppraisal(idList, id);
+
+        // 计算党风廉政建设情况测评表
+        calculateHonestEvaluationForm(idList, id);
     }
 
     /**
@@ -223,6 +227,53 @@ public class StaffCongressEvaluationController extends BaseController {
 
         staffCongressEvaluation.updateAllSACLeaderBodyAppraisalData(sacList);
         log.info("计算领导班子民主测评成功");
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:25
+     * @param idList : 从0到最大参选人数的id集合
+     * @param id : 发起职代会测评表的id
+     * @return : void
+     * @Description: 计算党风廉政建设情况测评表
+     */
+    private void calculateHonestEvaluationForm(List<String> idList, String id) {
+
+        // 后去所有的发起职代会测评表中的党风廉政建设情况测评表
+        List<ASCHonestEvaluationForm> ascList = staffCongressEvaluation.getAllASCHonestEvaluationFormData(id);
+
+        // 获取所有的职代会测评表中的党风廉政建设情况测评表
+        List<ACHonestEvaluationForm> acList = staffCongressEvaluation.getAllACHonestEvaluationFormData(id);
+
+        Map<String, ASCHonestEvaluationForm> ascMap = new HashMap<>();
+
+        for (ASCHonestEvaluationForm asc :
+                ascList) {
+            asc.setBadPoll(0);
+            asc.setGoodPoll(0);
+            asc.setOrdinaryPoll(0);
+            asc.setPreferablyPoll(0);
+            asc.setWaiverPoll(0);
+            ascMap.put(asc.getReviewContent(), asc);
+        }
+
+        for (ACHonestEvaluationForm ac :
+                acList) {
+            if (idList.contains(ac.getParentId())) {
+                ASCHonestEvaluationForm asc = ascMap.get(ac.getReviewContent());
+                if (null != asc) {
+                    switch (ac.getReviewOpinion()) {
+                        case Points.GOOD_POINT: asc.setGoodPoll(asc.getGoodPoll() + 1); break;
+                        case Points.PREFERABLY_POINT: asc.setPreferablyPoll(asc.getPreferablyPoll() + 1); break;
+                        case Points.ORDINARY_POINT: asc.setOrdinaryPoll(asc.getOrdinaryPoll() + 1); break;
+                        case Points.BAD_POINT: asc.setBadPoll(asc.getBadPoll() + 1); break;
+                        case Points.WAIVER_POINT: asc.setWaiverPoll(asc.getWaiverPoll() + 1); break;
+                    }
+                }
+            }
+        }
+        staffCongressEvaluation.updateAllASCHonestEvaluationFormData(ascList);
+        log.info("计算党风廉政建设情况成功");
     }
 
 }

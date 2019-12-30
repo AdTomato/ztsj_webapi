@@ -156,4 +156,40 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     public List<ACLeaderBodyAppraisal> getAllACLeaderBodyAppraisalData(String id) {
         return staffCongressEvaluationMapper.getAllACLeaderBodyAppraisalData(id);
     }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ASCHonestEvaluationForm>
+     * @Description: 获取所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    @Override
+    public List<ASCHonestEvaluationForm> getAllASCHonestEvaluationFormData(String id) {
+        return staffCongressEvaluationMapper.getAllASCHonestEvaluationFormData(id);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
+     * @param ascList : 所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     * @return : void
+     * @Description: 更新所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    @Override
+    public void updateAllASCHonestEvaluationFormData(List<ASCHonestEvaluationForm> ascList) {
+        staffCongressEvaluationMapper.updateAllASCHonestEvaluationFormData(ascList);
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
+     * @param id : 发起职代会测评表id
+     * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm>
+     * @Description: 所有的职代会测评表中的领导班子党风廉政建设情况测评表
+     */
+    @Override
+    public List<ACHonestEvaluationForm> getAllACHonestEvaluationFormData(String id) {
+        return staffCongressEvaluationMapper.getAllACHonestEvaluationFormData(id);
+    }
 }
