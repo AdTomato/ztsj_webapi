@@ -240,4 +240,16 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     public void updateStaffCongressEvaluationInfo(Map info) {
         staffCongressEvaluationMapper.updateStaffCongressEvaluationInfo(info);
     }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2019/12/31 14:55
+     * @param id : 发起职代会测评表id
+     * @return : java.lang.String 是:不可提交,否:可提交
+     * @Description: 是否可以提交
+     */
+    @Override
+    public String isCanSubmit(String id) {
+        return staffCongressEvaluationMapper.isCanSubmit(id);
+    }
 }

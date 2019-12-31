@@ -135,4 +135,11 @@ public interface IStaffCongressEvaluation {
      * @param info 更新信息
      */
     public void updateStaffCongressEvaluationInfo(Map info);
+
+    /**
+     * 是否可以提交
+     * @param id 发起职代会测评表id
+     * @return
+     */
+    public String isCanSubmit(String id);
 }

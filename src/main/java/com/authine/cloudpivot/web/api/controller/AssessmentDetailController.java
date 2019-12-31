@@ -31,7 +31,6 @@ public class AssessmentDetailController extends BaseController {
     @Autowired
     IAssessmentDetail assessmentDetail;
 
-
     /**
      * 根据机关部门年度考核发起机关部门年度考核流程
      *

@@ -8,6 +8,7 @@ import com.authine.cloudpivot.web.api.utils.Points;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,12 @@ public class StaffCongressEvaluationController extends BaseController {
     @Autowired
     ICreateAssessmentResult createAssessmentResult;
 
+
+    @GetMapping("/isCanSubmit")
+    public ResponseResult<Void> isCanSubmit(String id) {
+        log.info("检查是否可以投票,当前id:" + id);
+        return "否".equals(staffCongressEvaluation.isCanSubmit(id)) ? getErrResponseResult(200L, "可以提交") : getErrResponseResult(404L, "已关闭投票");
+    }
 
     @RequestMapping("/calculateResoult")
     public ResponseResult<Void> calculateResult(String id) {

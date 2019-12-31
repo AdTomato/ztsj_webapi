@@ -79,4 +79,6 @@ public interface StaffCongressEvaluationMapper {
     public List<ACautonomicEvaluationForm> getAllACautonomicEvaluationForm(String id);
 
     public void updateStaffCongressEvaluationInfo(Map info);
+
+    public String isCanSubmit(String id);
 }

@@ -6,6 +6,11 @@
 <!-- 职代会测评Mapper -->
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.StaffCongressEvaluationMapper">
 
+    <!-- 是否能够提交 -->
+    <select id="isCanSubmit" parameterType="java.lang.String" resultType="java.lang.String">
+        select is_or_not_close_vote from i6rlc_StartAssessmentCongress where id = #{id}
+    </select>
+
     <!-- 获取发起职代会测评表中主表的所有信息 -->
     <select id="getStaffCongressEvaluationInfo" resultType="com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation">
         select * from i6rlc_StartAssessmentCongress where id = #{id}
