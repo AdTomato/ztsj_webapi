@@ -4,6 +4,7 @@ package com.authine.cloudpivot.web.api.service;
 import com.authine.cloudpivot.web.api.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: wangyong
@@ -105,5 +106,7 @@ public interface IAssessmentDetail {
      * @param assessmentSummaryDetail 年度考核汇总表明细
      */
     public void insertAssessmentSummaryDetail(AssessmentSummaryDetail assessmentSummaryDetail);
+
+    public Integer isCreateAssessmentDetail(Map map);
 
 }

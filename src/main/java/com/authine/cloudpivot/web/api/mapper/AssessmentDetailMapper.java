@@ -3,6 +3,7 @@ package com.authine.cloudpivot.web.api.mapper;
 import com.authine.cloudpivot.web.api.bean.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AssessmentDetailMapper {
 
@@ -101,5 +102,7 @@ public interface AssessmentDetailMapper {
      * @param assessmentSummaryDetail 年度考核汇总表明细
      */
     public void insertAssessmentSummaryDetail(AssessmentSummaryDetail assessmentSummaryDetail);
+
+    public Integer isCreateAssessmentDetail(Map map);
 
 }

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class AssessmentDetail implements IAssessmentDetail{
@@ -131,6 +132,11 @@ public class AssessmentDetail implements IAssessmentDetail{
     @Override
     public void insertAssessmentSummaryDetail(AssessmentSummaryDetail assessmentSummaryDetail) {
         assessmentDetailMapper.insertAssessmentSummaryDetail(assessmentSummaryDetail);
+    }
+
+    @Override
+    public Integer isCreateAssessmentDetail(Map map) {
+        return assessmentDetailMapper.isCreateAssessmentDetail(map);
     }
 
 

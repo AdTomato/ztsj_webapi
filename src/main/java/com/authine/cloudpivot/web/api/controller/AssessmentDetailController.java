@@ -132,6 +132,16 @@ public class AssessmentDetailController extends BaseController {
             return getErrResponseResult("error", ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
         }
 
+        String userId = getUserId();
+        Map<String, Object> checkMap = new HashMap();
+        checkMap.put("id", adList.get(0).getDeartment_assessment());
+        checkMap.put("userId", userId);
+        Integer count = assessmentDetail.isCreateAssessmentDetail(checkMap);
+        if (0 != count) {
+            log.info("重复提交,不进行明细的存储");
+            return getErrResponseResult("error", ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
+        }
+
         List<BizObjectModel> models = new ArrayList<>();
         for (AssessmentDetail assessmentDetail :
                 adList) {
@@ -154,7 +164,6 @@ public class AssessmentDetailController extends BaseController {
 
         // 创建数据的引擎类
         BizObjectFacade bizObjectFacade = super.getBizObjectFacade();
-        String userId = getUserId();
 //        userId = "ff8080816e3e92fb016e3e9607a4004c";
         log.info("当前操作用户id：" + userId);
         // 使用引擎方法批量创建数据

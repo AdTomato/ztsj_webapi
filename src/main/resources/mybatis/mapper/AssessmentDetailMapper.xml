@@ -80,4 +80,10 @@
         VALUES
         (#{id}, #{parentId}, #{department}, #{firstQuarter}, #{secondQuarter}, #{thirdQuarter}, #{fourQuarter}, #{annualEvaluation}, #{annualScore})
     </insert>
+
+    <!-- 查看当前userId是否已经创建过考核明细了 -->
+    <select id="isCreateAssessmentDetail" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(1) from i6rlc_assessment_detail where deartment_assessment=#{id} and owner=#{userId}
+    </select>
+
 </mapper>
