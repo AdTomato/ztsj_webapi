@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.Map;
 import java.util.Random;
 
@@ -48,6 +49,9 @@ public class LicenseExtController extends BaseController {
     @PostMapping("/postTest")
     @ResponseBody
     public ResponseResult<Map> postTest(@RequestBody Map<String, String> params) {
+//        Example
         return getOkResponseResult(params, "postTest");
     }
+
+
 }
