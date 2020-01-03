@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.authine.cloudpivot</groupId>
     <artifactId>web-api</artifactId>
-    <version>1.5.0-alpha.24.6</version>
+    <version>1.5.0-alpha.27.1</version>
     <name>web-api</name>
     <description>web-api启动工程</description>
     <packaging>${project.packaging}</packaging>
@@ -18,7 +18,7 @@
     <properties>
         <java.version>1.8</java.version>
 
-        <web-api-service.version>1.5.0-alpha.24.6</web-api-service.version>
+        <web-api-service.version>1.5.0-alpha.27.1</web-api-service.version>
 
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
