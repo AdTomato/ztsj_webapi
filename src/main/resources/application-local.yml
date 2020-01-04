@@ -55,9 +55,9 @@ dubbo:
 
 cloudpivot:
   login:
-    dingtalk: true #钉钉方式登录
+    dingtalk: false #钉钉方式登录
     accountpassword: false #账号密码登录
-    dingtalk&accountpassword: false #钉钉扫码和账号密码方式登录
+    dingtalk&accountpassword: true #钉钉扫码和账号密码方式登录
   switch:
     multi_language_toggle_switch: false  #多语言开关 默认关
   attachment:   # 文件存储方式
