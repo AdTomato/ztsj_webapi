@@ -4,7 +4,6 @@ import com.authine.cloudpivot.web.api.bean.DemocraticEvaluation;
 import com.authine.cloudpivot.web.api.bean.SDemocraticEvaluation;
 import com.authine.cloudpivot.web.api.mapper.DemocraticEvaluationMapper;
 import com.authine.cloudpivot.web.api.service.IDemocraticEvaluation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
