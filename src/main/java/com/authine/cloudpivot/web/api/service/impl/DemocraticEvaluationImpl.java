@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * @Author: wangyong
  * @Date: 2020-01-05 02:14
- * @Description: 民主评议表实现类
+ * @Description: 民主评议表service实现类
  */
 @Service
 public class DemocraticEvaluationImpl implements IDemocraticEvaluation {

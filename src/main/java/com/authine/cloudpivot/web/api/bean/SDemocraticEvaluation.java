@@ -156,7 +156,7 @@ public class SDemocraticEvaluation extends BaseBean{
     /**
      * 投票人数
      */
-    private Integer vote_Peoples;
+    private Integer votePeoples;
 
     /**
      * 是否关闭投票

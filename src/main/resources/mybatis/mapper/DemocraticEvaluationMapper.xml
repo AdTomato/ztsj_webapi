@@ -10,7 +10,7 @@
     </select>
 
     <!-- 符合规则的所有的工作民主评议表 -->
-    <select id="getAllDemocraticEvaluationData" resultType="java.util.List" parameterType="java.util.Map">
+    <select id="getAllDemocraticEvaluationData" resultType="com.authine.cloudpivot.web.api.bean.DemocraticEvaluation" parameterType="java.util.Map">
         select * from i6rlc_democraticevaluation where unit = #{id} limit 0, #{max}
     </select>
 
@@ -20,16 +20,16 @@
         g_satisfied_poll = #{gSatisfiedPoll},
         g_basic_satisfied_poll = #{gBasicSatisfiedPoll},
         g_no_satisfied_poll = #{gNoSatisfiedPoll},
-        g_no_understand_poll = #{gSatisfiedPoll},
+        g_no_understand_poll = #{gNoUnderstandPoll},
         r_satisfied_poll = #{rSatisfiedPoll},
         r_basic_satisfied_poll = #{rBasicSatisfiedPoll},
         r_no_satisfied_poll = #{rNoSatisfiedPoll},
         r_no_understand_poll = #{rSatisfiedPoll},
-        b_satisfied_poll = #{rbSatisfiedPoll},
+        b_satisfied_poll = #{bSatisfiedPoll},
         b_basic_satisfied_poll = #{bBasicSatisfiedPoll},
         b_no_satisfied_poll = #{bNoSatisfiedPoll},
         b_no_understand_poll = #{bSatisfiedPoll},
-        i_satisfied_poll = #{ibSatisfiedPoll},
+        i_satisfied_poll = #{iSatisfiedPoll},
         i_basic_satisfied_poll = #{iBasicSatisfiedPoll},
         i_no_satisfied_poll = #{iNoSatisfiedPoll},
         i_no_understand_poll = #{iSatisfiedPoll},
@@ -46,8 +46,6 @@
         vote_peoples = #{votePeoples},
         is_or_not_close_vote = #{isOrNotCloseVote}
         where id = #{id}
-
-
 
     </update>
 </mapper>
