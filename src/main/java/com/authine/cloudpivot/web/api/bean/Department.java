@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.bean;
 
+import com.authine.cloudpivot.engine.enums.type.DeptType;
 import lombok.Data;
 
 /**
@@ -15,4 +16,5 @@ public class Department {
      * 部门类型
      */
     private Integer type;
+
 }

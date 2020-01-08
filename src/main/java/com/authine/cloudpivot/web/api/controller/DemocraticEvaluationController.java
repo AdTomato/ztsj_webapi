@@ -7,7 +7,6 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IDemocraticEvaluation;
 import com.authine.cloudpivot.web.api.utils.Points;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -110,14 +109,14 @@ public class DemocraticEvaluationController extends BaseController {
                     if ("".equals(sd.getOtherProblems())) {
                         sd.setOtherProblems(d.getConcreteContent());
                     } else {
-                        sd.setOtherProblems(sd.getOtherProblems() + "\n" + d.getConcreteContent());
+                        sd.setOtherProblems(sd.getOtherProblems() + "\n\n" + d.getConcreteContent());
                     }
                 }
                 if (!"".equals(d.getCommentSuggestion())) {
                     if ("".equals(sd.getCommentSuggestion())) {
                         sd.setCommentSuggestion(d.getCommentSuggestion());
                     } else {
-                        sd.setCommentSuggestion(sd.getCommentSuggestion() + "\n" + d.getCommentSuggestion());
+                        sd.setCommentSuggestion(sd.getCommentSuggestion() + "\n\n" + d.getCommentSuggestion());
                     }
                 }
             }

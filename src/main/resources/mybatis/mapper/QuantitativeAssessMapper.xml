@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.QuantitativeAssessMapper">
+
+    <!-- 创建定量考核里面的存储评委的子表 -->
+    <insert id="insertQaJudges" parameterType="java.util.List">
+        insert into
+        i6rlc_qa_judges(id, parentId, department, judge)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.department}, #{item.judge})
+        </foreach>
+    </insert>
+
+    <!-- 创建安全管理子表 -->
+    <insert id="insertQuantitativeSafeManage" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_safe_manage(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 质量管理 -->
+    <insert id="insertQuantitativeQualityManage" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_quality_manage(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 进度及施工组织管理 -->
+    <insert id="insertQuantitativeScManage" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_sc_manage(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 技术管理 -->
+    <insert id="insertQuantitativeSkillManage" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_skill_manage(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 工程分包管理 -->
+    <insert id="insertQuantitativeEngineManag" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_engine_manag(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 铁路、公路信用评价 -->
+    <insert id="insertQuantitativeCreditEvaluat" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_credit_evaluat(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 沟通协调、重大问题报告 -->
+    <insert id="insertQuantitativeProblem" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_problem(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 管控工作规范性 -->
+    <insert id="insertQuantitativeControl" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_control(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 对片区内在建项目的服务、指导 -->
+    <insert id="insertQuantitativeService" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_service(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+
+    <!-- 稽查纪律 -->
+    <insert id="insertQuantitativeDiscipline" parameterType="java.util.List">
+        insert into
+        i6rlc_quantitative_discipline(id, parentId, scoring_standard, deduction_reason, deduction)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
+        </foreach>
+    </insert>
+</mapper>

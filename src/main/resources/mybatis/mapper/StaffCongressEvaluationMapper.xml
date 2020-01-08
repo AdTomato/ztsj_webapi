@@ -23,7 +23,7 @@
 
     <!-- 根据unit获取从0到最大投票人数的职代会测评表的id -->
     <select id="getAssessmentCongressData" parameterType="java.util.Map" resultType="java.lang.String">
-        select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max}
+        select id from i6rlc_AssessmentCongress where unit=#{id} limit 0,#{max} order by createdTime
     </select>
 
     <!-- 民主测评表信息 -->
