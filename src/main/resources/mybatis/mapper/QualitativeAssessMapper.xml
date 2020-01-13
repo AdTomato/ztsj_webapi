@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.QualitativeAssessMapper">
+
+    <!-- 创建定性考核内容 -->
+    <insert id="insertQualitativeAssessContent" parameterType="java.util.List">
+        insert into i6rlc_qualitative_assess_content
+        (id, parentId, sortKey, evaluation_content, evaluation_score, evaluation_kps)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.sortKey}, #{item.evaluationContent}, #{item.evaluationScore}, #{item.evaluationKps})
+        </foreach>
+    </insert>
+
+    <select id="getqualitativeAssessById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssess">
+        select * from i6rlc_qualitative_assess where id = #{id}
+    </select>
+
+    <select id="getAssessmentContent" parameterType="java.lang.String">
+        select i6rlc_qualitative_assess_content from i6rlc_qualitative_assess_content where id = #{id}
+    </select>
+    
+    <!-- 获取定性考核打分表考核内容 -->
+    <select id="getQualitativeAssessContentById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssessContent">
+        select * from i6rlc_qualitative_assess_content where parentId = #{id}
+    </select>
+
+    <!-- 获取最终结果 -->
+    <select id="getQualitativeAssessContentFinalScore" parameterType="java.lang.String" resultType="java.lang.Double">
+        select AVG(score) from i6rlc_qualitative_assess_detail where sheet_id = #{id}
+    </select>
+
+    <!-- 清空定性考核打分表内容 -->
+    <update id="cleanQualitativeAssessContent" parameterType="java.lang.String">
+        update i6rlc_qualitative_assess_content set score = 0 where parentId = #{id}
+    </update>
+
+    <!-- 更新最终结果 -->
+    <update id="updateQualitativeAssessContentFinalScore" parameterType="java.util.List">
+        update i6rlc_qualitative_assess_content
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="final_score =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.finalScore!=null">
+                        when id=#{item.id} then #{item.finalScore}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+    <select id="getQualitativeAssessStatus" parameterType="java.lang.String" resultType="java.lang.String">
+        select sequenceStatus from i6rlc_qualitative_assess where id = #{id}
+    </select>
+
+</mapper>

@@ -24,6 +24,22 @@ public abstract class Points {
     public static final String BUY_SELL_OFFICE_POINT = "买官卖官";
     public static final String CANVASSING_POINT = "拉票";
     public static final String NO_OUTSTANDING_PROBLEMS_POINT = "不存在突出问题";
+    public static final String SAFE = "安全管理";
+    public static final String QUALITY = "质量管理";
+    public static final String SC = "进度及施工组织管理";
+    public static final String SKILL = "技术管理";
+    public static final String ENGINE = "工程分包管理";
+    public static final String CREDIT = "铁路、公路信用评价";
+    public static final String PROBLEM = "沟通协调、重大问题报告";
+    public static final String CONTROL = "管控工作规范性";
+    public static final String SERVICE = "对片区内在建项目的服务、指导";
+    public static final String DISCIPLINE = "稽查纪律";
+    public static final String ADMIN_ID = "2c9280a26706a73a016706a93ccf002b";
+    public static final String COMPLETED = "COMPLETED";
+    public static final String CONTENT1_SCORE = "局管控组考核评价组成员";
+    public static final String CONTENT2_SCORE = "片区分管局领导";
+    public static final String CONTENT3_SCORE = "子（分）公司片区分管领导";
+    public static final String CONTENT4_SCORE = "片区项目领导";
 
 
 }

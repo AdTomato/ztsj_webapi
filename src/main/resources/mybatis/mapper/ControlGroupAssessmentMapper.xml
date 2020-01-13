@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.ControlGroupAssessmentMapper">
+    <!-- 根据年度查询管控组年度考核汇总表主表id -->
+    <select id="getControlGroupAssessmentIdByAnnual" parameterType="java.lang.String" resultType="java.lang.String">
+        select id from i6rlc_control_group_assessment where annual = #{annual}
+    </select>
+
+    <!-- 插入管控组年度考核明细 -->
+    <insert id="insertControlGroupDetails" parameterType="java.util.List">
+        insert into i6rlc_control_group_detail
+        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score, qualitative_score, final_score, id, parentId)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.quantitativeScore}, #{item.assessee}, #{item.content1Score}, #{item.content2Score}, #{item.content3Score}, #{item.content4Score}, #{item.qualitativeScore}, #{item.id}, #{item.parentId})
+        </foreach>
+    </insert>
+
+    <insert id="insertControlGroupDetail" parameterType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+        insert into i6rlc_control_group_detail
+        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score, qualitative_score, final_score, id, parentId)
+        values
+        (#{quantitativeScore}, #{assessee}, #{content1Score}, #{content2Score}, #{content3Score}, #{content4Score}, #{qualitativeScore}, #{finalScore}, #{id}, #{parentId})
+    </insert>
+
+    <!-- 根据管控组年度考核汇总表id查询明细 -->
+    <select id="getControlGroupDetailById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+        select * from i6rlc_control_group_detail where parentId = #{id}
+    </select>
+
+    <!-- 根据管控组考核汇总表id以及被考核人查询明细 -->
+    <select id="getControlGroupDetailByIdAndAssessee" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+        select * from i6rlc_control_group_detail where parentId = #{id} and assessee = #{assessee};
+    </select>
+
+    <!-- 更新管控组年度考核汇总表明细 -->
+    <update id="updateControlGroupDetailById" parameterType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+        update i6rlc_control_group_detail set
+        quantitative_score = #{quantitativeScore},
+        content1_score = #{content1Score},
+        content2_score = #{content2Score},
+        content3_score = #{content3Score},
+        content4_score = #{content4Score},
+        qualitative_score = #{qualitativeScore},
+        final_score = #{finalScore}
+        where id = #{id}
+    </update>
+
+</mapper>
