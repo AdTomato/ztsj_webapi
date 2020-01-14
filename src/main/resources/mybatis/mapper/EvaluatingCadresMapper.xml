@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.EvaluatingCadresMapper">
+    <!--获取发起新选拔干部民主评议表的全部信息-->
+    <select id="getEvaluatingCadresInfo" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.EvaluatingCadres">
+        select * from i6rlc_sevaluatingcadres where id = #{id}
+    </select>
+    <!--根据unit获取从0到最大投票人数的新选拔干部民主评议表的id-->
+    <select id="getEvaluatingCadresIdByUnit" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from i6rlc_evaluatingcadres where unit = #{id} order by #{createdTime} limit 0,#{max}
+    </select>
+
+    <!--更新发起新选拔干部民主评议表主表结果-->
+    <update id="updateEvaluatingCadresInfo" parameterType="java.util.Map">
+         update i6rlc_sevaluatingcadres set votePeoples = #{votoPeoples},isOrNotCloseVote = '是' where id =#{id}
+    </update>
+    
+    <!--评测干部表-->
+
+    <!--获取全部的发起新选拔干部民主评议表的 评测干部表信息-->
+    <select id="getAllSEvaluatingCadresListData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SEvaluatingCadresList">
+        select * from i6rlc_sevaluatingcadreslist where parentId = #{id}
+    </select>
+
+    <!--获取全部的新选拔干部民主评议表的 评测干部表信息-->
+    <select id="getAllEvaluatingCadresListData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.EvaluatingCadresList">
+        select * from i6rlc_evaluatingcadreslist where pId = #{id}
+    </select>
+
+    <!--更新 发起新选拔干部民主评议表的评测干部表结果-->
+    <update id="updateAllEvaluatingCadres" parameterType="java.util.List">
+        update i6rlc_sevaluatingcadreslist
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="satisfiedPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.satisfiedPoll!=null">
+                        when id=#{item.id} then #{item.satisfiedPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="basicSatisfiedPoll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.basicSatisfiedPoll!=null">
+                        when id=#{item.id} then #{item.basicSatisfiedPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="noUnderstandPoll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.noUnderstandPoll!=null">
+                        when id=#{item.id} then #{item.noUnderstandPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="noSatisfiedPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.noSatisfiedPoll!=null">
+                        when id=#{item.id} then #{item.noSatisfiedPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="existencePoll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.existencePoll!=null">
+                        when id=#{item.id} then #{item.existencePoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="noExistencePoll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.noExistencePoll!=null">
+                        when id=#{item.id} then #{item.noExistencePoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="iNoUnderstandPoll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.iNoUnderstandPoll!=null">
+                        when id=#{item.id} then #{item.iNoUnderstandPoll}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" index="index" item="item" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+</mapper>

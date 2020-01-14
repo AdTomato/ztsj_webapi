@@ -4,6 +4,7 @@ import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.LackPersonnelService;
 import com.authine.cloudpivot.web.api.utils.DoubleUtils;
+import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,30 +24,30 @@ public class LackPersonnelController extends BaseController {
     @Autowired
     private LackPersonnelService lackPersonnelService;
 
-    /**
-     * 紧缺人才考核发起开会流程时,列表的自动填充
-     *
-     * @param lackPersonnelAssessInfo
-     * @return
-     */
-    @RequestMapping("/personnelslist")
-    public ResponseResult<List> findlist(@RequestBody LackPersonnelAssessInfo lackPersonnelAssessInfo) {
-        String userId = this.getUserId();
-        List<ExpertsInfo> errorList = new ArrayList<>();
-        if (lackPersonnelAssessInfo.getAnnual().length() == 0 || lackPersonnelAssessInfo.getAnnual() == null || lackPersonnelAssessInfo.getDept().length() == 0 || lackPersonnelAssessInfo.getDept() == null) {
-            return this.getOkResponseResult(errorList, "error");
-        }
-        List<LackPersonnelInfo> lackPersonnelList = lackPersonnelService.findLackPersonnelList(lackPersonnelAssessInfo);
-        List<String> idtypes = new ArrayList<>();
-        for (int i = 0; i < lackPersonnelList.size(); i++) {
-            idtypes.add(lackPersonnelList.get(i).getNameIdType());
-        }
-
-
-        return this.getOkResponseResult(idtypes, "success");
-
-
-    }
+//    /**
+//     * 紧缺人才考核发起开会流程时,列表的自动填充
+//     *
+//     * @param lackPersonnelAssessInfo
+//     * @return
+//     */
+//    @RequestMapping("/personnelslist")
+//    public ResponseResult<List> findlist(@RequestBody LackPersonnelAssessInfo lackPersonnelAssessInfo) {
+//        String userId = this.getUserId();
+//        List<ExpertsInfo> errorList = new ArrayList<>();
+//        if (lackPersonnelAssessInfo.getAnnual().length() == 0 || lackPersonnelAssessInfo.getAnnual() == null || lackPersonnelAssessInfo.getDept().length() == 0 || lackPersonnelAssessInfo.getDept() == null) {
+//            return this.getOkResponseResult(errorList, "error");
+//        }
+//        List<LackPersonnelInfo> lackPersonnelList = lackPersonnelService.findLackPersonnelList(lackPersonnelAssessInfo);
+//        List<String> idtypes = new ArrayList<>();
+//        for (int i = 0; i < lackPersonnelList.size(); i++) {
+//            idtypes.add(lackPersonnelList.get(i).getNameIdType());
+//        }
+//
+//
+//        return this.getOkResponseResult(idtypes, "success");
+//
+//
+//    }
 
     /**
      * 紧缺人才主责部门存储分数
@@ -56,7 +57,7 @@ public class LackPersonnelController extends BaseController {
      */
     @RequestMapping("/savescore")
     public ResponseResult<String> savescore(@RequestBody LackPersonnelapplyinfo lackPersonnelapplyInfo) {
-        String userId = "阿豪";
+        String userId = UserUtils.getUserId(getUserId());
         String applyId = lackPersonnelapplyInfo.getApplyId();
         lackPersonnelapplyInfo.setUserId(userId);
         try {
@@ -78,7 +79,7 @@ public class LackPersonnelController extends BaseController {
      */
     @RequestMapping("/countmaindutyscore")
     public ResponseResult<String> countscore(@RequestBody LackPersonnelapplyinfo lackPersonnelapplyInfo) {
-        String userId = "阿豪";
+        String userId = UserUtils.getUserId(getUserId());
         String applyId = lackPersonnelapplyInfo.getApplyId();
         lackPersonnelapplyInfo.setUserId(userId);
         try {
@@ -94,7 +95,7 @@ public class LackPersonnelController extends BaseController {
 
     @RequestMapping("/countfinalscore")
     public ResponseResult<String> countfinalscore(@RequestBody LackPersonnelapplyinfo lackPersonnelapplyInfo) {
-        String userId = "阿豪";
+        String userId = UserUtils.getUserId(getUserId());
         String applyId = lackPersonnelapplyInfo.getApplyId();
         lackPersonnelapplyInfo.setUserId(userId);
         try {

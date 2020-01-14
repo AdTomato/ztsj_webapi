@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.MajorTeamAssessmentMapper">
+
+    <!--获取发起班子考核中主表的所有信息-->
+    <select id="getMajorTeamAssessmentInfo" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MajorTeamAssessment">
+        select * from i6rlc_smajorteamassessment where id = #{id}
+    </select>
+
+    <!-- 根据unit获取从0到最大投票人数的班子考核表的id -->
+    <select id="getMajorTeamIdByUnit" parameterType="java.util.Map" resultType="java.lang.String">
+        select id from i6rlc_majorteamassessment where unit = #{id} order by #{createdTime} limit 0,#{max}
+    </select>
+
+    <!--/更新发起班子考核主表的信息-->
+    <update id="updatemajorTeamAssessmentInfo" parameterType="java.util.Map">
+        update i6rlc_smajorteamassessment set vote_peoples = #{votoPeoples},is_or_not_close_vote = '是' where id =#{id}
+    </update>
+
+    <!--领导班子民主测评表-->
+
+
+    <!--获取全部的发起班子考核的领导班子民主测评表-->
+    <select id="getAllEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTALeaderBodyAppraisal">
+        select * from i6rlc_smtaleaderbodyappraisal where parentId = #{id}
+    </select>
+
+    <!--获取全部的班子考核的领导班子民主测评表-->
+    <select id="getAllDemocracyEvaluationByPId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTALeaderBodyAppraisal">
+        select * from i6rlc_mtaleaderbodyappraisal where p_id = #{id}
+    </select>
+    <!--更新所有的发起班子考核的 领导班子民主测评表 -->
+    <update id="updateAllSMTALeaderBodyAppraisal" parameterType="java.util.List">
+      update i6rlc_smtaleaderbodyappraisal
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="good_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.goodPoll!=null">
+                        when id=#{item.id} then #{item.goodPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="preferably_poll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.preferablyPoll!=null">
+                        when id=#{item.id} then #{item.preferablyPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="ordinary_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.ordinaryPoll!=null">
+                        when id=#{item.id} then #{item.ordinaryPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="bad_poll =case" suffix="end,">
+                <foreach collection="list" index="index" item="item">
+                    <if test="item.badPoll!=null">
+                        when id=#{item.id} then #{item.badPoll}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" index="index" item="item" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+    <!--领导人员及非领导职务人员民主测评表-->
+
+    <!--获取全部的发起班子考核的领导人员及非领导职务人员民主测评表-->
+    <select id="getAllSMTADemocracyEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTADemocraticAppraisal">
+        select * from i6rlc_smtademocraticappraisal where parentId = #{id}
+    </select>
+
+    <!--获取全部的班子考核的领导人员及非领导职务人员民主测评表-->
+    <select id="getAllMTADemocracyEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTADemocraticAppraisal">
+        select * from i6rlc_mtademocraticappraisal where p_id = #{id}
+    </select>
+
+    <!--更新所有的发起班子考核的 领导人员及非领导职务人员民主测评表结果-->
+    <update id="updateAllSMTADemocracyEvaluation" parameterType="java.util.List">
+        update i6rlc_smtademocraticappraisal
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="excellent_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.excellentPoll!=null">
+                        when id=#{item.id} then #{item.excellentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="competent_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.competentPoll!=null">
+                        when id = #{item.id} then #{item.competentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="basic_competent_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.basicCompetentPoll!=null">
+                        when id = #{item.id} then #{item.basicCompetentPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="not_competent_poll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.notCompetentPoll!=null">
+                        when id = #{item.id} then #{item.notCompetentPoll}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="item" index="index">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+    <!--后备干部民主推荐表-->
+
+    
+    <!--获取全部的 发起班子考核的 后备干部民主推荐表-->
+    <select id="getAllSMTAReserveCadres" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTAReserveCadres">
+        select * from i6rlc_smtareservecadres where parentId = #{id}
+    </select>
+
+    <!--获取全部的 班子考核的 后备干部民主推荐表-->
+    <select id="getAllMTAReserveCadres" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTAReserveCadres">
+        select * from i6rlc_mtareservecadres where p_id = #{id}
+    </select>
+
+    <!--批量插入班子考核的  后备干部民主推荐表结果-->
+
+
+    <insert id="insertAllReserveCadres" parameterType="java.util.List">
+        insert into i6rlc_smtareservecadres
+        (id,parentId,recommend_position,referral_name,referral_now_position,referral_poll)
+        VALUES
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id},#{item.parentId},#{item.recommendPosition},#{item.referralName},#{item.referralNowPosition},#{item.referralPoll})
+        </foreach>
+    </insert>
+</mapper>
