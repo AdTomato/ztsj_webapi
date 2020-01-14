@@ -60,4 +60,5 @@
         select sequenceStatus from i6rlc_qualitative_assess where id = #{id}
     </select>
 
+
 </mapper>

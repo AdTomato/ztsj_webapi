@@ -55,6 +55,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     }
 
     @Override
+    public void cleanQuantitativeSafeManageById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeSafeManageById(id);
+    }
+
+    @Override
     public void insertQuantitativeQualityManage(List<AssessmentScoreSheet> assessmentScoreSheets) {
         quantitativeAssessMapper.insertQuantitativeQualityManage(assessmentScoreSheets);
     }
@@ -67,6 +72,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     @Override
     public void updateQuantitativeQualityManageById(List<AssessmentScoreSheet> assessmentScoreSheetList) {
         quantitativeAssessMapper.updateQuantitativeQualityManageById(assessmentScoreSheetList);
+    }
+
+    @Override
+    public void cleanQuantitativeQualityManageById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeQualityManageById(id);
     }
 
     @Override
@@ -85,6 +95,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     }
 
     @Override
+    public void cleanQuantitativeScManageById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeScManageById(id);
+    }
+
+    @Override
     public void insertQuantitativeSkillManage(List<AssessmentScoreSheet> assessmentScoreSheets) {
         quantitativeAssessMapper.insertQuantitativeSkillManage(assessmentScoreSheets);
     }
@@ -97,6 +112,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     @Override
     public void updateQuantitativeSkillManageById(List<AssessmentScoreSheet> assessmentScoreSheetList) {
         quantitativeAssessMapper.updateQuantitativeSkillManageById(assessmentScoreSheetList);
+    }
+
+    @Override
+    public void cleanQuantitativeSkillManageById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeSkillManageById(id);
     }
 
     @Override
@@ -115,6 +135,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     }
 
     @Override
+    public void cleanQuantitativeEngineManagById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeEngineManagById(id);
+    }
+
+    @Override
     public void insertQuantitativeCreditEvaluat(List<AssessmentScoreSheet> assessmentScoreSheets) {
         quantitativeAssessMapper.insertQuantitativeCreditEvaluat(assessmentScoreSheets);
     }
@@ -127,6 +152,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     @Override
     public void updateQuantitativeCreditEvaluatById(List<AssessmentScoreSheet> assessmentScoreSheetList) {
         quantitativeAssessMapper.updateQuantitativeCreditEvaluatById(assessmentScoreSheetList);
+    }
+
+    @Override
+    public void cleanQuantitativeCreditEvaluatById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeCreditEvaluatById(id);
     }
 
     @Override
@@ -145,6 +175,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     }
 
     @Override
+    public void cleanQuantitativeProblemById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeProblemById(id);
+    }
+
+    @Override
     public void insertQuantitativeControl(List<AssessmentScoreSheet> assessmentScoreSheets) {
         quantitativeAssessMapper.insertQuantitativeControl(assessmentScoreSheets);
     }
@@ -157,6 +192,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     @Override
     public void updateQuantitativeControlById(List<AssessmentScoreSheet> assessmentScoreSheetList) {
         quantitativeAssessMapper.updateQuantitativeControlById(assessmentScoreSheetList);
+    }
+
+    @Override
+    public void cleanQuantitativeControlById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeControlById(id);
     }
 
     @Override
@@ -175,6 +215,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     }
 
     @Override
+    public void cleanQuantitativeServiceById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeServiceById(id);
+    }
+
+    @Override
     public void insertQuantitativeDiscipline(List<AssessmentScoreSheet> assessmentScoreSheets) {
         quantitativeAssessMapper.insertQuantitativeDiscipline(assessmentScoreSheets);
     }
@@ -187,6 +232,11 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     @Override
     public void updateQuantitativeDisciplineById(List<AssessmentScoreSheet> assessmentScoreSheetList) {
         quantitativeAssessMapper.updateQuantitativeDisciplineById(assessmentScoreSheetList);
+    }
+
+    @Override
+    public void cleanQuantitativeDisciplineById(String id) {
+        quantitativeAssessMapper.cleanQuantitativeDisciplineById(id);
     }
 
     @Override

@@ -13,6 +13,7 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.mapper.QuantitativeAssessMapper;
 import com.authine.cloudpivot.web.api.service.IControlGroupAssessment;
 import com.authine.cloudpivot.web.api.utils.CreateAssessmentScoreSheetUtils;
+import com.authine.cloudpivot.web.api.utils.DoubleUtils;
 import com.authine.cloudpivot.web.api.utils.Points;
 import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
@@ -20,6 +21,7 @@ import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.nustaq.offheap.structs.structtypes.StructInt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.StringUtils;
 
@@ -189,6 +191,17 @@ public class QuantitativeAssessController extends BaseController {
         // 批量创建明细
         bizObjectFacade.addBizObjects(userId, models, "id");
 
+        quantitativeAssessMapper.cleanQuantitativeControlById(id);
+        quantitativeAssessMapper.cleanQuantitativeCreditEvaluatById(id);
+        quantitativeAssessMapper.cleanQuantitativeDisciplineById(id);
+        quantitativeAssessMapper.cleanQuantitativeEngineManagById(id);
+        quantitativeAssessMapper.cleanQuantitativeProblemById(id);
+        quantitativeAssessMapper.cleanQuantitativeQualityManageById(id);
+        quantitativeAssessMapper.cleanQuantitativeSafeManageById(id);
+        quantitativeAssessMapper.cleanQuantitativeScManageById(id);
+        quantitativeAssessMapper.cleanQuantitativeServiceById(id);
+        quantitativeAssessMapper.cleanQuantitativeSkillManageById(id);
+
         return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
@@ -266,7 +279,7 @@ public class QuantitativeAssessController extends BaseController {
                     scoreSheet.setDeduction(scoreSheet.getDeduction() + detail.getDeduction());
                 }
                 if (score.containsKey(detail.getAssessmentContent())) {
-                    score.put(detail.getAssessmentContent(), score.get(detail.getAssessmentContent()) + detail.getDeduction());
+                    score.put(detail.getAssessmentContent(), checkDoubleIsNull(score.get(detail.getAssessmentContent())) + checkDoubleIsNull(detail.getDeduction()));
                 } else {
                     score.put(detail.getAssessmentContent(), detail.getDeduction());
                 }
@@ -315,7 +328,7 @@ public class QuantitativeAssessController extends BaseController {
         log.info("更新稽查纪律完成");
         log.info("管控组定量考核结果计算完毕");
         ControlGroupDetail controlGroupDetail = new ControlGroupDetail();
-        controlGroupDetail.setQuantitativeScore(finalScore);
+        controlGroupDetail.setQuantitativeScore(100 - finalScore);
         controlGroupDetail.setContent1Score(0D);
         controlGroupDetail.setContent2Score(0D);
         controlGroupDetail.setContent3Score(0D);
@@ -357,17 +370,19 @@ public class QuantitativeAssessController extends BaseController {
         if (null != assessmentScoreSheetList && 0 != assessmentScoreSheetList.size()) {
             for (AssessmentScoreSheet assessmentScoreSheet:
                  assessmentScoreSheetList) {
-                BizObjectModel model = new BizObjectModel();
-                model.setSchemaCode(QUANTITATIVE_ASSESS_DETAIL);
-                model.setSequenceStatus(COMPLETED);
-                Map map = new HashMap();
-                map.put("quantitative_assess", id);
-                map.put("assessment_content", content);
-                map.put("sheet_id", assessmentScoreSheet.getId());
-                map.put("deduction_reason", assessmentScoreSheet.getDeductionReason());
-                map.put("deduction", assessmentScoreSheet.getDeduction());
-                model.put(map);
-                models.add(model);
+                if (0 != checkDoubleIsNull(assessmentScoreSheet.getDeduction())) {
+                    BizObjectModel model = new BizObjectModel();
+                    model.setSchemaCode(QUANTITATIVE_ASSESS_DETAIL);
+                    model.setSequenceStatus(COMPLETED);
+                    Map map = new HashMap();
+                    map.put("quantitative_assess", id);
+                    map.put("assessment_content", content);
+                    map.put("sheet_id", assessmentScoreSheet.getId());
+                    map.put("deduction_reason", assessmentScoreSheet.getDeductionReason());
+                    map.put("deduction", assessmentScoreSheet.getDeduction());
+                    model.put(map);
+                    models.add(model);
+                }
             }
         }
     }
@@ -389,6 +404,22 @@ public class QuantitativeAssessController extends BaseController {
                 assessmentScoreSheet.setDeductionReason("");
                 map.put(assessmentScoreSheet.getId(), assessmentScoreSheet);
             }
+        }
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2020/1/13 14:57
+     * @param d : 所需判断的double类型
+     * @return : java.lang.Double
+     * @Description: 判断double是否是null
+     */
+    private Double checkDoubleIsNull(Double d) {
+
+        if (null == d) {
+            return 0D;
+        } else {
+            return d;
         }
     }
 

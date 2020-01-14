@@ -11,4 +11,12 @@
     <select id="getOrgUserById" resultType="com.authine.cloudpivot.web.api.bean.OrgUser">
         SELECT * FROM h_org_user WHERE id=#{id}
     </select>
+
+    <update id="updatePasswordByUserId" parameterType="java.util.Map">
+        update h_org_user set password = #{password} where id = #{userId}
+    </update>
+
+    <select id="getPasswordByUserId" parameterType="java.lang.String" resultType="java.lang.String">
+        select password from h_org_user where id = #{userId}
+    </select>
 </mapper>

@@ -85,4 +85,25 @@ public interface QuantitativeAssessMapper {
     List<QuantitativeAssessDetail> getQuantitativeAssessDetailById(String id);
 
     String getQuantitativeAssessStatus(String id);
+
+    void cleanQuantitativeDisciplineById(String id);
+
+    void cleanQuantitativeServiceById(String id);
+
+    void cleanQuantitativeControlById(String id);
+
+    void cleanQuantitativeProblemById(String id);
+
+    void cleanQuantitativeCreditEvaluatById(String id);
+
+    void cleanQuantitativeEngineManagById(String id);
+
+    void cleanQuantitativeSkillManageById(String id);
+
+    void cleanQuantitativeScManageById(String id);
+
+    void cleanQuantitativeQualityManageById(String id);
+
+    void cleanQuantitativeSafeManageById(String id);
+
 }

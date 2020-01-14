@@ -16,10 +16,10 @@ import com.authine.cloudpivot.web.api.utils.Points;
 import com.authine.cloudpivot.web.api.utils.SequenceStatusUtils;
 import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
-import com.taobao.api.internal.toplink.embedded.websocket.frame.draft06.PongFrame;
 import jodd.util.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -121,6 +121,7 @@ public class QualitativeAssessController extends BaseController {
             models.add(model);
         }
         bizObjectFacade.addBizObjects(userId, models, "id");
+        iQualitativeAssess.cleanQualitativeAssessContent(saveQualitativeAssessDetail.getId());
         log.info("创建定性考核明细成功");
         return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
