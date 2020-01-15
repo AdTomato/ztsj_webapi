@@ -35,5 +35,11 @@ public interface OrgUserMapper {
      */
     public String getPasswordByUserId(String userId);
 
+    /**
+     * 修改用户密码
+     * @param map
+     */
+    public void changePasswordByUserId(Map map);
+
 
 }

@@ -6,6 +6,7 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IOrgUserService;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import jodd.util.BCrypt;
+import org.apache.log4j.spi.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,6 +57,16 @@ public class OrgUserController extends BaseController {
         map.put("userId", userId);
         map.put("password", pwd);
         orgUserService.updatePasswordByUserId(map);
+        return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseResult<Void> changePasswordByUserId(@RequestParam String userId, @RequestParam String password) {
+        String pwd = BCrypt.hashpw(password, BCrypt.gensalt());
+        Map map = new HashMap();
+        map.put("userId", userId);
+        map.put("password", "{bcrypt}" + pwd);
+        orgUserService.changePasswordByUserId(map);
         return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
