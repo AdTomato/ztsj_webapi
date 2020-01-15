@@ -39,4 +39,10 @@ public interface IOrgUserService {
      */
     public void changePasswordByUserId(Map map);
 
+    /**
+     * 修改用户状态
+     * @param map
+     */
+    public void changeStatusByUserId(Map map);
+
 }

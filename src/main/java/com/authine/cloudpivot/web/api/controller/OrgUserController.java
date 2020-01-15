@@ -1,14 +1,19 @@
 package com.authine.cloudpivot.web.api.controller;
 
+import com.authine.cloudpivot.engine.api.facade.OrganizationFacade;
+import com.authine.cloudpivot.engine.api.model.organization.UserModel;
 import com.authine.cloudpivot.engine.enums.ErrCode;
+import com.authine.cloudpivot.engine.enums.status.UserStatus;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IOrgUserService;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import jodd.util.BCrypt;
 import org.apache.log4j.spi.ErrorCode;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +36,7 @@ public class OrgUserController extends BaseController {
         }
         return getOkResponseResult(orgUser.getUsername(), "success");
     }
+
     @RequestMapping("/getOrgUserNameById")
     public OrgUser getOrgUserNameById(String id) {
         OrgUser orgUser = orgUserService.getOrgUserById(id);
@@ -70,4 +76,68 @@ public class OrgUserController extends BaseController {
         return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
+    @PostMapping("/addUser")
+    public ResponseResult<String> addUser(@RequestBody OrgUser orgUser) {
+
+        if (null == getUserId()) {
+            return getErrResponseResult("error", 404L, "error");
+        }
+
+        OrganizationFacade organizationFacade = getOrganizationFacade();
+        String userId = "";
+        UserModel userModel = null;
+        if (null != orgUser.getId()) {
+            // 更新
+        } else {
+            // 创建
+            String hashpw = BCrypt.hashpw(orgUser.getPassword(), BCrypt.gensalt());
+            orgUser.setPassword("{bcrypt}" + hashpw);
+            userModel = setUserModel(orgUser);
+            userModel = organizationFacade.addUser(userModel);
+        }
+        return getErrResponseResult(userModel.getId(), ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    @PutMapping("/changeStatus")
+    public ResponseResult<String> changeStatusByUserId(@RequestParam String id, @RequestParam String status) {
+        if (null == getUserId()) {
+            return getErrResponseResult("error", 404L, "error");
+        }
+        Map map = new HashMap();
+        map.put("userId", id);
+        if ("ENABLE".equals(status)) {
+            // 启用
+            map.put("status", "ENABLE");
+        } else if ("DISABLE".equals(status)) {
+            // 禁用
+            map.put("status", "DISABLE");
+        } else {
+            return getErrResponseResult("error", 404L, "error");
+        }
+
+        return getErrResponseResult("success", ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    /**
+     * @Author: wangyong
+     * @Date: 2020/1/15 23:38
+     * @param orgUser : 前端传过来的用户信息
+     * @return : com.authine.cloudpivot.engine.api.model.organization.UserModel
+     * @Description: 将前端传过来的用户信息封装成UserModel
+     */
+    private UserModel setUserModel(OrgUser orgUser) {
+        UserModel userModel = new UserModel();
+        userModel.setDepartmentId(orgUser.getDepartmentId());
+        userModel.setAdmin(false);
+        userModel.setActive(true);
+        userModel.setUsername(orgUser.getUsername());
+        userModel.setName(orgUser.getName());
+        userModel.setStatus(UserStatus.ENABLE);
+        userModel.setLeader(false);
+        userModel.setPassword(orgUser.getPassword());
+        userModel.setBoss(false);
+        userModel.setPinYin(orgUser.getPinYin());
+        userModel.setShortPinYin(orgUser.getShortPinYin());
+        return userModel;
+    }
 }

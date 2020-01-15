@@ -39,4 +39,9 @@ public class OrgUserServiceImpl implements IOrgUserService {
     public void changePasswordByUserId(Map map) {
         orgUserMapper.changePasswordByUserId(map);
     }
+
+    @Override
+    public void changeStatusByUserId(Map map) {
+        orgUserMapper.changeStatusByUserId(map);
+    }
 }

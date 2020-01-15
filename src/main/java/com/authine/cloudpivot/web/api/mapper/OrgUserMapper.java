@@ -41,5 +41,11 @@ public interface OrgUserMapper {
      */
     public void changePasswordByUserId(Map map);
 
+    /**
+     * 修改用户的状态
+     * @param map
+     */
+    public void changeStatusByUserId(Map map);
+
 
 }
