@@ -8,7 +8,7 @@ server:
     remote-ip-header: x-forwarded-for
     protocol-header: x-forwarded-proto
   servlet:
-    context-path: /    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
+    context-path: /api    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
 
 #info:
 #  blog-url: https://www.cloudpivot.cn/

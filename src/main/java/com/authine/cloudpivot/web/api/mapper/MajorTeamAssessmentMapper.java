@@ -95,5 +95,7 @@ public interface MajorTeamAssessmentMapper {
      */
     void updatemajorTeamAssessmentInfo(Map<String, Object> info);
 
+    void clearAllReserveCadres(String id);
+
 
 }

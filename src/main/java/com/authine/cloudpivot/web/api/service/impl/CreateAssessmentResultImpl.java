@@ -8,6 +8,7 @@ import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.Map;
 @Service
 public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
 
-    @Autowired
+    @Resource
     AssessmentResultMapper assessmentResultMapper;
 
     @Override
@@ -39,7 +40,7 @@ public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
             data.put("assess_content", ar.getAssessContent());
             data.put("assess_time", ar.getAssessTime());
             data.put("assess_result", ar.getAssessResult());
-            data.put("time", ar.getTime());
+//            data.put("time", ar.getTime());
             data.put("p_id", ar.getPId());
             model.put(data);
             bizObjects.add(model);

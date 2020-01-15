@@ -2,7 +2,7 @@ server:
   port: 8080
   address: 0.0.0.0
   servlet:
-    context-path: /    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
+    context-path: /api    #应用的上下文路径，详细参考 云枢帮助中心-开发者手册-解决跨域安全问题
 
 spring:
   #redis

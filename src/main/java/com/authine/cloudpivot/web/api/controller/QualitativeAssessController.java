@@ -121,7 +121,6 @@ public class QualitativeAssessController extends BaseController {
             models.add(model);
         }
         bizObjectFacade.addBizObjects(userId, models, "id");
-        iQualitativeAssess.cleanQualitativeAssessContent(saveQualitativeAssessDetail.getId());
         log.info("创建定性考核明细成功");
         return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
@@ -129,8 +128,10 @@ public class QualitativeAssessController extends BaseController {
     @PutMapping("/calculateQualitativeAssess")
     public ResponseResult<Void> calculateQualitativeAssess(@RequestParam String id) {
 
-        log.info("开始计算定性考核");
+        iQualitativeAssess.cleanQualitativeAssessContent(id);
+        log.info("清空考核明细成功");
 
+        log.info("开始计算定性考核");
         if (null == id) {
             return getErrResponseResult(ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
         }

@@ -190,7 +190,16 @@ public class QuantitativeAssessController extends BaseController {
 
         // 批量创建明细
         bizObjectFacade.addBizObjects(userId, models, "id");
+        return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
 
+    @PutMapping("/calculateQuantitativeAssess")
+    public ResponseResult<Void> calculateQuantitativeAssess(@RequestParam String id) {
+
+        if (null == id) {
+            return getErrResponseResult(ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
+        }
+        log.info("清空定量考核明细");
         quantitativeAssessMapper.cleanQuantitativeControlById(id);
         quantitativeAssessMapper.cleanQuantitativeCreditEvaluatById(id);
         quantitativeAssessMapper.cleanQuantitativeDisciplineById(id);
@@ -201,16 +210,6 @@ public class QuantitativeAssessController extends BaseController {
         quantitativeAssessMapper.cleanQuantitativeScManageById(id);
         quantitativeAssessMapper.cleanQuantitativeServiceById(id);
         quantitativeAssessMapper.cleanQuantitativeSkillManageById(id);
-
-        return getErrResponseResult(ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
-    }
-
-    @PutMapping("/calculateQuantitativeAssess")
-    public ResponseResult<Void> calculateQuantitativeAssess(@RequestParam String id) {
-
-        if (null == id) {
-            return getErrResponseResult(ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
-        }
 
         String userId = UserUtils.getUserId(getUserId());
 

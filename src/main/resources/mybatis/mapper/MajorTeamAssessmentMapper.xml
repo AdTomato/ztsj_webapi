@@ -152,4 +152,8 @@
             (#{item.id},#{item.parentId},#{item.recommendPosition},#{item.referralName},#{item.referralNowPosition},#{item.referralPoll})
         </foreach>
     </insert>
+
+    <delete id="clearAllReserveCadres" parameterType="java.lang.String">
+        delete from i6rlc_smtareservecadres where parentId = #{id}
+    </delete>
 </mapper>

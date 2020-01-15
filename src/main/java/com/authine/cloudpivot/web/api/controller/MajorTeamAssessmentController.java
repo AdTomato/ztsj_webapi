@@ -2,8 +2,10 @@ package com.authine.cloudpivot.web.api.controller;
 
 import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
+import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import com.authine.cloudpivot.web.api.service.MajorTeamAssessmentService;
 import com.authine.cloudpivot.web.api.utils.Points;
+import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class MajorTeamAssessmentController extends BaseController{
 
     @Autowired
     MajorTeamAssessmentService majorTeamAssessmentService;
+
+    @Autowired
+    ICreateAssessmentResult createAssessmentResult;
 
     @RequestMapping("/calculateResoult")
     public ResponseResult<Void> calculateResult(@RequestParam("id") String id) {
@@ -101,6 +106,10 @@ public class MajorTeamAssessmentController extends BaseController{
             smtaReserveCadresList.add(src);
 
         }
+
+        // 清空子表
+        majorTeamAssessmentService.clearAllReserveCadres(id);
+
         //进行批量插入
         majorTeamAssessmentService.insertAllReserveCadres(smtaReserveCadresList);
         log.info("计算公司后备干部民主推荐表完成");
@@ -152,6 +161,52 @@ public class MajorTeamAssessmentController extends BaseController{
                 }
             }
         }
+        // 创建领导人员考核明细
+        List<AssessmentResult> carList = new ArrayList<>();
+        List<AssessmentResult> uarList = new ArrayList<>();
+        String arId = null;
+        Date time = new Date();
+        StringBuilder sb = new StringBuilder();
+        for (SMTADemocraticAppraisal sda :
+                smtaDemocraticAppraisalList) {
+            AssessmentResult ar = new AssessmentResult();
+            ar.setPId(id);
+            ar.setAssessTime(time);
+//            ar.setTime(time.getYear() + "-" + time.getMonth() + "-" + time.getDay());
+            ar.setLeadershipPerson(sda.getLeadershipName());
+            ar.setAssessContent("班子大考核-领导人员及非领导职务人员民主测评");
+            sb.delete(0, sb.length());
+            sb.append("优秀票数：");
+            sb.append(sda.getExcellentPoll() == null ? 0 : sda.getExcellentPoll() + "\n");
+            sb.append("称职票数：");
+            sb.append(sda.getCompetentPoll() == null ? 0 : sda.getCompetentPoll() + "\n");
+            sb.append("基本称职票数：");
+            sb.append(sda.getBasicCompetentPoll() == null ? 0 : sda.getBasicCompetentPoll() + "\n");
+            sb.append("不称职票数：");
+            sb.append(sda.getNotCompetentPoll() == null ? 0 : sda.getNotCompetentPoll() + "\n");
+            ar.setAssessResult(sb.toString());
+
+            arId = createAssessmentResult.isHaveAssessmentResult(ar);
+            if (null != arId) {
+                ar.setId(arId);
+                uarList.add(ar);
+            } else {
+                carList.add(ar);
+            }
+        }
+
+        String userId = UserUtils.getUserId(getUserId());
+
+        if (0 != carList.size()) {
+            log.info("新增考核结果");
+            createAssessmentResult.createAssessmentResults(this.getBizObjectFacade(), userId, carList);
+        }
+
+        if (0 != uarList.size()) {
+            log.info("更新考核结果");
+            createAssessmentResult.updateAssessmentResult(uarList);
+        }
+    
         //更新最终结果
         majorTeamAssessmentService.updateAllSMTADemocracyEvaluation(smtaDemocraticAppraisalList);
         log.info("计算领导人员及非领导职务人员民主测评表完成");

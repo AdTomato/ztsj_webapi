@@ -93,4 +93,6 @@ public interface MajorTeamAssessmentService  {
      */
 
     void insertAllReserveCadres(List<SMTAReserveCadres> smtaReserveCadresList);
+
+    void clearAllReserveCadres(String id);
 }

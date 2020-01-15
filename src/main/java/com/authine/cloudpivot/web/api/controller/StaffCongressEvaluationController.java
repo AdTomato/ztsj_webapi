@@ -5,6 +5,7 @@ import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import com.authine.cloudpivot.web.api.service.IStaffCongressEvaluation;
 import com.authine.cloudpivot.web.api.utils.Points;
+import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,27 +128,34 @@ public class StaffCongressEvaluationController extends BaseController {
 
         List<AssessmentResult> carList = new ArrayList<>();
         List<AssessmentResult> uarList = new ArrayList<>();
-        String msg = null;
+//        String msg = null;
         String arId = null;
         Date time = new Date();
+        StringBuilder sb = new StringBuilder();
         for (Appraisal ap :
                 apMap.values()) {
             AssessmentResult ar = new AssessmentResult();
             ar.setPId(id);
             ar.setAssessTime(time);
-            ar.setTime(time.getYear() + "-" + time.getMonth() + "-" + time.getDay());
+//            ar.setTime(time.getYear() + "-" + time.getMonth() + "-" + time.getDay());
             ar.setLeadershipPerson(ap.getLeadershipName());
             ar.setAssessContent("职代会测评-班子成员民主测评");
-            msg = "";
-            msg += "优秀票数:";
-            msg += ap.getExcellentPoll() == null ? 0 : ap.getExcellentPoll() + "\n";
-            msg += "称职票数:";
-            msg += ap.getCompetentPoll() == null ? 0 : ap.getCompetentPoll() + "\n";
-            msg += "基本称职票数:";
-            msg += ap.getBasicCompetentPoll() == null ? 0 : ap.getBasicCompetentPoll() + "\n";
-            msg += "不称职票数:";
-            msg += ap.getNotCompetentPoll() == null ? 0 : ap.getNotCompetentPoll() + "\n";
-            ar.setAssessResult(msg);
+//            msg = "";
+            sb.delete(0, sb.length());
+//            msg += "优秀票数:";
+//            msg += ap.getExcellentPoll() == null ? 0 : ap.getExcellentPoll() + "\n";
+            sb.append("优秀票数：" + ap.getExcellentPoll() == null ? 0 : ap.getExcellentPoll() + "\n");
+//            msg += "称职票数:";
+//            msg += ap.getCompetentPoll() == null ? 0 : ap.getCompetentPoll() + "\n";
+            sb.append("称职票数：" + ap.getCompetentPoll() == null ? 0 : ap.getCompetentPoll() + "\n");
+
+//            msg += "基本称职票数:";
+//            msg += ap.getBasicCompetentPoll() == null ? 0 : ap.getBasicCompetentPoll() + "\n";
+            sb.append("基本称职票数：" + ap.getBasicCompetentPoll() == null ? 0 : ap.getBasicCompetentPoll() + "\n");
+//            msg += "不称职票数:";
+//            msg += ap.getNotCompetentPoll() == null ? 0 : ap.getNotCompetentPoll() + "\n";
+            sb.append("基本称职票数：" + ap.getNotCompetentPoll() == null ? 0 : ap.getNotCompetentPoll() + "\n");
+            ar.setAssessResult(sb.toString());
             arId = createAssessmentResult.isHaveAssessmentResult(ar);
             if (null != arId) {
                 ar.setId(arId);
@@ -158,10 +166,8 @@ public class StaffCongressEvaluationController extends BaseController {
         }
 
         // 将每个领导人员的考核结果存储在考核结果表中
-        String userId = this.getUserId();
-        if (userId == null) {
-            userId = "2c9280a26706a73a016706a93ccf002b";
-        }
+        String userId = UserUtils.getUserId(getUserId());
+
         // 将每个领导人员的考核结果存储在考核结果表中
         if (0 != carList.size()) {
             log.info("新增考核结果");

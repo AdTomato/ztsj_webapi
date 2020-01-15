@@ -136,4 +136,9 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     public void insertAllReserveCadres(List<SMTAReserveCadres> smtaReserveCadresList) {
         majorTeamAssessmentMapper.insertAllReserveCadres(smtaReserveCadresList);
     }
+
+    @Override
+    public void clearAllReserveCadres(String id) {
+        majorTeamAssessmentMapper.clearAllReserveCadres(id);
+    }
 }

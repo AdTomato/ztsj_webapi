@@ -115,6 +115,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                     .antMatchers("/fonts/**").permitAll()
                     .antMatchers("/favicon.*").permitAll()
                     .antMatchers("/api/dingtalk/**").permitAll()
+                    .antMatchers("/ext/**").permitAll()
                     .antMatchers("/ext/orgUser/**").permitAll()
                     .antMatchers("/ext/assessmentDetail/**").permitAll()
                     .antMatchers("/ext/leadperson/**").permitAll()
@@ -126,6 +127,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                     .antMatchers("/ext/quantitativeAssess/**").permitAll()
                     .antMatchers("/ext/qualitativeAssessController/**").permitAll()
                     .antMatchers("/ext/test/**").permitAll()
+                    .antMatchers("/ext/lackpersonnelannual/**").permitAll()
                     .antMatchers("/api/organization/department/tree").permitAll()
                     //test
                     .antMatchers("/api/licenseExt/**").permitAll()
