@@ -125,6 +125,9 @@ public class OrgUserController extends BaseController {
     @PostMapping("/addAllUser")
     public ResponseResult<String> addAllUser(@RequestParam String roleName) {
         String roleId = orgUserService.getRoleIdByName(roleName);
+        if (null == roleId) {
+            return getErrResponseResult("失败", 404L, "获取角色id失败");
+        }
         List<String> userIds = orgUserService.getAllUserId();
         OrganizationFacade organizationFacade = getOrganizationFacade();
         for (String userId :

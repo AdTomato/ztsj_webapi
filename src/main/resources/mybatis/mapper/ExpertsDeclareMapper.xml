@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.ExpertsDeclareMapper">
+
+    <!--根据条件获取符合条件的全部专家信息-->
+    <select id="getExpertsDeclareInfo" parameterType="com.authine.cloudpivot.web.api.bean.ExpertsInfo"
+            resultType="com.authine.cloudpivot.web.api.bean.ExpertsSelectResult">
+        select * from itsfr_ExpertsDeclare where annual = #{Oannual} and expertsDeclareRank = #{OexpertsDeclareRank} and declareDept =#{declareDept}
+    </select>
+
+    <!--清空每个专家的表决结果-->
+    <update id="clearExpertsReult" parameterType="java.lang.String">
+        update itsfr_reviewAppointmentComments set declareOpinion = null where parentId = #{parentId}
+    </update>
+
+    <!-- 获取专家申报意见表的状态 -->
+    <select id="getExpertsDeclareStatus" parameterType="java.lang.String" resultType="java.lang.String">
+        select sequenceStatus from itsfr_expertsDeclareOpinion where id = #{id}
+    </select>
+
+
+    <select id="findExpertsInfo" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ExpertsResultDetail">
+        select * from itsfr_expertDeclareDetail where edOpinionDetail = #{id}
+    </select>
+
+    <update id="updateExpertPoll" parameterType="java.util.List">
+        update itsfr_ExpertsDeclare
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="agreePoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.avgWorkAchievement!=null">
+                        when id=#{i.rowId} then #{i.avgWorkAchievement}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="agreePoll =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgWorkAchievement!=null">
+                        when id=#{i.rowId} then #{i.avgWorkAchievement}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="agreePoll =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgWorkAchievement!=null">
+                        when id=#{i.rowId} then #{i.avgWorkAchievement}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="item" index="index">
+            id=#{item.eid}
+        </foreach>
+    </update>
+    
+    <update id="updateAllExpertsDeclare" parameterType="java.util.List">
+        update itsfr_ExpertsDeclare
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="expertsDeclareRank =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.expertsDeclareRank!=null">
+                        when id = #{id} then #{item.expertsDeclareRank}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="agreePoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.agreePoll!=null">
+                        when id = #{id} then #{item.agreePoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="waiverPoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.waiverPoll!=null">
+                        when id = #{id} then #{item.waiverPoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="opposePoll =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.opposePoll!=null">
+                        when id = #{id} then #{item.opposePoll}
+                    </if>
+                </foreach>
+            </trim>
+
+            <trim prefix="pollStatus =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.pollStatus!=null">
+                        when id = #{id} then #{item.pollStatus}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id = #{id}
+        </foreach>
+    </update>
+</mapper>
