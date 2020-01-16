@@ -2,6 +2,7 @@ package com.authine.cloudpivot.web.api.mapper;
 
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 
+import java.util.List;
 import java.util.Map;
 
 public interface OrgUserMapper {
@@ -46,6 +47,14 @@ public interface OrgUserMapper {
      * @param map
      */
     public void changeStatusByUserId(Map map);
+
+    /**
+     * 获取所有用户的id
+     * @return
+     */
+    public List<String> getAllUserId();
+
+    public String getRoleIdByName(String roleName);
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -43,5 +44,15 @@ public class OrgUserServiceImpl implements IOrgUserService {
     @Override
     public void changeStatusByUserId(Map map) {
         orgUserMapper.changeStatusByUserId(map);
+    }
+
+    @Override
+    public List<String> getAllUserId() {
+        return orgUserMapper.getAllUserId();
+    }
+
+    @Override
+    public String getRoleIdByName(String roleName) {
+        return orgUserMapper.getRoleIdByName(roleName);
     }
 }

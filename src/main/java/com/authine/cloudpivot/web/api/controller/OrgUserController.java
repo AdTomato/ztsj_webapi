@@ -1,13 +1,16 @@
 package com.authine.cloudpivot.web.api.controller;
 
 import com.authine.cloudpivot.engine.api.facade.OrganizationFacade;
+import com.authine.cloudpivot.engine.api.model.organization.RoleUserModel;
 import com.authine.cloudpivot.engine.api.model.organization.UserModel;
 import com.authine.cloudpivot.engine.enums.ErrCode;
 import com.authine.cloudpivot.engine.enums.status.UserStatus;
+import com.authine.cloudpivot.engine.enums.type.UnitType;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IOrgUserService;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
+import com.dingtalk.api.request.OapiCallRemoveuserlistRequest;
 import jodd.util.BCrypt;
 import org.apache.log4j.spi.ErrorCode;
 import org.apache.poi.ss.formula.functions.T;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -116,6 +120,22 @@ public class OrgUserController extends BaseController {
         }
 
         return getErrResponseResult("success", ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    @PostMapping("/addAllUser")
+    public ResponseResult<String> addAllUser(@RequestParam String roleName) {
+        String roleId = orgUserService.getRoleIdByName(roleName);
+        List<String> userIds = orgUserService.getAllUserId();
+        OrganizationFacade organizationFacade = getOrganizationFacade();
+        for (String userId :
+                userIds) {
+            RoleUserModel roleUserModel = new RoleUserModel();
+            roleUserModel.setRoleId(roleId);
+            roleUserModel.setUserId(userId);
+            roleUserModel.setUnitType(UnitType.USER);
+            organizationFacade.addRoleUser(roleUserModel);
+        }
+        return getErrResponseResult("成功", ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
     /**

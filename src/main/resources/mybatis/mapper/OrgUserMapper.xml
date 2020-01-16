@@ -27,4 +27,12 @@
     <update id="changeStatusByUserId" parameterType="java.util.Map">
         update h_org_user set status = #{status} where id = #{id};
     </update>
+
+    <select id="getAllUserId" resultType="java.lang.String">
+        select id from h_org_user
+    </select>
+
+    <select id="getRoleIdByName" resultType="java.lang.String">
+        select id from h_org_role where name = #{roleName}
+    </select>
 </mapper>
