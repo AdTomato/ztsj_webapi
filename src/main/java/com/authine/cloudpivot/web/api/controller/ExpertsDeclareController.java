@@ -37,11 +37,11 @@ public class ExpertsDeclareController extends BaseController{
     public ResponseResult<List> seclectAllExperts(@RequestBody ExpertsInfo expertsInfo) {
         log.info("开始执行专家申报方法");
         log.info("当前传入的申报系别值为：" + expertsInfo.getDeclareDept());
-        log.info("当前传入的申报级别值为：" + expertsInfo.getOexpertsDeclareRank());
-        log.info("当前传入的年度值为：" + expertsInfo.getOannual());
+        log.info("当前传入的申报级别值为：" + expertsInfo.getExpertsDeclareRank());
+        log.info("当前传入的年度值为：" + expertsInfo.getAnnual());
         //获取所有的专家申报信息id
         List<ExpertsInfo> errorList = new ArrayList<>();
-        if (expertsInfo.getDeclareDept()!=null && expertsInfo.getOexpertsDeclareRank() !=null && expertsInfo.getOannual() !=null){
+        if (expertsInfo.getDeclareDept()!=null && expertsInfo.getExpertsDeclareRank() !=null && expertsInfo.getAnnual() !=null){
             List<ExpertsSelectResult> expertsSelectResultList= expertsDeclareService.getExpertsDeclareInfo(expertsInfo);
             return this.getOkResponseResult(expertsSelectResultList,"success" );
         }
@@ -51,23 +51,23 @@ public class ExpertsDeclareController extends BaseController{
 
     // 专家申报明细
     @RequestMapping("/insertEdDetail")
-    public ResponseResult<String> calculateReviewAppointmentComments(@RequestBody ExpertsDeclareOpinion expertsDeclareOpinion) {
-        if (expertsDeclareOpinion.getDeclareDept()!=null && expertsDeclareOpinion.getOexpertsDeclareRank() !=null && expertsDeclareOpinion.getOannual() !=null){
-            return this.getOkResponseResult("失败","error" );
-        }
+    public ResponseResult<String> calculateReviewAppointmentComments(@RequestBody List<ExpertDeclareDetail> expertDeclareDetailList) {
+//        if (expertsDeclareOpinion.getDeclareDept()!=null && expertsDeclareOpinion.getOexpertsDeclareRank() !=null && expertsDeclareOpinion.getOannual() !=null){
+//            return this.getOkResponseResult("失败","error" );
+//        }
         //获取聘任意见信息
-        List<ReviewAppointmentComments> opinionList = expertsDeclareOpinion.getReviewAppointmentCommentsList();
+//        List<ReviewAppointmentComments> opinionList = expertsDeclareOpinion.getReviewAppointmentCommentsList();
         List<BizObjectModel> models = new ArrayList<>();
-        for (ReviewAppointmentComments opinion : opinionList) {
+        for (ExpertDeclareDetail expertDeclareDetail : expertDeclareDetailList) {
             BizObjectModel model = new BizObjectModel();
-            model.setSchemaCode("expert_declare_detail");
+            model.setSchemaCode("expertDeclareDetail");
             Map<String,Object> map = new HashMap<>();
             //专家申报id
-            map.put("edDetail",opinion.getEId());
+            map.put("edDetail",expertDeclareDetail.getEdDetail());
             //聘任意见主表id
-            map.put("edOpinionDetail", expertsDeclareOpinion.getId());
+            map.put("edOpinionDetail", expertDeclareDetail.getEdOpinionDetail());
             // 表决结果
-            map.put("voteResult", opinion.getDeclareOpinion());
+            map.put("voteResult", expertDeclareDetail.getVoteResult());
             //将数据写入到model
             model.put(map);
             model.setSequenceStatus("COMPLETED");
@@ -163,6 +163,9 @@ public class ExpertsDeclareController extends BaseController{
             shouldUpdateEd.addAll(passED);
             shouldUpdateEd.addAll(failED);
         } else if (passED.size() == passPerson) {
+            for (ExpertsDeclare declare : passED) {
+                declare.setPollStatus("已通过");
+            }
             shouldUpdateEd.addAll(passED);
         } else {
             int passNum = 0;

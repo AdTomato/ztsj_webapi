@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.ExternalTalentIntroductiMapper">
+    <insert id="insertInterviewCondition" parameterType="java.util.List">
+        insert into ivlf1_interview_condition
+        (id, parentId, sortKey, grade_a, evaluation_criterion, fullMark, score, u_id)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.sortKey}, #{item.gradeA}, #{item.evaluationCriterion}, #{item.fullMark}, #{item.score}, #{item.uId})
+        </foreach>
+    </insert>
+
+    <select id="getAllIntroduceEvaluationByUserName" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.IntroduceEvaluation">
+        select * from ivlf1_introduceevaluation where userName = #{userName}
+    </select>
+
+    <select id="getIntroduceEvaluationSumByUserName" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.IntroduceEvaluationSum">
+        select * from ivlf1_introduceevaluationsum where user_name = #{userName}
+    </select>
+
+    <select id="weatherHaveIntroduceEvaluationSumByUserName" parameterType="java.lang.String" resultType="java.lang.String">
+        select id from ivlf1_introduceevaluationsum where user_name = #{userName}
+    </select>
+
+    <select id="getAllSEInterviewCondition" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.InterviewCondition">
+        select * from ivlf1_IEInterviewCondition where uId = #{userName}
+    </select>
+
+    <select id="getAllInterviewCondition" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.InterviewCondition">
+        select * from ivlf1_interview_condition where u_id = #{userName}
+    </select>
+
+    <update id="updateIntroduceEvaluationSum" parameterType="com.authine.cloudpivot.web.api.bean.IntroduceEvaluationSum">
+        update ivlf1_introduceevaluationsum set
+        score = #{score}, total_points = #{totalPoints}, excellent_point = #{excellentPoint},
+        preferably_point = #{preferablyPoint}, ordinary_point = #{ordinaryPoint}, pool_point = #{poolPoint},
+        hire_point = #{hirePoint}, not_accepted = #{notAccepted}, positive_height = #{positiveHeight},
+        advanced = #{advanced}, intermediate = #{intermediate}, assistant_manager = #{assistantManager},
+        expected_position = #{expectedPosition}, expected_salary = #{expectedSalary}
+        where
+        id = #{id}
+    </update>
+
+    <update id="updateAllInterviewCondition" parameterType="java.util.List">
+        update ivlf1_interview_condition
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="score =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.score!=null">
+                        when id = #{item.id} then #{item.score}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+</mapper>

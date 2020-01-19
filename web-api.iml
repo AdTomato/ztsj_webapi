@@ -28,8 +28,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: com.authine.cloudpivot:web-api-service:1.5.0-alpha.27.15" level="project" />
-    <orderEntry type="library" name="Maven: com.authine.cloudpivot.engine:cloudpivot-engine-api:1.5.0-alpha.27.15" level="project" />
+    <orderEntry type="library" name="Maven: com.authine.cloudpivot:web-api-service:1.5.0-alpha.28.9" level="project" />
+    <orderEntry type="library" name="Maven: com.authine.cloudpivot.engine:cloudpivot-engine-api:1.5.0-alpha.28.9" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:2.1.10.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.9.9.3" level="project" />
@@ -156,7 +156,6 @@
     <orderEntry type="library" name="Maven: org.mozilla:rhino:1.7R4" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.libphonenumber:libphonenumber:6.0" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mailapi:1.4.3" level="project" />
-    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:2.0.1" level="project" />
     <orderEntry type="library" name="Maven: net.sf.jopt-simple:jopt-simple:4.6" level="project" />
     <orderEntry type="library" name="Maven: com.github.fge:json-patch:1.6" level="project" />
@@ -286,6 +285,9 @@
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-ui:2.7.0" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.62" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-mail:2.1.8.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.6.2" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" name="Maven: com.esotericsoftware:kryo:4.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.esotericsoftware:reflectasm:1.11.3" level="project" />
     <orderEntry type="library" name="Maven: org.ow2.asm:asm:5.0.4" level="project" />

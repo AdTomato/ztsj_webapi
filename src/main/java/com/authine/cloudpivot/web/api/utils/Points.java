@@ -9,6 +9,7 @@ public abstract class Points {
 
     public static final String GOOD_POINT = "好";
     public static final String PREFERABLY_POINT = "较好";
+    public static final String EXCELLENT_POINT = "优秀";
     public static final String ORDINARY_POINT = "一般";
     public static final String BAD_POINT = "差";
     public static final String POOL_POINT = "较差";
@@ -17,6 +18,8 @@ public abstract class Points {
     public static final String BASIC_SATISFIED_POINT = "基本满意";
     public static final String NO_SATISFIED_POINT = "不满意";
     public static final String NO_UNDERSTAND_POINT = "不了解票数";
+    public static final String HIRE_POINT = "录用";
+    public static final String NOT_ACCEPTED = "不录用";
     public static final String AGREE_POLL = "赞成";
     public static final String WAIVER_POLL = "弃权";
     public static final String OPPOSE_POLL = "反对";
@@ -43,6 +46,10 @@ public abstract class Points {
     public static final String CONTENT2_SCORE = "片区分管局领导";
     public static final String CONTENT3_SCORE = "子（分）公司片区分管领导";
     public static final String CONTENT4_SCORE = "片区项目领导";
+    public static final String POSITIVE_HEIGHT = "局机关正高级职称";
+    public static final String ADVANCED = "局机关高级职称";
+    public static final String INTERMEDIATE = "局机关中级职称";
+    public static final String ASSISTANT_MANAGER = "局机关助理级职称";
 
 
 }

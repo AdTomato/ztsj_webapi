@@ -33,4 +33,19 @@ public class DoubleUtils {
         }
     }
 
+    /**
+     * @Author: wangyong
+     * @Date: 2020/1/18 20:57
+     * @param d : 需要转换的double
+     * @return : java.lang.Double
+     * @Description: 将null转换成0
+     */
+    public static Double nullToDouble(Double d) {
+        if (null == d) {
+            return 0D;
+        } else {
+            return d;
+        }
+    }
+
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.HBizAttachmentMapper">
+    <select id="getAttachment" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
+        select * from h_biz_attachment
+        where
+        <if test="bizObjectId != null">
+            and bizObjectId = #{bizObjectId}
+        </if>
+
+        <if test="bizPropertyCode != null">
+            and bizPropertyCode = #{bizPropertyCode}
+        </if>
+
+        <if test="fileExtension != null">
+            and fileExtension = #{fileExtension}
+        </if>
+
+        <if test="mimeType != null">
+            and mimeType = #{mimeType}
+        </if>
+
+        <if test="name != null">
+            and name = #{name}
+        </if>
+
+        <if test="parentBizObjectId != null">
+            and parentBizObjectId = #{parentBizObjectId}
+        </if>
+
+        <if test="parentSchemaCode != null">
+            and parentSchemaCode = #{parentSchemaCode}
+        </if>
+
+        <if test="schemaCode != null">
+            and schemaCode = #{schemaCode}
+        </if>
+    </select>
+
+    <select id="getAttachmentById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
+        select * from h_biz_attachment where id = #{id}
+    </select>
+</mapper>

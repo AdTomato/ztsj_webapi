@@ -30,6 +30,13 @@ spring:
         prepStmtCacheSqlLimit: 4096
         useServerPrepStmts: true
 
+  mail:
+    username: 1950746552@qq.com
+    password: pngynwacfqbnccfg
+    host: smtp.qq.com
+    properties:
+      mail.smtp.ssl.enable: true
+
   servlet:
     multipart:
       enabled: true

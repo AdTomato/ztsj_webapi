@@ -8,7 +8,7 @@
     <!--根据条件获取符合条件的全部专家信息-->
     <select id="getExpertsDeclareInfo" parameterType="com.authine.cloudpivot.web.api.bean.ExpertsInfo"
             resultType="com.authine.cloudpivot.web.api.bean.ExpertsSelectResult">
-        select * from itsfr_ExpertsDeclare where annual = #{Oannual} and expertsDeclareRank = #{OexpertsDeclareRank} and declareDept =#{declareDept}
+        select * from itsfr_ExpertsDeclare where annual = #{annual} and expertsDeclareRank = #{expertsDeclareRank} and declareDept =#{declareDept}
     </select>
 
     <!--清空每个专家的表决结果-->
@@ -66,7 +66,7 @@
             <trim prefix="expertsDeclareRank =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.expertsDeclareRank!=null">
-                        when id = #{id} then #{item.expertsDeclareRank}
+                        when id = #{item.id} then #{item.expertsDeclareRank}
                     </if>
                 </foreach>
             </trim>
@@ -74,7 +74,7 @@
             <trim prefix="agreePoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.agreePoll!=null">
-                        when id = #{id} then #{item.agreePoll}
+                        when id = #{item.id} then #{item.agreePoll}
                     </if>
                 </foreach>
             </trim>
@@ -82,7 +82,7 @@
             <trim prefix="waiverPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.waiverPoll!=null">
-                        when id = #{id} then #{item.waiverPoll}
+                        when id = #{item.id} then #{item.waiverPoll}
                     </if>
                 </foreach>
             </trim>
@@ -90,7 +90,7 @@
             <trim prefix="opposePoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.opposePoll!=null">
-                        when id = #{id} then #{item.opposePoll}
+                        when id = #{item.id} then #{item.opposePoll}
                     </if>
                 </foreach>
             </trim>
@@ -98,7 +98,7 @@
             <trim prefix="pollStatus =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
                     <if test="item.pollStatus!=null">
-                        when id = #{id} then #{item.pollStatus}
+                        when id = #{item.id} then #{item.pollStatus}
                     </if>
                 </foreach>
             </trim>

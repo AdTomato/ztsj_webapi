@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.bean;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 /**
@@ -13,18 +14,21 @@ public class ExpertsInfo {
     /**
      * 年度
      */
-    private String Oannual;
+    @JsonAlias("annual")
+    private String annual;
 
 
     /**
      * 申报级别
      */
-    private String OexpertsDeclareRank;
+    @JsonAlias("expertsDeclareRank")
+    private String expertsDeclareRank;
 
 
     /**
      * 申报系别
      */
+    @JsonAlias("declareDept")
     private String declareDept;
 
 }
