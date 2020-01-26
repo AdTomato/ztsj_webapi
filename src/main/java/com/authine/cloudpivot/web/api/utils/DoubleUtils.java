@@ -22,8 +22,6 @@ public class DoubleUtils {
         NumberFormat nf = NumberFormat.getNumberInstance();
         // 保留两位小数
         nf.setMaximumFractionDigits(digit);
-
-
         // 如果不需要四舍五入，可以使用RoundingMode.DOWN
         nf.setRoundingMode(RoundingMode.HALF_EVEN);
         if (null == d) {

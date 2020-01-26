@@ -1,15 +1,14 @@
 package com.authine.cloudpivot.web.api.service.impl;
 
-import com.authine.cloudpivot.web.api.bean.ExpertsDeclare;
-import com.authine.cloudpivot.web.api.bean.ExpertsInfo;
-import com.authine.cloudpivot.web.api.bean.ExpertsResultDetail;
-import com.authine.cloudpivot.web.api.bean.ExpertsSelectResult;
+import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.mapper.ExpertsDeclareMapper;
 import com.authine.cloudpivot.web.api.service.ExpertsDeclareService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author:lfh
@@ -41,15 +40,14 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
         expertsDeclareMapper.clearExpertsReult(parentId);
     }
 
-    //查询全部专家明细信息
+    /**
+     * 查询全部专家明细信息
+     * @param id
+     * @return
+     */
     @Override
     public List<ExpertsResultDetail> findExpertsInfo(String id) {
         return expertsDeclareMapper.findExpertsInfo(id);
-    }
-
-    @Override
-    public void updateExpertPoll(List<ExpertsResultDetail> expertsResultDetails) {
-        expertsDeclareMapper.updateExpertPoll(expertsResultDetails);
     }
 
     @Override
@@ -57,8 +55,58 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
         return expertsDeclareMapper.getExpertsDeclareStatus(id);
     }
 
+    /**
+     * 更新每个专家的投票结果
+     * @param expertsDeclareList
+     */
     @Override
     public void updateAllExpertsDeclare(List<ExpertsDeclare> expertsDeclareList) {
         expertsDeclareMapper.updateAllExpertsDeclare(expertsDeclareList);
+    }
+
+    /**
+     * 通过姓名和单位获取全部通过的专家
+     * @param expertDeclareName,expertsDeclareOrganization
+     * @return
+     */
+    @Override
+    public List<ExpertsInfoList> findExpertsFromInfoList(String expertDeclareName,String expertsDeclareOrganization) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userName",expertDeclareName );
+        map.put("unit", expertsDeclareOrganization);
+        return expertsDeclareMapper.findExpertsFromInfoList(map);
+    }
+
+    /**
+     * 通过专家id获取专家的参评条件
+     * @param parentId
+     * @return
+     */
+    @Override
+    public List<ConditionsParticipations> getConditionsParticipations(String parentId) {
+        return expertsDeclareMapper.getConditionsParticipations(parentId);
+    }
+
+
+
+    /**
+     *
+     * @param expertDeclareName 专家姓名
+     * @param expertsDeclareOrganization 单位
+     * @return 专家信息
+     */
+    @Override
+    public List<ExpertDeclareInfo> findExpertsFromExpertDeclare(String expertDeclareName, String expertsDeclareOrganization) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("expertDeclareName",expertDeclareName );
+        map.put("expertsDeclareOrganization", expertsDeclareOrganization);
+        return expertsDeclareMapper.findExpertsFromExpertDeclare(map);
+    }
+
+
+    //插入参评条件子表信息
+    @Override
+    public void insertConditions(List<ConditionsParticipations> conditionsParticipations) {
+        expertsDeclareMapper.insertConditions(conditionsParticipations);
     }
 }

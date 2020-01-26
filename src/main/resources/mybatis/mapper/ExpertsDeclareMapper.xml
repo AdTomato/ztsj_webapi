@@ -18,48 +18,16 @@
 
     <!-- 获取专家申报意见表的状态 -->
     <select id="getExpertsDeclareStatus" parameterType="java.lang.String" resultType="java.lang.String">
-        select sequenceStatus from itsfr_expertsDeclareOpinion where id = #{id}
+        select sequenceStatus from itsfr_expertsdeclareopinion where id = #{id}
     </select>
 
-
+    <!--查询全部专家明细信息-->
     <select id="findExpertsInfo" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.ExpertsResultDetail">
-        select * from itsfr_expertDeclareDetail where edOpinionDetail = #{id}
+        select * from itsfr_expertdeclaredetail where edOpinionDetail = #{id}
     </select>
 
-    <update id="updateExpertPoll" parameterType="java.util.List">
-        update itsfr_ExpertsDeclare
-        <trim prefix="set" suffixOverrides=",">
-            <trim prefix="agreePoll =case" suffix="end,">
-                <foreach collection="list" item="item" index="index">
-                    <if test="item.avgWorkAchievement!=null">
-                        when id=#{i.rowId} then #{i.avgWorkAchievement}
-                    </if>
-                </foreach>
-            </trim>
-
-            <trim prefix="agreePoll =case" suffix="end,">
-                <foreach collection="list" item="i" index="index">
-                    <if test="i.avgWorkAchievement!=null">
-                        when id=#{i.rowId} then #{i.avgWorkAchievement}
-                    </if>
-                </foreach>
-            </trim>
-
-            <trim prefix="agreePoll =case" suffix="end,">
-                <foreach collection="list" item="i" index="index">
-                    <if test="i.avgWorkAchievement!=null">
-                        when id=#{i.rowId} then #{i.avgWorkAchievement}
-                    </if>
-                </foreach>
-            </trim>
-        </trim>
-        where
-        <foreach collection="list" separator="or" item="item" index="index">
-            id=#{item.eid}
-        </foreach>
-    </update>
-    
+    <!--更新每个专家的投票结果-->
     <update id="updateAllExpertsDeclare" parameterType="java.util.List">
         update itsfr_ExpertsDeclare
         <trim prefix="set" suffixOverrides=",">
@@ -105,7 +73,34 @@
         </trim>
         where
         <foreach collection="list" item="item" index="index" separator="or">
-            id = #{id}
+            id = #{item.id}
         </foreach>
     </update>
+
+    <!--通过专家的姓名的单位查询一览表的专家信息-->
+    <select id="findExpertsFromInfoList" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.ExpertsInfoList">
+        select * from itsfr_expertsinfolist where userName = #{userName} and unit = #{unit}
+  </select>
+
+    <!--通过专家的姓名的单位查询专家申报表的专家信息-->
+    <select id="findExpertsFromExpertDeclare" parameterType="map" resultType="com.authine.cloudpivot.web.api.bean.ExpertDeclareInfo">
+        select id,expertsDeclareName,expertsDeclareOrganization,gender,dateOfBirth,technicalPosts,positionalTitles,firstEducation,graduationSchool,
+ firstMajor,officialAcademicCredentials,schoolOfGraduation,highestMajor,nowMajorIn,keyPerformance,annual,declareDept,expertsDeclareRank from itsfr_ExpertsDeclare where expertsDeclareName = #{expertDeclareName} and expertsDeclareOrganization = #{expertsDeclareOrganization}
+
+    </select>
+
+    <!--通过专家id获取专家的参评条件-->
+    <select id="getConditionsParticipations" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ConditionsParticipations">
+        select projectsAndEffect,reviewOpinions,unitsOrDeptOpinion from itsfr_conditionsParticipations where parentId = #{parentId}
+    </select>
+
+    <!--将参评条件插入一览表-->
+    <insert id="insertConditions" parameterType="java.util.List">
+        insert into itsfr_participationconditions
+        (id,projectsAndEffect,reviewOpinions,unitsOrDeptOpinion,parentId)
+        values
+        <foreach collection="list" index="index" item="item" separator=",">
+            (#{item.id},#{item.projectsAndEffect},#{item.reviewOpinions},#{item.unitsOrDeptOpinion},#{item.parentId})
+        </foreach>
+    </insert>
 </mapper>
