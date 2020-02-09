@@ -5,6 +5,7 @@ import lombok.Generated;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
+
 @Data
 public class VoteInfo {
 

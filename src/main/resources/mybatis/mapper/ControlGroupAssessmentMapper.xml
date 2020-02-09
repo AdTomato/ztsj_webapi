@@ -11,27 +11,33 @@
     <!-- 插入管控组年度考核明细 -->
     <insert id="insertControlGroupDetails" parameterType="java.util.List">
         insert into i6rlc_control_group_detail
-        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score, qualitative_score, final_score, id, parentId)
+        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score,
+        qualitative_score, final_score, id, parentId)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.quantitativeScore}, #{item.assessee}, #{item.content1Score}, #{item.content2Score}, #{item.content3Score}, #{item.content4Score}, #{item.qualitativeScore}, #{item.id}, #{item.parentId})
+            (#{item.quantitativeScore}, #{item.assessee}, #{item.content1Score}, #{item.content2Score},
+            #{item.content3Score}, #{item.content4Score}, #{item.qualitativeScore}, #{item.id}, #{item.parentId})
         </foreach>
     </insert>
 
     <insert id="insertControlGroupDetail" parameterType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
         insert into i6rlc_control_group_detail
-        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score, qualitative_score, final_score, id, parentId)
+        (quantitative_score, assessee, content1_score, content2_score, content3_score, content4_score,
+        qualitative_score, final_score, id, parentId)
         values
-        (#{quantitativeScore}, #{assessee}, #{content1Score}, #{content2Score}, #{content3Score}, #{content4Score}, #{qualitativeScore}, #{finalScore}, #{id}, #{parentId})
+        (#{quantitativeScore}, #{assessee}, #{content1Score}, #{content2Score}, #{content3Score}, #{content4Score},
+        #{qualitativeScore}, #{finalScore}, #{id}, #{parentId})
     </insert>
 
     <!-- 根据管控组年度考核汇总表id查询明细 -->
-    <select id="getControlGroupDetailById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+    <select id="getControlGroupDetailById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
         select * from i6rlc_control_group_detail where parentId = #{id}
     </select>
 
     <!-- 根据管控组考核汇总表id以及被考核人查询明细 -->
-    <select id="getControlGroupDetailByIdAndAssessee" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
+    <select id="getControlGroupDetailByIdAndAssessee" parameterType="java.util.Map"
+            resultType="com.authine.cloudpivot.web.api.bean.ControlGroupDetail">
         select * from i6rlc_control_group_detail where parentId = #{id} and assessee = #{assessee};
     </select>
 

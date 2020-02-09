@@ -9,6 +9,7 @@ public interface IOrgUserService {
 
     /**
      * 获取用户信息，根据手机号码
+     *
      * @param mobile 手机号码
      * @return
      */
@@ -16,6 +17,7 @@ public interface IOrgUserService {
 
     /**
      * 获取用户信息，根据用户id
+     *
      * @param id
      * @return
      */
@@ -23,12 +25,14 @@ public interface IOrgUserService {
 
     /**
      * 更改密码
+     *
      * @param map
      */
     public void updatePasswordByUserId(Map map);
 
     /**
      * 根据用户id查询密码
+     *
      * @param userId
      * @return
      */
@@ -36,12 +40,14 @@ public interface IOrgUserService {
 
     /**
      * 修改用户密码
+     *
      * @param map
      */
     public void changePasswordByUserId(Map map);
 
     /**
      * 修改用户状态
+     *
      * @param map
      */
     public void changeStatusByUserId(Map map);

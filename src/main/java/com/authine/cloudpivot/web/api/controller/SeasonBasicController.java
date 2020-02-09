@@ -45,15 +45,15 @@ public class SeasonBasicController extends BaseController {
 //        List<String> depteffectIds = new ArrayList<>();
         log.info("执行：checkRepeat");
         log.info("存储的数据为:" + saveScoreSubmit);
-        int num = seasonAssessService.checkRepeat(seasonassessmentId,userId);
-        if (num!=0){
-            return  this.getOkResponseResult("error", "重复储存分数");
+        int num = seasonAssessService.checkRepeat(seasonassessmentId, userId);
+        if (num != 0) {
+            return this.getOkResponseResult("error", "重复储存分数");
         }
         List<VoteInfo> voteInfos = new ArrayList<>();
-        try{
+        try {
 
             for (int i = 0; i < deptEffectList.size(); i++) {
-                if (null == deptEffectList.get(i).getId() || "".equals(deptEffectList.get(i).getId())){
+                if (null == deptEffectList.get(i).getId() || "".equals(deptEffectList.get(i).getId())) {
                     continue;
                 }
                 VoteInfo voteInfo = new VoteInfo();
@@ -78,8 +78,7 @@ public class SeasonBasicController extends BaseController {
             log.info("存储分数成功,当前存储分数的userId为:" + userId);
             return this.getOkResponseResult("success", "存储分数成功");
 
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
             return this.getOkResponseResult("error", "存储分数出错");
         }
@@ -107,14 +106,14 @@ public class SeasonBasicController extends BaseController {
             }
             return this.getOkResponseResult("success", "计算和存储平均数成功");
 
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return this.getOkResponseResult("error", "存储平均数出错");
         }
     }
 
     @RequestMapping("/counttotal")
-    public ResponseResult<String> counttotal(@RequestParam(required = false) BigDecimal year, @RequestParam(required = false) String season,@RequestParam(required = false) String id) {
+    public ResponseResult<String> counttotal(@RequestParam(required = false) BigDecimal year, @RequestParam(required = false) String season, @RequestParam(required = false) String id) {
         String val = year + "";
         log.info("年度:" + year);
         log.info("季度:" + season);
@@ -127,7 +126,8 @@ public class SeasonBasicController extends BaseController {
         }
         try {
             List<TotalScore> results = seasonAssessService.countTotal(id);
-            String assessmentId = assessmentDetail.getAssessmentIdByAnnual(year + "年度");;
+            String assessmentId = assessmentDetail.getAssessmentIdByAnnual(year + "年度");
+            ;
             if (results.size() == 0 || null == results.get(0)) {
                 return this.getOkResponseResult("error", "计算总分出错");
             }
@@ -155,7 +155,7 @@ public class SeasonBasicController extends BaseController {
             }
             return this.getOkResponseResult("success", "计算和存储总分成功");
 
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error(e.getMessage());
             return this.getOkResponseResult("error", "计算总分出错");
         }
@@ -163,6 +163,7 @@ public class SeasonBasicController extends BaseController {
 
     /**
      * 创建年度考核得分汇总表
+     *
      * @param annual 年度
      * @param userId 用户
      * @return 汇总表id
@@ -180,11 +181,12 @@ public class SeasonBasicController extends BaseController {
 
     /**
      * 创建机关部门年度考核得分明细
+     *
      * @param assessmentId 部门id
-     * @param season 季度
-     * @param totalScore 分数
+     * @param season       季度
+     * @param totalScore   分数
      */
-    private void insertAssessmentSummaryDetail(String assessmentId, String department, String  season, BigDecimal totalScore) {
+    private void insertAssessmentSummaryDetail(String assessmentId, String department, String season, BigDecimal totalScore) {
         AssessmentSummaryDetail assessmentSummaryDetail = new AssessmentSummaryDetail();
         assessmentSummaryDetail.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         assessmentSummaryDetail.setParentId(assessmentId);
@@ -195,25 +197,29 @@ public class SeasonBasicController extends BaseController {
                 assessmentSummaryDetail.setSecondQuarter(0D);
                 assessmentSummaryDetail.setThirdQuarter(0D);
                 assessmentSummaryDetail.setFourQuarter(0D);
-            } break;
+            }
+            break;
             case "第二季度": {
                 assessmentSummaryDetail.setFirstQuarter(0D);
                 assessmentSummaryDetail.setSecondQuarter(Double.parseDouble(totalScore + ""));
                 assessmentSummaryDetail.setThirdQuarter(0D);
                 assessmentSummaryDetail.setFourQuarter(0D);
-            } break;
+            }
+            break;
             case "第三季度": {
                 assessmentSummaryDetail.setFirstQuarter(0D);
                 assessmentSummaryDetail.setSecondQuarter(0D);
                 assessmentSummaryDetail.setThirdQuarter(Double.parseDouble(totalScore + ""));
                 assessmentSummaryDetail.setFourQuarter(0D);
-            } break;
+            }
+            break;
             case "第四季度": {
                 assessmentSummaryDetail.setFirstQuarter(0D);
                 assessmentSummaryDetail.setSecondQuarter(0D);
                 assessmentSummaryDetail.setThirdQuarter(0D);
                 assessmentSummaryDetail.setFourQuarter(Double.parseDouble(totalScore + ""));
-            } break;
+            }
+            break;
         }
         assessmentSummaryDetail.setAnnualEvaluation(0D);
         assessmentSummaryDetail.setAnnualScore(Double.parseDouble(totalScore + "") / 4 * 0.5);
@@ -223,17 +229,26 @@ public class SeasonBasicController extends BaseController {
 
     /**
      * 更新年度机关考核得分汇总表明细
+     *
      * @param assessmentSummaryDetail 机关部门考核得分明细表
-     * @param season 季度
-     * @param totalScore 分数
+     * @param season                  季度
+     * @param totalScore              分数
      */
-    private void updateAssessmentSummaryDetail(AssessmentSummaryDetail assessmentSummaryDetail, String  season, BigDecimal totalScore) {
+    private void updateAssessmentSummaryDetail(AssessmentSummaryDetail assessmentSummaryDetail, String season, BigDecimal totalScore) {
         Double score = 0D;
         switch (season) {
-            case "第一季度": assessmentSummaryDetail.setFirstQuarter(Double.parseDouble(totalScore + "")); break;
-            case "第二季度": assessmentSummaryDetail.setSecondQuarter(Double.parseDouble(totalScore + "")); break;
-            case "第三季度": assessmentSummaryDetail.setThirdQuarter(Double.parseDouble(totalScore + "")); break;
-            case "第四季度": assessmentSummaryDetail.setFourQuarter(Double.parseDouble(totalScore + "")); break;
+            case "第一季度":
+                assessmentSummaryDetail.setFirstQuarter(Double.parseDouble(totalScore + ""));
+                break;
+            case "第二季度":
+                assessmentSummaryDetail.setSecondQuarter(Double.parseDouble(totalScore + ""));
+                break;
+            case "第三季度":
+                assessmentSummaryDetail.setThirdQuarter(Double.parseDouble(totalScore + ""));
+                break;
+            case "第四季度":
+                assessmentSummaryDetail.setFourQuarter(Double.parseDouble(totalScore + ""));
+                break;
         }
         Double seasonTotalScore = 0D;
         seasonTotalScore = (assessmentSummaryDetail.getFirstQuarter() +

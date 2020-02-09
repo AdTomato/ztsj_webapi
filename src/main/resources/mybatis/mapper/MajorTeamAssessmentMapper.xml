@@ -6,7 +6,8 @@
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.MajorTeamAssessmentMapper">
 
     <!--获取发起班子考核中主表的所有信息-->
-    <select id="getMajorTeamAssessmentInfo" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MajorTeamAssessment">
+    <select id="getMajorTeamAssessmentInfo" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.MajorTeamAssessment">
         select * from i6rlc_smajorteamassessment where id = #{id}
     </select>
 
@@ -24,17 +25,19 @@
 
 
     <!--获取全部的发起班子考核的领导班子民主测评表-->
-    <select id="getAllEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTALeaderBodyAppraisal">
+    <select id="getAllEvaluationData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SMTALeaderBodyAppraisal">
         select * from i6rlc_smtaleaderbodyappraisal where parentId = #{id}
     </select>
 
     <!--获取全部的班子考核的领导班子民主测评表-->
-    <select id="getAllDemocracyEvaluationByPId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTALeaderBodyAppraisal">
+    <select id="getAllDemocracyEvaluationByPId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.MTALeaderBodyAppraisal">
         select * from i6rlc_mtaleaderbodyappraisal where p_id = #{id}
     </select>
     <!--更新所有的发起班子考核的 领导班子民主测评表 -->
     <update id="updateAllSMTALeaderBodyAppraisal" parameterType="java.util.List">
-      update i6rlc_smtaleaderbodyappraisal
+        update i6rlc_smtaleaderbodyappraisal
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="good_poll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
@@ -77,12 +80,14 @@
     <!--领导人员及非领导职务人员民主测评表-->
 
     <!--获取全部的发起班子考核的领导人员及非领导职务人员民主测评表-->
-    <select id="getAllSMTADemocracyEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTADemocraticAppraisal">
+    <select id="getAllSMTADemocracyEvaluationData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SMTADemocraticAppraisal">
         select * from i6rlc_smtademocraticappraisal where parentId = #{id}
     </select>
 
     <!--获取全部的班子考核的领导人员及非领导职务人员民主测评表-->
-    <select id="getAllMTADemocracyEvaluationData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTADemocraticAppraisal">
+    <select id="getAllMTADemocracyEvaluationData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.MTADemocraticAppraisal">
         select * from i6rlc_mtademocraticappraisal where p_id = #{id}
     </select>
 
@@ -130,14 +135,16 @@
 
     <!--后备干部民主推荐表-->
 
-    
+
     <!--获取全部的 发起班子考核的 后备干部民主推荐表-->
-    <select id="getAllSMTAReserveCadres" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SMTAReserveCadres">
+    <select id="getAllSMTAReserveCadres" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SMTAReserveCadres">
         select * from i6rlc_smtareservecadres where parentId = #{id}
     </select>
 
     <!--获取全部的 班子考核的 后备干部民主推荐表-->
-    <select id="getAllMTAReserveCadres" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.MTAReserveCadres">
+    <select id="getAllMTAReserveCadres" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.MTAReserveCadres">
         select * from i6rlc_mtareservecadres where p_id = #{id}
     </select>
 

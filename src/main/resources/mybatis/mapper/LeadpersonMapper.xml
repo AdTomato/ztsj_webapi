@@ -14,10 +14,10 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-		 id,
-		 name,
-		 duty
-	</sql>
+        id,
+        name,
+        duty
+    </sql>
 
     <select id="getByDeptId" parameterType="String" resultMap="LeadPersonResultMap">
         SELECT

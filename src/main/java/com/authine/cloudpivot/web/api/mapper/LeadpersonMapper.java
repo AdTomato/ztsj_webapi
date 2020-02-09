@@ -14,7 +14,7 @@ import java.util.List;
  * @since 2019-11-26
  */
 
-public interface LeadpersonMapper  {
+public interface LeadpersonMapper {
 
     List<LeadPerson> getByDeptId(String deptId);
 }

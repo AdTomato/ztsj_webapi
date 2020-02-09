@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * @Author:lfh
  * @Date: 2020/1/13 11:28
- * @Description：  专家申报 基层单位推荐意见 参评具备条件表
+ * @Description： 专家申报 基层单位推荐意见 参评具备条件表
  */
 @Data
 public class ConditionsParticipations {

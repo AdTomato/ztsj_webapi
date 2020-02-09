@@ -17,6 +17,7 @@ public interface EvaluatingCadresMapper {
 
     /**
      * 根据id获取发起新选拔干部民主评议表的全部信息
+     *
      * @param id
      * @return
      */
@@ -24,6 +25,7 @@ public interface EvaluatingCadresMapper {
 
     /**
      * 根据unit获取从0到最大投票人数的新选拔干部民主评议表的id
+     *
      * @param map
      * @return
      */
@@ -31,12 +33,14 @@ public interface EvaluatingCadresMapper {
 
     /**
      * 更新发起新选拔干部民主评议表主表结果
+     *
      * @param info
      */
     void updateEvaluatingCadresInfo(Map<String, Object> info);
 
     /**
-     *获取全部的发起新选拔干部民主评议表的 评测干部表信息
+     * 获取全部的发起新选拔干部民主评议表的 评测干部表信息
+     *
      * @param id
      * @return
      */
@@ -44,12 +48,15 @@ public interface EvaluatingCadresMapper {
 
     /**
      * 获取全部的新选拔干部民主评议表的 评测干部表信息
+     *
      * @param id
      * @return
      */
     List<EvaluatingCadresList> getAllEvaluatingCadresListData(String id);
+
     /**
      * 更新 发起新选拔干部民主评议表的评测干部表结果
+     *
      * @param sec
      */
 

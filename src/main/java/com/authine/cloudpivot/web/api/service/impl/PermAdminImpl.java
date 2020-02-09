@@ -19,10 +19,10 @@ public class PermAdminImpl implements IPermAdmin {
     PermAdminMapper permAdminMapper;
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/24 14:39
      * @param userId :
      * @return : java.lang.String
+     * @Author: wangyong
+     * @Date: 2019/12/24 14:39
      * @Description: 根据用户id返回管理员的id值
      */
     @Override

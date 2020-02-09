@@ -27,7 +27,7 @@ public class SEvaluatingCadresList {
     private String sortKey;
 
     /**
-     *姓名
+     * 姓名
      */
     private String userName;
 
@@ -62,7 +62,7 @@ public class SEvaluatingCadresList {
     private Integer basicSatisfiedPoll;
 
     /**
-     *不满意票数(对任用该干部看法)
+     * 不满意票数(对任用该干部看法)
      */
     private Integer noSatisfiedPoll;
 

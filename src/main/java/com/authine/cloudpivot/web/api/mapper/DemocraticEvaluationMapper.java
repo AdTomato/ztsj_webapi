@@ -15,6 +15,7 @@ public interface DemocraticEvaluationMapper {
 
     /**
      * 获取发起工作民主评议表所有信息
+     *
      * @param id 发起工作发起工作民主评议表id
      * @return 发起工作民主评议表信息
      */
@@ -22,13 +23,15 @@ public interface DemocraticEvaluationMapper {
 
     /**
      * 根据传递过去的参数,获取符合规则的工作民主评议表
+     *
      * @param map 参数
-     * @return  符合规则的所有的工作民主评议表
+     * @return 符合规则的所有的工作民主评议表
      */
     public List<DemocraticEvaluation> getAllDemocraticEvaluationData(Map map);
 
     /**
      * 更新发起工作民主评议表所有信息
+     *
      * @param sd 发起工作民主评议表
      */
     public void updateSDemocraticEvaluation(SDemocraticEvaluation sd);

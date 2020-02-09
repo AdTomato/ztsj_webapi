@@ -218,12 +218,12 @@ public class ExternalTalentIntroductiController extends BaseController {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/17 17:40
-     * @param userId : 创建数据的用户
-     * @param bizObjectFacade : 创建数据的引擎
+     * @param userId              : 创建数据的用户
+     * @param bizObjectFacade     : 创建数据的引擎
      * @param introduceEvaluation :
      * @return : void
+     * @Author: wangyong
+     * @Date: 2020/1/17 17:40
      * @Description:
      */
     private void createIntroduceEvaluationSum(String userId, BizObjectFacade bizObjectFacade, SIntroduceEvaluation introduceEvaluation) {
@@ -263,12 +263,12 @@ public class ExternalTalentIntroductiController extends BaseController {
     }
 
     /**
+     * @param user                : 参评人
+     * @param introduceEvaluation : 设置信息
+     * @param weatherExpert       : 是否专家
+     * @return : com.authine.cloudpivot.engine.api.model.runtime.BizObjectModel
      * @Author: wangyong
      * @Date: 2020/1/17 16:12
-     * @param user : 参评人
-     * @param introduceEvaluation : 设置信息
-     * @param weatherExpert : 是否专家
-     * @return : com.authine.cloudpivot.engine.api.model.runtime.BizObjectModel
      * @Description: 设置紧缺人才评价表model
      */
     private BizObjectModel getModel(User user, SIntroduceEvaluation introduceEvaluation, String weatherExpert) {

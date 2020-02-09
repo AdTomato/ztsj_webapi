@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class LackPersonnelInfo {
-    private String applyId ;
+    private String applyId;
     private String nameIdType;
 }

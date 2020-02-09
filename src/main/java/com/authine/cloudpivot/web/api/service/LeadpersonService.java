@@ -12,6 +12,6 @@ import java.util.List;
  * @author zsh
  * @since 2019-11-26
  */
-public interface LeadpersonService  {
+public interface LeadpersonService {
     List<LeadPerson> getBydeptId(String deptId);
 }

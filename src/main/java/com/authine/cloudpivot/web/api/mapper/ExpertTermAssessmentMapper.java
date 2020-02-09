@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
 @Repository
-public interface ExpertTermAssessmentMapper extends Mapper<ExpertTermAssessment>{
+public interface ExpertTermAssessmentMapper extends Mapper<ExpertTermAssessment> {
 
 }

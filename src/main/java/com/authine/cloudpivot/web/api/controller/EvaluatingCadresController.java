@@ -30,26 +30,26 @@ public class EvaluatingCadresController extends BaseController {
     private EvaluatingCadresService evaluatingCadresService;
 
     @RequestMapping("/calculateResoult")
-    public ResponseResult<Void> calculateResult(@RequestParam("id") String id){
+    public ResponseResult<Void> calculateResult(@RequestParam("id") String id) {
         log.info("开始执行新选拔干部民主评议表方法");
-        log.info("当前传入的id值为："+id);
+        log.info("当前传入的id值为：" + id);
         //获取发起新选拔干部民主评议表的全部信息
         EvaluatingCadres ec = evaluatingCadresService.getEvaluatingCadresInfo(id);
         Map map = new HashMap();
         map.put("id", ec.getId());
-        map.put("max",ec.getParticipantsPeoples());
+        map.put("max", ec.getParticipantsPeoples());
         map.put("createdTime", ec.getCreatedTime());
         //根据unit获取从0到最大投票人数的新选拔干部民主评议表的id
-        List<String> idList =evaluatingCadresService.getEvaluatingCadresIdByUnit(map);
-        log.info("获取的是0-"+ec.getParticipantsPeoples()+"的新选拔干部民主评议表信息");
-        log.info("获取的id列表是"+idList);
+        List<String> idList = evaluatingCadresService.getEvaluatingCadresIdByUnit(map);
+        log.info("获取的是0-" + ec.getParticipantsPeoples() + "的新选拔干部民主评议表信息");
+        log.info("获取的id列表是" + idList);
 
         //计算评测干部表
-        calculateEvaluatingCadresList(idList,id);
+        calculateEvaluatingCadresList(idList, id);
         //更新发起新选拔干部民主评议表主表结果
-        Map<String,Object> info = new HashMap<>();
-        info.put("votoPeoples",idList.size());
-        info.put("id",id );
+        Map<String, Object> info = new HashMap<>();
+        info.put("votoPeoples", idList.size());
+        info.put("id", id);
         evaluatingCadresService.updateEvaluatingCadresInfo(info);
         log.info("新选拔干部民主评议表票结果计算完毕");
         return getOkResponseResult("计算完毕");
@@ -57,6 +57,7 @@ public class EvaluatingCadresController extends BaseController {
 
     /**
      * 计算评测干部表
+     *
      * @param idList
      * @param id
      */
@@ -64,12 +65,12 @@ public class EvaluatingCadresController extends BaseController {
         log.info("开始计算新选拔干部民主评议表中评测干部表");
 
         //获取全部的发起新选拔干部民主评议表的 评测干部表信息
-        List<SEvaluatingCadresList> sec =evaluatingCadresService.getAllSEvaluatingCadresListData(id);
+        List<SEvaluatingCadresList> sec = evaluatingCadresService.getAllSEvaluatingCadresListData(id);
 
         //获取全部的新选拔干部民主评议表的 评测干部表信息
         List<EvaluatingCadresList> ec = evaluatingCadresService.getAllEvaluatingCadresListData(id);
 
-        Map<String,SEvaluatingCadresList> secMap = new HashMap<>();
+        Map<String, SEvaluatingCadresList> secMap = new HashMap<>();
         //初始化评测干部信息表
         for (SEvaluatingCadresList secList : sec) {
             secList.setSatisfiedPoll(0);
@@ -79,37 +80,37 @@ public class EvaluatingCadresController extends BaseController {
             secList.setExistencePoll(0);
             secList.setNoExistencePoll(0);
             secList.setINoUnderstandPoll(0);
-            secMap.put(secList.getUserName()+secList.getDateOfBirth()+secList.getRawDuty()+secList.getCashDuty(), secList);
+            secMap.put(secList.getUserName() + secList.getDateOfBirth() + secList.getRawDuty() + secList.getCashDuty(), secList);
         }
         //计算给个干部的票数
         for (EvaluatingCadresList ecList : ec) {
-            if (idList.contains(ecList.getParentId())){
+            if (idList.contains(ecList.getParentId())) {
                 SEvaluatingCadresList secList = secMap.get(ecList.getUserName() + ecList.getDateOfBirth() + ecList.getRawDuty() + ecList.getCashDuty());
-                if (null != secList){
-                    switch (ecList.getPerspective()){
+                if (null != secList) {
+                    switch (ecList.getPerspective()) {
                         case "满意":
-                            secList.setSatisfiedPoll(secList.getSatisfiedPoll()+1);
+                            secList.setSatisfiedPoll(secList.getSatisfiedPoll() + 1);
                             break;
                         case "基本满意":
-                            secList.setBasicSatisfiedPoll(secList.getBasicSatisfiedPoll()+1);
+                            secList.setBasicSatisfiedPoll(secList.getBasicSatisfiedPoll() + 1);
                             break;
                         case "不满意":
-                            secList.setNoSatisfiedPoll(secList.getNoSatisfiedPoll()+1);
+                            secList.setNoSatisfiedPoll(secList.getNoSatisfiedPoll() + 1);
                             break;
                         case "不了解":
-                            secList.setNoUnderstandPoll(secList.getNoUnderstandPoll()+1);
+                            secList.setNoUnderstandPoll(secList.getNoUnderstandPoll() + 1);
                             break;
                     }
 
-                    switch (ecList.getIfThereIsA()){
+                    switch (ecList.getIfThereIsA()) {
                         case "不存在":
-                            secList.setNoExistencePoll(secList.getNoExistencePoll()+1);
+                            secList.setNoExistencePoll(secList.getNoExistencePoll() + 1);
                             break;
                         case "存在":
-                            secList.setExistencePoll(secList.getExistencePoll()+1);
+                            secList.setExistencePoll(secList.getExistencePoll() + 1);
                             break;
                         case "不了解":
-                            secList.setINoUnderstandPoll(secList.getINoUnderstandPoll()+1);
+                            secList.setINoUnderstandPoll(secList.getINoUnderstandPoll() + 1);
                             break;
                     }
                 }

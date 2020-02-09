@@ -21,10 +21,10 @@ public class PermAdminController {
     IPermAdmin permAdmin;
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/24 14:43
      * @param userId : 用户id
      * @return : boolean
+     * @Author: wangyong
+     * @Date: 2019/12/24 14:43
      * @Description: 根据传过来的userId判断该userId是否是管理员
      */
     @GetMapping("/isAdmin")

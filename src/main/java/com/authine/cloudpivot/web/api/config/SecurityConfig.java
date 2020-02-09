@@ -105,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().headers().frameOptions().disable();
-        http.requestMatchers().antMatchers("/login/dingtalk", "login/mobile", "login/mobile/ajax", "login/password","/oauth/authorize","/login/**","/oauth/**","/login","/oauth","/logout/**","/logout")
+        http.requestMatchers().antMatchers("/login/dingtalk", "login/mobile", "login/mobile/ajax", "login/password", "/oauth/authorize", "/login/**", "/oauth/**", "/login", "/oauth", "/logout/**", "/logout")
                 .and()
                 .authorizeRequests()
                 .antMatchers("/oauth/**").authenticated()
@@ -143,7 +143,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 filter.setAuthenticationSuccessHandler(handler);
                 filter.setAuthenticationFailureHandler(handler);
                 //添加到过滤器链中
-                http.addFilterBefore(filter,UsernamePasswordAuthenticationFilter.class);
+                http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
             }
         }
     }
@@ -159,7 +159,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    @ConditionalOnProperty(name="cloudpivot.webmvc.corsmappings",havingValue = "true")
+    @ConditionalOnProperty(name = "cloudpivot.webmvc.corsmappings", havingValue = "true")
     public FilterRegistrationBean<Filter> corsFilterRegistrationBean() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();

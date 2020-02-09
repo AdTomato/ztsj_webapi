@@ -32,8 +32,8 @@ public class Swagger2Config implements WebMvcConfigurer {
 
     @Bean
     public Docket createRestApi() {
-	    Predicate<RequestHandler> selector1 = RequestHandlerSelectors.basePackage("com.authine.cloudpivot.web.api.controller");
-	    Predicate<RequestHandler> selector2 = RequestHandlerSelectors.basePackage("com.authine.cloudpivot.ext.controller");
+        Predicate<RequestHandler> selector1 = RequestHandlerSelectors.basePackage("com.authine.cloudpivot.web.api.controller");
+        Predicate<RequestHandler> selector2 = RequestHandlerSelectors.basePackage("com.authine.cloudpivot.ext.controller");
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
                 .apis(Predicates.or(selector1, selector2))
                 .paths(PathSelectors.any())

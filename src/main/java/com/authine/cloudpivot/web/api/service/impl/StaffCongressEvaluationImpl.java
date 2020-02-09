@@ -21,10 +21,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     StaffCongressEvaluationMapper staffCongressEvaluationMapper;
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/26 11:23
      * @param id : 发起只带会测评表id
      * @return : com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation 职代会测评表信息
+     * @Author: wangyong
+     * @Date: 2019/12/26 11:23
      * @Description: 获取发起职代会测评表的信息
      */
     @Override
@@ -33,10 +33,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/26 11:23
      * @param map : 参数集合
      * @return : java.util.List<java.lang.String> 职代会测评表的id集合
+     * @Author: wangyong
+     * @Date: 2019/12/26 11:23
      * @Description: 根据unit获取从0到最大投票人数的职代会测评表的id
      */
     @Override
@@ -45,10 +45,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/22 10:51
      * @param parentId : 职代会测评id值
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.Appraisal>
+     * @Author: wangyong
+     * @Date: 2019/12/22 10:51
      * @Description: 根据职代会测评id值获取班子民主测评集合
      */
     @Override
@@ -57,10 +57,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/26 11:24
      * @param list : 班子民主测评表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/26 11:24
      * @Description: 更新所有的发起职代会测评表中的班子民主测评表
      */
     @Override
@@ -74,10 +74,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/26 11:25
      * @param id : pId信息
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.DemocraticAppraisal> 职代会测评表中的所有民主测评表
+     * @Author: wangyong
+     * @Date: 2019/12/26 11:25
      * @Description: 获取职代会测评表中的所有的民主测评表信息
      */
     @Override
@@ -86,10 +86,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 14:47
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACLeadBodyEvaluate>
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:47
      * @Description: 获取所有的发起职代会测评表中的“四好”领导班子评价表
      */
     @Override
@@ -98,10 +98,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 14:47
      * @param sacList : 所有的发起职代会测评表中的“四好”领导班子评价表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:47
      * @Description: 更新所有的发起职代会测评表中的“四好”领导班子评价表
      */
     @Override
@@ -110,10 +110,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 14:48
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACLeadBodyEvaluate>
+     * @Author: wangyong
+     * @Date: 2019/12/28 14:48
      * @Description: 获取所有的职代会测评表中的“四好”领导班子评价表
      */
     @Override
@@ -122,10 +122,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 16:10
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACLeaderBodyAppraisal>
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:10
      * @Description: 获取所有的发起职代会测评表中的领导班子民主测评表
      */
     @Override
@@ -134,10 +134,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 16:10
      * @param sacList : 所有的发起职代会测评表中的领导班子民主测评表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:10
      * @Description: 更新所有的发起职代会测评表中的领导班子民主测评表
      */
     @Override
@@ -146,10 +146,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 16:11
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACLeaderBodyAppraisal>
+     * @Author: wangyong
+     * @Date: 2019/12/28 16:11
      * @Description: 获取所有的职代会测评表中的领导班子民主测评表
      */
     @Override
@@ -158,10 +158,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 17:22
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ASCHonestEvaluationForm>
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
      * @Description: 获取所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
      */
     @Override
@@ -170,10 +170,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 17:22
      * @param ascList : 所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
      * @Description: 更新所有的发起职代会测评表中的领导班子党风廉政建设情况测评表
      */
     @Override
@@ -182,10 +182,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/28 17:22
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm>
+     * @Author: wangyong
+     * @Date: 2019/12/28 17:22
      * @Description: 所有的职代会测评表中的领导班子党风廉政建设情况测评表
      */
     @Override
@@ -194,10 +194,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/30 10:57
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.SACautonomicEvaluationForm>
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
      * @Description: 获取所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
      */
     @Override
@@ -206,10 +206,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/30 10:57
      * @param sacList : 所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
      * @Description: 更新所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
      */
     @Override
@@ -218,10 +218,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/30 10:57
      * @param id : 发起职代会测评表id
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm>
+     * @Author: wangyong
+     * @Date: 2019/12/30 10:57
      * @Description: 获取所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表
      */
     @Override
@@ -230,10 +230,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/30 11:54
      * @param info : 更新信息
      * @return : void
+     * @Author: wangyong
+     * @Date: 2019/12/30 11:54
      * @Description: 更新发起职代会测评表主表信息
      */
     @Override
@@ -242,10 +242,10 @@ public class StaffCongressEvaluationImpl implements IStaffCongressEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2019/12/31 14:55
      * @param id : 发起职代会测评表id
      * @return : java.lang.String 是:不可提交,否:可提交
+     * @Author: wangyong
+     * @Date: 2019/12/31 14:55
      * @Description: 是否可以提交
      */
     @Override

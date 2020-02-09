@@ -11,6 +11,7 @@ public class CreateAssessmentSummaryUtils extends BaseController {
 
     /**
      * 创建年度考核得分汇总表
+     *
      * @param annual 年度
      * @param userId 用户
      * @return 汇总表id

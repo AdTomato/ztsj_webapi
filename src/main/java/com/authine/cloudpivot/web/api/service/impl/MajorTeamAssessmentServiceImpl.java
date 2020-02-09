@@ -22,6 +22,7 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * 根据id获取发起班子考核表中主表的所有信息
+     *
      * @param id
      * @return
      */
@@ -32,8 +33,9 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * //根据unit获取从0到最大投票人数的班子考核表的id
+     *
      * @param map
-     * @return  List<String>班子考核表中的id
+     * @return List<String>班子考核表中的id
      */
     @Override
     public List<String> getMajorTeamIdByUnit(Map map) {
@@ -42,6 +44,7 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * 更新发起班子考核主表的信息
+     *
      * @param info
      */
     @Override
@@ -51,6 +54,7 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * 获取全部的发起班子考核的领导班子民主测评表
+     *
      * @param id 父id
      * @return 根据班子考核表id获取领导班子民主测评表集合
      */
@@ -61,6 +65,7 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * 获取全部的班子考核的领导班子民主测评表
+     *
      * @param id
      * @return 根据班子考核表id获取领导班子民主测评表集合
      */
@@ -71,6 +76,7 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
 
     /**
      * 更新所有的发起班子考核的领导班子民主测评表
+     *
      * @param sLeaderBodyAppraisalList 全部的发起班子考核的领导班子民主测评表
      */
     @Override
@@ -79,7 +85,6 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *
      * @param id
      * @return 获取全部的发起班子考核的领导人员及非领导职务人员民主测评表结果
      */
@@ -89,7 +94,6 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *
      * @param id
      * @return 获取全部的 班子考核的领导人员及非领导职务人员民主测评表结果
      */
@@ -99,7 +103,8 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *更新所有的发起班子考核的 领导人员及非领导职务人员民主测评表结果
+     * 更新所有的发起班子考核的 领导人员及非领导职务人员民主测评表结果
+     *
      * @param smtaDemocraticAppraisalList 全部的发起班子考核的 领导人员及非领导职务人员民主测评表
      */
     @Override
@@ -108,7 +113,6 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *
      * @param id
      * @return 获取全部的 发起班子考核的 后备干部民主推荐表测评结果
      */
@@ -118,7 +122,6 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *
      * @param id
      * @return 获取全部的 班子考核的 后备干部民主推荐表测评结果
      */
@@ -128,7 +131,8 @@ public class MajorTeamAssessmentServiceImpl implements MajorTeamAssessmentServic
     }
 
     /**
-     *  批量插入发起班子考核的 后备干部民主推荐表测评结果
+     * 批量插入发起班子考核的 后备干部民主推荐表测评结果
+     *
      * @param smtaReserveCadresList
      */
 

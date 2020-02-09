@@ -6,7 +6,8 @@
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.QuantitativeAssessMapper">
 
     <!-- 获取打分明细 -->
-    <select id="getQuantitativeAssessDetailById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QuantitativeAssessDetail">
+    <select id="getQuantitativeAssessDetailById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.QuantitativeAssessDetail">
         select * from i6rlc_quantitative_assess_detail where quantitative_assess = #{id}
     </select>
 
@@ -21,7 +22,8 @@
     </insert>
 
     <!-- 获取定量考核评分表 -->
-    <select id="getQuantitativeAssessById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QuantitativeAssess">
+    <select id="getQuantitativeAssessById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.QuantitativeAssess">
         select * from i6rlc_quantitative_assess where id = #{id}
     </select>
 
@@ -54,7 +56,8 @@
     </insert>
 
     <!-- 获取安全管理 -->
-    <select id="getQuantitativeSafeManageByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeSafeManageByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_safe_manage where parentId = #{id}
     </select>
 
@@ -103,7 +106,8 @@
     </insert>
 
     <!-- 获取质量管理 -->
-    <select id="getQuantitativeQualityManageByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeQualityManageByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_quality_manage where parentId = #{id}
     </select>
 
@@ -152,7 +156,8 @@
     </insert>
 
     <!-- 获取进度及施工组织管理 -->
-    <select id="getQuantitativeScManageByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeScManageByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_sc_manage where parentId = #{id}
     </select>
 
@@ -201,7 +206,8 @@
     </insert>
 
     <!-- 获取技术管理 -->
-    <select id="getQuantitativeSkillManageByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeSkillManageByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_skill_manage where parentId = #{id}
     </select>
 
@@ -250,7 +256,8 @@
     </insert>
 
     <!-- 获取工程分包管理 -->
-    <select id="getQuantitativeEngineManagByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeEngineManagByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_engine_manag where parentId = #{id}
     </select>
 
@@ -299,7 +306,8 @@
     </insert>
 
     <!-- 获取铁路、公路信用评价 -->
-    <select id="getQuantitativeCreditEvaluatByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeCreditEvaluatByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_credit_evaluat where parentId = #{id}
     </select>
 
@@ -348,7 +356,8 @@
     </insert>
 
     <!-- 获取沟通协调、重大问题报告 -->
-    <select id="getQuantitativeProblemByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeProblemByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_problem where parentId = #{id}
     </select>
 
@@ -395,9 +404,10 @@
             (#{item.id}, #{item.parentId}, #{item.scoringStandard}, #{item.deductionReason}, #{item.deduction})
         </foreach>
     </insert>
-    
+
     <!-- 获取管控工作规范性 -->
-    <select id="getQuantitativeControlByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeControlByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_control where parentId = #{id}
     </select>
 
@@ -446,7 +456,8 @@
     </insert>
 
     <!-- 获取对片区内在建项目的服务、指导 -->
-    <select id="getQuantitativeServiceByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeServiceByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_service where parentId = #{id}
     </select>
 
@@ -495,7 +506,8 @@
     </insert>
 
     <!-- 获取稽查纪律 -->
-    <select id="getQuantitativeDisciplineByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
+    <select id="getQuantitativeDisciplineByParentId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentScoreSheet">
         select * from i6rlc_quantitative_discipline where parentId = #{id}
     </select>
 

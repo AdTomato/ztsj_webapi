@@ -14,13 +14,15 @@
     </insert>
 
     <!-- 打分结果获取当前部门的每个打分项 -->
-    <select id="getADComprehensiveAssessmentByParentId" resultType="com.authine.cloudpivot.web.api.bean.ADComprehensiveAssessment">
+    <select id="getADComprehensiveAssessmentByParentId"
+            resultType="com.authine.cloudpivot.web.api.bean.ADComprehensiveAssessment">
         SELECT * FROM i6rlc_da_comprehensive_assessment WHERE parentId=#{parentId}
     </select>
 
     <!-- 计算机关部门年度考核结果 -->
     <select id="getAssessmentDetailResultScore" resultType="Double">
-        SELECT AVG(score) FROM i6rlc_assessment_detail WHERE deartment_assessment=#{deartmentAssessment} AND assessment_project=#{assessmentProject}
+        SELECT AVG(score) FROM i6rlc_assessment_detail WHERE deartment_assessment=#{deartmentAssessment} AND
+        assessment_project=#{assessmentProject}
     </select>
 
     <!-- 将结果更新到打分表中 -->
@@ -54,7 +56,8 @@
     </update>
 
     <!-- 获取机关部门考核打分表 -->
-    <select id="getDepartmentAssessmentById" parameterType="String" resultType="com.authine.cloudpivot.web.api.bean.DepartmentAssessment">
+    <select id="getDepartmentAssessmentById" parameterType="String"
+            resultType="com.authine.cloudpivot.web.api.bean.DepartmentAssessment">
         SELECT * FROM i6rlc_DepartmentAssessment WHERE id=#{id}
     </select>
 
@@ -64,21 +67,27 @@
     </select>
 
     <!-- 根据年度考核汇总表的id以及部门来获取汇总明细 -->
-    <select id="getAssessmentDetailByParentIdAndDepartment" resultType="com.authine.cloudpivot.web.api.bean.AssessmentSummaryDetail">
+    <select id="getAssessmentDetailByParentIdAndDepartment"
+            resultType="com.authine.cloudpivot.web.api.bean.AssessmentSummaryDetail">
         SELECT * FROM i6rlc_annua_evaluation WHERE department=#{department} AND parentId=#{parentId}
     </select>
 
     <!-- 根据年度考核汇总表的id值来更新年度考核汇总表 -->
     <update id="updateAssessmentDetailById" parameterType="com.authine.cloudpivot.web.api.bean.AssessmentSummaryDetail">
-        UPDATE i6rlc_annua_evaluation SET first_quarter=#{firstQuarter}, second_quarter=#{secondQuarter}, third_quarter=#{thirdQuarter}, four_quarter=#{fourQuarter}, annual_evaluation=#{annualEvaluation}, annual_score=#{annualScore} WHERE id=#{id}
+        UPDATE i6rlc_annua_evaluation SET first_quarter=#{firstQuarter}, second_quarter=#{secondQuarter},
+        third_quarter=#{thirdQuarter}, four_quarter=#{fourQuarter}, annual_evaluation=#{annualEvaluation},
+        annual_score=#{annualScore} WHERE id=#{id}
     </update>
 
     <!-- 新增年度考核汇总表明细 -->
-    <insert id="insertAssessmentSummaryDetail" parameterType="com.authine.cloudpivot.web.api.bean.AssessmentSummaryDetail">
+    <insert id="insertAssessmentSummaryDetail"
+            parameterType="com.authine.cloudpivot.web.api.bean.AssessmentSummaryDetail">
         INSERT INTO i6rlc_annua_evaluation
-        (id, parentId, department, first_quarter, second_quarter, third_quarter, four_quarter, annual_evaluation, annual_score)
+        (id, parentId, department, first_quarter, second_quarter, third_quarter, four_quarter, annual_evaluation,
+        annual_score)
         VALUES
-        (#{id}, #{parentId}, #{department}, #{firstQuarter}, #{secondQuarter}, #{thirdQuarter}, #{fourQuarter}, #{annualEvaluation}, #{annualScore})
+        (#{id}, #{parentId}, #{department}, #{firstQuarter}, #{secondQuarter}, #{thirdQuarter}, #{fourQuarter},
+        #{annualEvaluation}, #{annualScore})
     </insert>
 
     <!-- 查看当前userId是否已经创建过考核明细了 -->

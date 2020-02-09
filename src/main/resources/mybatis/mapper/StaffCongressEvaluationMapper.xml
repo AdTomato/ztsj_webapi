@@ -12,7 +12,8 @@
     </select>
 
     <!-- 获取发起职代会测评表中主表的所有信息 -->
-    <select id="getStaffCongressEvaluationInfo" resultType="com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation">
+    <select id="getStaffCongressEvaluationInfo"
+            resultType="com.authine.cloudpivot.web.api.bean.StaffCongressEvaluation">
         select * from i6rlc_StartAssessmentCongress where id = #{id}
     </select>
 
@@ -29,13 +30,15 @@
     <!-- 民主测评表信息 -->
 
     <!-- 获取所有的发起职代会测评表中的民主测评表信息 -->
-    <select id="getAllAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.Appraisal">
+    <select id="getAllAppraisalData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.Appraisal">
         select * from i6rlc_ACAppraisal where parentId = #{id}
     </select>
 
     <!-- 更新发起职代会测评表中的民主测评表 -->
     <update id="updateAppraisalData" parameterType="com.authine.cloudpivot.web.api.bean.Appraisal">
-        update i6rlc_ACAppraisal set excellentPoll=#{excellentPoll}, competentPoll=#{competentPoll}, basicCompetentPoll=#{basicCompetentPoll}, notCompetentPoll=#{notCompetentPoll} where id=#{id}
+        update i6rlc_ACAppraisal set excellentPoll=#{excellentPoll}, competentPoll=#{competentPoll},
+        basicCompetentPoll=#{basicCompetentPoll}, notCompetentPoll=#{notCompetentPoll} where id=#{id}
     </update>
 
     <!-- 更新发起职代会测评表中的民主测评表 -->
@@ -81,14 +84,16 @@
     </update>
 
     <!-- 获取职代会测评表中的所有的民主测评表信息 -->
-    <select id="getAllDemocraticAppraisalByPId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DemocraticAppraisal">
+    <select id="getAllDemocraticAppraisalByPId" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.DemocraticAppraisal">
         select * from i6rlc_ACDemocraticAppraisal where p_id = #{id}
     </select>
 
     <!-- “四好”领导班子评价表 -->
 
     <!-- 获取所有的发起职代会测评表中的“四好”领导班子评价表 -->
-    <select id="getAllSACLeadBodyEvaluateData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SACLeadBodyEvaluate">
+    <select id="getAllSACLeadBodyEvaluateData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SACLeadBodyEvaluate">
         select * from i6rlc_SACLeadBodyEvaluate where parentId = #{id}
     </select>
 
@@ -109,16 +114,18 @@
             id = #{item.id}
         </foreach>
     </update>
-    
+
     <!-- 获取所有的职代会测评表中的“四好”领导班子评价表 -->
-    <select id="getAllACLeadBodyEvaluateData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACLeadBodyEvaluate">
+    <select id="getAllACLeadBodyEvaluateData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ACLeadBodyEvaluate">
         select * from i6rlc_ACLeadBodyEvaluate where p_Id = #{id}
     </select>
 
     <!-- 领导班子民主测评表 -->
 
     <!-- 获取所有的发起职代会测评表中的领导班子民主测评表 -->
-    <select id="getAllSACLeaderBodyAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SACLeaderBodyAppraisal">
+    <select id="getAllSACLeaderBodyAppraisalData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SACLeaderBodyAppraisal">
         select * from i6rlc_SACLeaderBodyAppraisal where parentId = #{id}
     </select>
 
@@ -165,14 +172,16 @@
     </update>
 
     <!-- 获取所有的职代会测评表中的领导班子民主测评表 -->
-    <select id="getAllACLeaderBodyAppraisalData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACLeaderBodyAppraisal">
+    <select id="getAllACLeaderBodyAppraisalData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ACLeaderBodyAppraisal">
         select * from i6rlc_ACLeaderBodyAppraisal where p_id=#{id}
     </select>
 
     <!-- 领导班子党风廉政建设情况测评表 -->
-    
+
     <!-- 获取所有的发起职代会测评表中的领导班子党风廉政建设情况测评表 -->
-    <select id="getAllASCHonestEvaluationFormData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ASCHonestEvaluationForm">
+    <select id="getAllASCHonestEvaluationFormData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ASCHonestEvaluationForm">
         select * from i6rlc_ASCHonestEvaluationForm where parentId = #{id}
     </select>
 
@@ -226,15 +235,17 @@
     </update>
 
     <!-- 获取所有的职代会测评表中的领导班子党风廉政建设情况测评表 -->
-    <select id="getAllACHonestEvaluationFormData" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm">
+    <select id="getAllACHonestEvaluationFormData" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ACHonestEvaluationForm">
         select * from i6rlc_ACHonestEvaluationForm where p_id = #{id}
     </select>
 
 
     <!-- 中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
-    
+
     <!-- 获取所有的发起职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
-    <select id="getAllSACautonomicEvaluationForm" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SACautonomicEvaluationForm">
+    <select id="getAllSACautonomicEvaluationForm" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.SACautonomicEvaluationForm">
         select * from i6rlc_ACautonomicEvaluationForm where parentId = #{id}
     </select>
 
@@ -289,7 +300,8 @@
     </update>
 
     <!-- 获取所有的职代会测评中的中铁四局领导人员落实党风廉政建设责任制和廉洁自律情况测评表 -->
-    <select id="getAllACautonomicEvaluationForm" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ACautonomicEvaluationForm">
+    <select id="getAllACautonomicEvaluationForm" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ACautonomicEvaluationForm">
         select * from i6rlc_autonomicEvaluationForm where p_id=#{id}
     </select>
 

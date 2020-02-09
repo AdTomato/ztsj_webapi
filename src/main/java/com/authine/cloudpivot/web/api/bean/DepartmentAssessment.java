@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class DepartmentAssessment extends BaseBean{
+public class DepartmentAssessment extends BaseBean {
 
     private String assessedDepartment;
     private String assessedContent;

@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.AssessmentResultMapper">
-    <select id="isHaveAssessmentResult" resultType="java.lang.String" parameterType="com.authine.cloudpivot.web.api.bean.AssessmentResult">
-        select id from i4l46_AssessmentResult where p_id = #{pId} and leadershipPerson = #{leadershipPerson} and assess_content = #{assessContent}
+    <select id="isHaveAssessmentResult" resultType="java.lang.String"
+            parameterType="com.authine.cloudpivot.web.api.bean.AssessmentResult">
+        select id from i4l46_AssessmentResult where p_id = #{pId} and leadershipPerson = #{leadershipPerson} and
+        assess_content = #{assessContent}
     </select>
 
     <update id="updateAssessmentResult" parameterType="java.util.List">

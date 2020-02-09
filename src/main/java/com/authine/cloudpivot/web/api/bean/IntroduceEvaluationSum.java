@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description:
  */
 @Data
-public class IntroduceEvaluationSum extends BaseBean{
+public class IntroduceEvaluationSum extends BaseBean {
 
     private String userName;
     private Integer age;

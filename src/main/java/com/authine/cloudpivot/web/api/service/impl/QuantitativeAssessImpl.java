@@ -18,10 +18,10 @@ public class QuantitativeAssessImpl implements IQuantitativeAssessService {
     QuantitativeAssessMapper quantitativeAssessMapper;
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/8 11:41
      * @param qaJudgesList : 评委列表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2020/1/8 11:41
      * @Description: 创建定量考核里面的存储评委的子表
      */
     @Override

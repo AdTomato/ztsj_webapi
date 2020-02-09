@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 import java.math.BigDecimal;
+
 @Data
 public class LackPersonnelapplyinfo {
-    private String id ;
+    private String id;
     private String applyId;
     private BigDecimal mainduty_learning;
     private BigDecimal mainduty_pro;

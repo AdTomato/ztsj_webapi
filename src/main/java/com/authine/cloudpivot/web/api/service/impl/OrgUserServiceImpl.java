@@ -20,7 +20,7 @@ public class OrgUserServiceImpl implements IOrgUserService {
         return orgUserMapper.getOrgUserByMobile(mobile);
     }
 
-//    @Cacheable(cacheNames = {"orgUser"}, key = "#id")
+    //    @Cacheable(cacheNames = {"orgUser"}, key = "#id")
     @Override
     public OrgUser getOrgUserById(String id) {
         return orgUserMapper.getOrgUserById(id);

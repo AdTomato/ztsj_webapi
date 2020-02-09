@@ -178,15 +178,15 @@ public class QuantitativeAssessController extends BaseController {
         String id = saveQuantitativeAssessDetail.getId();
 
         setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeSafeManage(), id, Points.SAFE);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeQualityManage(), id,Points.QUALITY);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeScManage(), id,Points.SC);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeSkillManage(), id,Points.SKILL);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeEngineManag(), id,Points.ENGINE);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeCreditEvaluat(), id,Points.CREDIT);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeProblem(), id,Points.PROBLEM);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeControl(), id,Points.CONTROL);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeService(), id,Points.SERVICE);
-        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeDiscipline(), id,Points.DISCIPLINE);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeQualityManage(), id, Points.QUALITY);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeScManage(), id, Points.SC);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeSkillManage(), id, Points.SKILL);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeEngineManag(), id, Points.ENGINE);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeCreditEvaluat(), id, Points.CREDIT);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeProblem(), id, Points.PROBLEM);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeControl(), id, Points.CONTROL);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeService(), id, Points.SERVICE);
+        setAssessDetail(models, saveQuantitativeAssessDetail.getQuantitativeDiscipline(), id, Points.DISCIPLINE);
 
         // 批量创建明细
         bizObjectFacade.addBizObjects(userId, models, "id");
@@ -290,16 +290,36 @@ public class QuantitativeAssessController extends BaseController {
             Double s = score.get(key);
             finalScore += s;
             switch (key) {
-                case Points.SAFE: quantitativeAssess.setSafeDeductionScore(s);break;
-                case Points.QUALITY: quantitativeAssess.setQualityDeductionScore(s);break;
-                case Points.SC: quantitativeAssess.setScDeductionScore(s);break;
-                case Points.SKILL: quantitativeAssess.setSkillDeductionScore(s);break;
-                case Points.ENGINE: quantitativeAssess.setEnginDeductionScore(s);break;
-                case Points.CREDIT: quantitativeAssess.setCreditDeductionScore(s);break;
-                case Points.PROBLEM: quantitativeAssess.setProblemDeductionScore(s);break;
-                case Points.CONTROL: quantitativeAssess.setControlDeductionScore(s);break;
-                case Points.SERVICE: quantitativeAssess.setServiceDeductionScore(s);break;
-                case Points.DISCIPLINE: quantitativeAssess.setDisciplineDeductionScore(s);break;
+                case Points.SAFE:
+                    quantitativeAssess.setSafeDeductionScore(s);
+                    break;
+                case Points.QUALITY:
+                    quantitativeAssess.setQualityDeductionScore(s);
+                    break;
+                case Points.SC:
+                    quantitativeAssess.setScDeductionScore(s);
+                    break;
+                case Points.SKILL:
+                    quantitativeAssess.setSkillDeductionScore(s);
+                    break;
+                case Points.ENGINE:
+                    quantitativeAssess.setEnginDeductionScore(s);
+                    break;
+                case Points.CREDIT:
+                    quantitativeAssess.setCreditDeductionScore(s);
+                    break;
+                case Points.PROBLEM:
+                    quantitativeAssess.setProblemDeductionScore(s);
+                    break;
+                case Points.CONTROL:
+                    quantitativeAssess.setControlDeductionScore(s);
+                    break;
+                case Points.SERVICE:
+                    quantitativeAssess.setServiceDeductionScore(s);
+                    break;
+                case Points.DISCIPLINE:
+                    quantitativeAssess.setDisciplineDeductionScore(s);
+                    break;
             }
         }
 
@@ -356,19 +376,19 @@ public class QuantitativeAssessController extends BaseController {
     }
 
     /**
+     * @param models                   : 储存明细列表
+     * @param assessmentScoreSheetList : 打分明细
+     * @param id                       : 定量考核id
+     * @param content                  : 考核主体
+     * @return : void
      * @Author: wangyong
      * @Date: 2020/1/9 0:35
-     * @param models : 储存明细列表
-     * @param assessmentScoreSheetList : 打分明细
-     * @param id : 定量考核id
-     * @param content : 考核主体
-     * @return : void
      * @Description: 用于生成定量考核明细
      */
     private void setAssessDetail(List<BizObjectModel> models, List<AssessmentScoreSheet> assessmentScoreSheetList, String id, String content) {
         if (null != assessmentScoreSheetList && 0 != assessmentScoreSheetList.size()) {
-            for (AssessmentScoreSheet assessmentScoreSheet:
-                 assessmentScoreSheetList) {
+            for (AssessmentScoreSheet assessmentScoreSheet :
+                    assessmentScoreSheetList) {
                 if (0 != checkDoubleIsNull(assessmentScoreSheet.getDeduction())) {
                     BizObjectModel model = new BizObjectModel();
                     model.setSchemaCode(QUANTITATIVE_ASSESS_DETAIL);
@@ -387,18 +407,18 @@ public class QuantitativeAssessController extends BaseController {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/9 15:06
-     * @param map : 用于存储明细定量考核明细的集合
+     * @param map  : 用于存储明细定量考核明细的集合
      * @param list : 定量考核明细
      * @return : void
+     * @Author: wangyong
+     * @Date: 2020/1/9 15:06
      * @Description: 用于设置定量考核集合
      */
     private void setQuantitativeAssessDetail(Map map, List<AssessmentScoreSheet> list) {
 
         if (null != list && 0 != list.size()) {
-            for (AssessmentScoreSheet assessmentScoreSheet:
-                 list) {
+            for (AssessmentScoreSheet assessmentScoreSheet :
+                    list) {
                 assessmentScoreSheet.setDeduction(0D);
                 assessmentScoreSheet.setDeductionReason("");
                 map.put(assessmentScoreSheet.getId(), assessmentScoreSheet);
@@ -407,10 +427,10 @@ public class QuantitativeAssessController extends BaseController {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/13 14:57
      * @param d : 所需判断的double类型
      * @return : java.lang.Double
+     * @Author: wangyong
+     * @Date: 2020/1/13 14:57
      * @Description: 判断double是否是null
      */
     private Double checkDoubleIsNull(Double d) {

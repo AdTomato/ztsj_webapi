@@ -45,7 +45,7 @@ public class EdWorkExperience {
     /**
      * 职务
      */
-    private  String duty;
+    private String duty;
 
     /**
      * 排序字段

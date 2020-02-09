@@ -107,8 +107,8 @@ public class QualitativeAssessController extends BaseController {
 
         List<QualitativeAssessDetail> qualitativeAssessDetailList = saveQualitativeAssessDetail.getQualitativeAssessDetails();
         List<BizObjectModel> models = new ArrayList<>();
-        for (QualitativeAssessDetail qualitativeAssessDetail:
-             qualitativeAssessDetailList) {
+        for (QualitativeAssessDetail qualitativeAssessDetail :
+                qualitativeAssessDetailList) {
             BizObjectModel model = new BizObjectModel();
             model.setSchemaCode(QUALITATIVE_ASSESS_DETAIL);
             model.setSequenceStatus(Points.COMPLETED);
@@ -187,7 +187,8 @@ public class QualitativeAssessController extends BaseController {
                 controlGroupDetail.setContent1Score(0D);
                 controlGroupDetail.setContent2Score(0D);
                 controlGroupDetail.setContent3Score(0D);
-                controlGroupDetail.setContent4Score(finalScore); break;
+                controlGroupDetail.setContent4Score(finalScore);
+                break;
         }
 
         iControlGroupAssessment.calculateControlGroupAssessmentScore(qualitativeAssess.getAnnual(), userId, bizObjectFacade, controlGroupDetail);

@@ -142,10 +142,10 @@ public class OrgUserController extends BaseController {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/15 23:38
      * @param orgUser : 前端传过来的用户信息
      * @return : com.authine.cloudpivot.engine.api.model.organization.UserModel
+     * @Author: wangyong
+     * @Date: 2020/1/15 23:38
      * @Description: 将前端传过来的用户信息封装成UserModel
      */
     private UserModel setUserModel(OrgUser orgUser) {

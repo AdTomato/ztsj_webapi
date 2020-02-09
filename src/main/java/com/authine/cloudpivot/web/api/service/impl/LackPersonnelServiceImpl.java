@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+
 @Service
 public class LackPersonnelServiceImpl implements LackPersonnelService {
     @Resource
     private LackPersonnelMapper lackPersonnelMapper;
+
     @Override
     public List<LackPersonnelInfo> findLackPersonnelList(LackPersonnelAssessInfo lackPersonnelAssessInfo) {
         return lackPersonnelMapper.findLackPersonnelList(lackPersonnelAssessInfo);
@@ -40,7 +42,7 @@ public class LackPersonnelServiceImpl implements LackPersonnelService {
     }
 
     @Override
-    public void updateFinalscore(Double result,String applyId) {
-        lackPersonnelMapper.updateFinalscore(result,applyId);
+    public void updateFinalscore(Double result, String applyId) {
+        lackPersonnelMapper.updateFinalscore(result, applyId);
     }
 }

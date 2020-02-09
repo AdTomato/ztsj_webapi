@@ -110,6 +110,4 @@ public class ControlGroupAssessmentImpl implements IControlGroupAssessment {
     }
 
 
-
-
 }

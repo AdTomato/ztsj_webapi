@@ -15,6 +15,7 @@ public interface ControlGroupAssessmentMapper {
     String getControlGroupAssessmentIdByAnnual(String annual);
 
     void insertControlGroupDetails(List<ControlGroupDetail> controlGroupDetailList);
+
     void insertControlGroupDetail(ControlGroupDetail controlGroupDetail);
 
     void getControlGroupDetailById(String id);

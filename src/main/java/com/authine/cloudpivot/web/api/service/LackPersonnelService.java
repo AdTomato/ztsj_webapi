@@ -13,7 +13,7 @@ public interface LackPersonnelService {
 
     void countscore(LackPersonnelapplyinfo lackPersonnelapplyInfo);
 
-    FinalTotalResult  countfinalscore(LackPersonnelapplyinfo lackPersonnelapplyInfo);
+    FinalTotalResult countfinalscore(LackPersonnelapplyinfo lackPersonnelapplyInfo);
 
-    void updateFinalscore(Double result,String applyId);
+    void updateFinalscore(Double result, String applyId);
 }

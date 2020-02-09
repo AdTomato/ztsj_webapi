@@ -21,14 +21,14 @@ public class SendEmailUtils {
     private static JavaMailSenderImpl javaMailSender;
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/19 0:48
-     * @param subject : 邮件标题
-     * @param text : 邮件内容(支持html)
-     * @param to : 发件人
-     * @param from : 收件人
+     * @param subject        : 邮件标题
+     * @param text           : 邮件内容(支持html)
+     * @param to             : 发件人
+     * @param from           : 收件人
      * @param attachmentList : 附件对象
      * @return : boolean true 发送成功 false 发送失败
+     * @Author: wangyong
+     * @Date: 2020/1/19 0:48
      * @Description: 发送邮件
      */
     public static boolean sendEmail(String subject, String text, String to, String from, List<HBizAttachment> attachmentList) {

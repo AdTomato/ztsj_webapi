@@ -8,7 +8,8 @@
     <!--根据条件获取符合条件的全部专家信息-->
     <select id="getExpertsDeclareInfo" parameterType="com.authine.cloudpivot.web.api.bean.ExpertsInfo"
             resultType="com.authine.cloudpivot.web.api.bean.ExpertsSelectResult">
-        select * from itsfr_ExpertsDeclare where annual = #{annual} and expertsDeclareRank = #{expertsDeclareRank} and declareDept =#{declareDept}
+        select * from itsfr_ExpertsDeclare where annual = #{annual} and expertsDeclareRank = #{expertsDeclareRank} and
+        declareDept =#{declareDept}
     </select>
 
     <!--清空每个专家的表决结果-->
@@ -78,20 +79,27 @@
     </update>
 
     <!--通过专家的姓名的单位查询一览表的专家信息-->
-    <select id="findExpertsFromInfoList" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.ExpertsInfoList">
+    <select id="findExpertsFromInfoList" parameterType="java.util.Map"
+            resultType="com.authine.cloudpivot.web.api.bean.ExpertsInfoList">
         select * from itsfr_expertsinfolist where userName = #{userName} and unit = #{unit}
-  </select>
+    </select>
 
     <!--通过专家的姓名的单位查询专家申报表的专家信息-->
-    <select id="findExpertsFromExpertDeclare" parameterType="map" resultType="com.authine.cloudpivot.web.api.bean.ExpertDeclareInfo">
-        select id,expertsDeclareName,expertsDeclareOrganization,gender,dateOfBirth,technicalPosts,positionalTitles,firstEducation,graduationSchool,
- firstMajor,officialAcademicCredentials,schoolOfGraduation,highestMajor,nowMajorIn,keyPerformance,annual,declareDept,expertsDeclareRank from itsfr_ExpertsDeclare where expertsDeclareName = #{expertDeclareName} and expertsDeclareOrganization = #{expertsDeclareOrganization}
+    <select id="findExpertsFromExpertDeclare" parameterType="map"
+            resultType="com.authine.cloudpivot.web.api.bean.ExpertDeclareInfo">
+        select
+        id,expertsDeclareName,expertsDeclareOrganization,gender,dateOfBirth,technicalPosts,positionalTitles,firstEducation,graduationSchool,
+        firstMajor,officialAcademicCredentials,schoolOfGraduation,highestMajor,nowMajorIn,keyPerformance,annual,declareDept,expertsDeclareRank
+        from itsfr_ExpertsDeclare where expertsDeclareName = #{expertDeclareName} and expertsDeclareOrganization =
+        #{expertsDeclareOrganization}
 
     </select>
 
     <!--通过专家id获取专家的参评条件-->
-    <select id="getConditionsParticipations" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.ConditionsParticipations">
-        select projectsAndEffect,reviewOpinions,unitsOrDeptOpinion from itsfr_conditionsParticipations where parentId = #{parentId}
+    <select id="getConditionsParticipations" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.ConditionsParticipations">
+        select projectsAndEffect,reviewOpinions,unitsOrDeptOpinion from itsfr_conditionsParticipations where parentId =
+        #{parentId}
     </select>
 
     <!--将参评条件插入一览表-->

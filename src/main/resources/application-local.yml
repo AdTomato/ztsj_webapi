@@ -7,7 +7,7 @@ server:
 spring:
   #redis
   redis:
-#    host: 120.79.187.180  #地址
+    #    host: 120.79.187.180  #地址
     host: 127.0.0.1
     database: 1         #
     password: H3yuncom  #密码
@@ -17,10 +17,10 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://10.7.11.35:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
+    #    url: jdbc:mysql://10.7.11.35:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     url: jdbc:mysql://127.0.0.1:3306/cloudpivot?serverTimezone=Asia/Shanghai&characterEncoding=utf8
     username: root
-#    password: Rlzyb_1910
+    #    password: Rlzyb_1910
     password: Wy_123456
     hikari:
       maximum-pool-size: 30                #根据系统并发用户数
@@ -51,7 +51,7 @@ logging:
 dubbo:
   registry:
     protocol: zookeeper
-#    address: 120.79.187.180  #服务注册地址
+    #    address: 120.79.187.180  #服务注册地址
     address: 127.0.0.1
     port: 2181          #端口
     timeout: 3000       #超时时间

@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description：EvaluatingCadres 新选拔干部民主评议表
  */
 @Data
-public class EvaluatingCadres extends BaseBean{
+public class EvaluatingCadres extends BaseBean {
     /**
      * 测评单位
      */

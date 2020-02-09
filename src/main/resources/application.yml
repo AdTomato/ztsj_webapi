@@ -18,10 +18,10 @@ server:
 spring:
   application:
     name: cloudpivot-web-api
-#  boot:
-#    admin:
-#      client:
-#        url: http://127.0.0.1:9999
+  #  boot:
+  #    admin:
+  #      client:
+  #        url: http://127.0.0.1:9999
   main:
     allow-bean-definition-overriding: true
   profiles:
@@ -120,7 +120,7 @@ cloudpivot:
       #ftppassword:  #密码 如：123456
       #ftppath:      #ftp存放地址 如./ftp  .表示当前路径，不配置表示默认当前路径
   convert:
-      html2pdf: flyingsaucer #HTML转PDF，两种方式phantomjs 和 flyingsaucer
+    html2pdf: flyingsaucer #HTML转PDF，两种方式phantomjs 和 flyingsaucer
   api:
     oauth:
       enabled: true   # 是否开启权限校验

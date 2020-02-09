@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description: 局机关部门年度考核得分汇总表明细
  */
 @Data
-public class AssessmentSummaryDetail{
+public class AssessmentSummaryDetail {
 
     private String id;
     private String parentId;

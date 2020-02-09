@@ -11,11 +11,11 @@ import java.text.NumberFormat;
 public class DoubleUtils {
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/10 16:31
-     * @param d : 需要四舍五入的数值
+     * @param d     : 需要四舍五入的数值
      * @param digit : 保留小数点后的位数
      * @return : java.lang.Double
+     * @Author: wangyong
+     * @Date: 2020/1/10 16:31
      * @Description: 四舍五入
      */
     public static Double doubleRound(Double d, Integer digit) {
@@ -32,10 +32,10 @@ public class DoubleUtils {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/18 20:57
      * @param d : 需要转换的double
      * @return : java.lang.Double
+     * @Author: wangyong
+     * @Date: 2020/1/18 20:57
      * @Description: 将null转换成0
      */
     public static Double nullToDouble(Double d) {

@@ -31,10 +31,10 @@ public class DemocraticEvaluationController extends BaseController {
     IDemocraticEvaluation democraticEvaluation;
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/5 15:18
      * @param id : 发起民主评议表的id值
      * @return : com.authine.cloudpivot.web.api.view.ResponseResult<java.lang.Void>
+     * @Author: wangyong
+     * @Date: 2020/1/5 15:18
      * @Description: 计算民主评议表结果
      */
     @GetMapping("/calculateResult")
@@ -57,31 +57,63 @@ public class DemocraticEvaluationController extends BaseController {
             for (DemocraticEvaluation d :
                     dList) {
                 switch (d.getGeneralEvaluation()) {
-                    case Points.SATISFIED_POINT: sd.setGSatisfiedPoll(sd.getGSatisfiedPoll() + 1); break;
-                    case Points.BASIC_SATISFIED_POINT: sd.setGBasicSatisfiedPoll(sd.getGBasicSatisfiedPoll() + 1); break;
-                    case Points.NO_SATISFIED_POINT: sd.setGNoSatisfiedPoll(sd.getGNoSatisfiedPoll() + 1); break;
-                    case Points.NO_UNDERSTAND_POINT: sd.setGNoUnderstandPoll(sd.getGNoUnderstandPoll() + 1); break;
+                    case Points.SATISFIED_POINT:
+                        sd.setGSatisfiedPoll(sd.getGSatisfiedPoll() + 1);
+                        break;
+                    case Points.BASIC_SATISFIED_POINT:
+                        sd.setGBasicSatisfiedPoll(sd.getGBasicSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_SATISFIED_POINT:
+                        sd.setGNoSatisfiedPoll(sd.getGNoSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_UNDERSTAND_POINT:
+                        sd.setGNoUnderstandPoll(sd.getGNoUnderstandPoll() + 1);
+                        break;
                 }
 
                 switch (d.getRegulationLawsOpinion()) {
-                    case Points.SATISFIED_POINT: sd.setRSatisfiedPoll(sd.getRSatisfiedPoll() + 1); break;
-                    case Points.BASIC_SATISFIED_POINT: sd.setRBasicSatisfiedPoll(sd.getRBasicSatisfiedPoll() + 1); break;
-                    case Points.NO_SATISFIED_POINT: sd.setRNoSatisfiedPoll(sd.getRNoSatisfiedPoll() + 1); break;
-                    case Points.NO_UNDERSTAND_POINT: sd.setRNoUnderstandPoll(sd.getRNoUnderstandPoll() + 1); break;
+                    case Points.SATISFIED_POINT:
+                        sd.setRSatisfiedPoll(sd.getRSatisfiedPoll() + 1);
+                        break;
+                    case Points.BASIC_SATISFIED_POINT:
+                        sd.setRBasicSatisfiedPoll(sd.getRBasicSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_SATISFIED_POINT:
+                        sd.setRNoSatisfiedPoll(sd.getRNoSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_UNDERSTAND_POINT:
+                        sd.setRNoUnderstandPoll(sd.getRNoUnderstandPoll() + 1);
+                        break;
                 }
 
                 switch (d.getBadPractiveOpinion()) {
-                    case Points.SATISFIED_POINT: sd.setBSatisfiedPoll(sd.getBSatisfiedPoll() + 1); break;
-                    case Points.BASIC_SATISFIED_POINT: sd.setBBasicSatisfiedPoll(sd.getBBasicSatisfiedPoll() + 1); break;
-                    case Points.NO_SATISFIED_POINT: sd.setBNoSatisfiedPoll(sd.getBNoSatisfiedPoll() + 1); break;
-                    case Points.NO_UNDERSTAND_POINT: sd.setBNoUnderstandPoll(sd.getBNoUnderstandPoll() + 1); break;
+                    case Points.SATISFIED_POINT:
+                        sd.setBSatisfiedPoll(sd.getBSatisfiedPoll() + 1);
+                        break;
+                    case Points.BASIC_SATISFIED_POINT:
+                        sd.setBBasicSatisfiedPoll(sd.getBBasicSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_SATISFIED_POINT:
+                        sd.setBNoSatisfiedPoll(sd.getBNoSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_UNDERSTAND_POINT:
+                        sd.setBNoUnderstandPoll(sd.getBNoUnderstandPoll() + 1);
+                        break;
                 }
 
                 switch (d.getInstitutionalReformOpinion()) {
-                    case Points.SATISFIED_POINT: sd.setISatisfiedPoll(sd.getISatisfiedPoll() + 1); break;
-                    case Points.BASIC_SATISFIED_POINT: sd.setIBasicSatisfiedPoll(sd.getIBasicSatisfiedPoll() + 1); break;
-                    case Points.NO_SATISFIED_POINT: sd.setINoSatisfiedPoll(sd.getINoSatisfiedPoll() + 1); break;
-                    case Points.NO_UNDERSTAND_POINT: sd.setINoUnderstandPoll(sd.getINoUnderstandPoll() + 1); break;
+                    case Points.SATISFIED_POINT:
+                        sd.setISatisfiedPoll(sd.getISatisfiedPoll() + 1);
+                        break;
+                    case Points.BASIC_SATISFIED_POINT:
+                        sd.setIBasicSatisfiedPoll(sd.getIBasicSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_SATISFIED_POINT:
+                        sd.setINoSatisfiedPoll(sd.getINoSatisfiedPoll() + 1);
+                        break;
+                    case Points.NO_UNDERSTAND_POINT:
+                        sd.setINoUnderstandPoll(sd.getINoUnderstandPoll() + 1);
+                        break;
                 }
 
                 if (d.getProminentProblem().contains(Points.NO_STRICT_POINT)) {
@@ -129,10 +161,10 @@ public class DemocraticEvaluationController extends BaseController {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/5 13:59
      * @param sd : 发起民主评议表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2020/1/5 13:59
      * @Description: 初始化发起民主评议表
      */
     private void init(SDemocraticEvaluation sd) {

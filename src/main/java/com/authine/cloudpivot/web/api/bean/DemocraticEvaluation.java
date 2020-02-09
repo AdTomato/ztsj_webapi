@@ -11,7 +11,7 @@ import java.util.List;
  * @Description: 选人用人工作民主评议表
  */
 @Data
-public class DemocraticEvaluation extends BaseBean{
+public class DemocraticEvaluation extends BaseBean {
 
     /**
      * 单位

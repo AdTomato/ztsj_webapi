@@ -27,7 +27,7 @@ public class SeasonAssessServiceImpl implements SeasonAssessService {
 
     @Override
     public int resetScore(String depteffectIds) {
-       return seasonAssessMapper.resetScore(depteffectIds);
+        return seasonAssessMapper.resetScore(depteffectIds);
     }
 
     @Override

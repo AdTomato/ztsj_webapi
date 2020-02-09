@@ -74,6 +74,7 @@ public class LackPersonnelController extends BaseController {
 
     /**
      * 计算主责部门分数 然后更新
+     *
      * @param lackPersonnelapplyInfo
      * @return
      */
@@ -111,7 +112,7 @@ public class LackPersonnelController extends BaseController {
             double executivetotal = countfinalscore.getExecutiveTotal().doubleValue();
             double maindutytoal = countfinalscore.getMaindutyTotal().doubleValue();
             Double result = DoubleUtils.doubleRound(ann_train * 0.1 + depttotal * 0.45 + tutortotal * 0.15 + executivetotal * 0.15 + maindutytoal * 0.15, 2);
-            lackPersonnelService.updateFinalscore(result,applyId);
+            lackPersonnelService.updateFinalscore(result, applyId);
 
 
             return this.getOkResponseResult("success", "存储总分成功");

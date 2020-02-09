@@ -17,9 +17,10 @@ import java.util.List;
  * @since 2019-11-26
  */
 @Service
-public class LeadpersonServiceImpl  implements LeadpersonService {
+public class LeadpersonServiceImpl implements LeadpersonService {
     @Resource
     private LeadpersonMapper mapper;
+
     @Override
     public List<LeadPerson> getBydeptId(String deptId) {
         return mapper.getByDeptId(deptId);

@@ -17,17 +17,20 @@ public interface ExternalTalentIntroductiMapper {
 
     /**
      * 根据用户名称获取
+     *
      * @param userName
      * @return
      */
     public List<IntroduceEvaluation> getAllIntroduceEvaluationByUserName(String userName);
 
     public IntroduceEvaluationSum getIntroduceEvaluationSumByUserName(String userName);
+
     public void updateIntroduceEvaluationSum(IntroduceEvaluationSum introduceEvaluationSum);
 
     public List<InterviewCondition> getAllSEInterviewCondition(String userName);
 
     public List<InterviewCondition> getAllInterviewCondition(String userName);
+
     public void updateAllInterviewCondition(List<InterviewCondition> interviewConditionList);
 
     public List<String> weatherHaveIntroduceEvaluationSumByUserName(String userName);

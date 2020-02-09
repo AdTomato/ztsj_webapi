@@ -7,15 +7,17 @@
     <resultMap id="avgResult" type="com.authine.cloudpivot.web.api.bean.AvgScore">
         <id property="deptEffectId" column="dept_effect_id"/>
         <result property="score" column="AVG(basic_score)"/>
-</resultMap>
+    </resultMap>
     <resultMap id="totalResult" type="com.authine.cloudpivot.web.api.bean.TotalScore">
         <id property="deptEffectId" column="id"/>
         <result property="score" column="total_score"/>
         <result property="department" column="dept_name"/>
     </resultMap>
     <insert id="saveScore" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO dept_season_voteinfo(assessment_year,assessment_season,dept_name_id,basic_score,handle_score,workarea_deduct,officialcontent_deduct,handle_deduct,total_score,dept_effect_id,user_id,user_name,dept_name,parentid) values
-        <foreach collection="list" item="vote" index="index"  separator=",">
+        INSERT INTO
+        dept_season_voteinfo(assessment_year,assessment_season,dept_name_id,basic_score,handle_score,workarea_deduct,officialcontent_deduct,handle_deduct,total_score,dept_effect_id,user_id,user_name,dept_name,parentid)
+        values
+        <foreach collection="list" item="vote" index="index" separator=",">
             (#{vote.assessmentYear},#{vote.assessmentSeason},#{vote.deptNameId},#{vote.basicScore},#{vote.handleScore},#{vote.workareaDeduct},#{vote.officialcontentDeduct},#{vote.handleDeduct},#{vote.totalScore},#{vote.deptEffectId},#{vote.userId},#{vote.userName},#{vote.deptName},#{vote.parentId})
         </foreach>
     </insert>
@@ -26,7 +28,7 @@
     </update>
 
     <select id="countAvg" resultMap="avgResult">
-        select dept_effect_id,AVG(basic_score) from dept_season_voteinfo where parentid =#{id}  GROUP BY dept_name_id
+        select dept_effect_id,AVG(basic_score) from dept_season_voteinfo where parentid =#{id} GROUP BY dept_name_id
     </select>
 
 
@@ -35,7 +37,8 @@
     </update>
 
     <select id="countTotal" resultMap="totalResult">
-        select id,basic_score*0.8+handle_score*0.2-workarea_deduct-officialcontent_deduct-handle_deduct as total_score, dept_name FROM (select * FROM i6rlc_dept_effect where parentId = #{id}) b
+        select id,basic_score*0.8+handle_score*0.2-workarea_deduct-officialcontent_deduct-handle_deduct as total_score,
+        dept_name FROM (select * FROM i6rlc_dept_effect where parentId = #{id}) b
     </select>
 
     <update id="updateTotalScore" parameterType="com.authine.cloudpivot.web.api.bean.TotalScore">
@@ -43,7 +46,7 @@
     </update>
 
     <select id="checkRepeat" resultType="java.lang.Integer">
-        select  count(*) from  dept_season_voteinfo WHERE parentid = #{seasonassessmentId} AND user_id = #{userId}
+        select count(*) from dept_season_voteinfo WHERE parentid = #{seasonassessmentId} AND user_id = #{userId}
     </select>
     <delete id="deleteWorkitemfinished">
         delete from biz_workitem_finished where instanceId = #{instanceid} and activityCode = 'Activity3'

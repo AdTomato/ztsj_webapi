@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class ExpertsResultDetail {
-//    private String eId;
+    //    private String eId;
     private String edDetail;
     private String edOpinionDetail;
     private String voteResult;

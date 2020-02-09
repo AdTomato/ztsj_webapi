@@ -11,7 +11,7 @@ import java.util.Date;
  */
 
 @Data
-public class ExpertsDeclare  extends BaseBean{
+public class ExpertsDeclare extends BaseBean {
 
     /**
      * 申报级别
@@ -24,7 +24,7 @@ public class ExpertsDeclare  extends BaseBean{
     private Integer agreePoll;
 
     /**
-     *弃权人数
+     * 弃权人数
      */
     private Integer waiverPoll;
 

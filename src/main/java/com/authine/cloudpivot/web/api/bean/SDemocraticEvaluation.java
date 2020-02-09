@@ -11,7 +11,7 @@ import java.util.Date;
  * @Description: 发起工作民主评议表
  */
 @Data
-public class SDemocraticEvaluation extends BaseBean{
+public class SDemocraticEvaluation extends BaseBean {
 
     /**
      * 单位

@@ -8,7 +8,7 @@ import lombok.Data;
  * @Description: 定性考核评分表
  */
 @Data
-public class QualitativeAssess extends BaseBean{
+public class QualitativeAssess extends BaseBean {
 
     private String assessee;
     private String assessmentContent;

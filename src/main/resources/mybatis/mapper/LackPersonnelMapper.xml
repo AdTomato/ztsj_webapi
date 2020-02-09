@@ -8,26 +8,37 @@
         <result property="applyId" column="id"/>
         <result property="nameIdType" column="name_idtype"/>
     </resultMap>
-<select id="findLackPersonnelList" resultMap="lackPersonnelInfoResult">
-    select a.id,a.name_idtype from
-    (select id ,name_idtype ,personnel_dept FROM i6rlc_lackpersonnelannassess where assessment_year = #{annual}) a
-    INNER JOIN
-    (select  name,id from i4l46_lackpersonnelbureauorgan where  id = #{dept}) b
-    ON a.personnel_dept = b.id
-</select>
+    <select id="findLackPersonnelList" resultMap="lackPersonnelInfoResult">
+        select a.id,a.name_idtype from
+        (select id ,name_idtype ,personnel_dept FROM i6rlc_lackpersonnelannassess where assessment_year = #{annual}) a
+        INNER JOIN
+        (select name,id from i4l46_lackpersonnelbureauorgan where id = #{dept}) b
+        ON a.personnel_dept = b.id
+    </select>
     <insert id="savescore" useGeneratedKeys="true" keyProperty="id">
-        insert into lackpersonnel_mainduty (applyid,userid,mainduty_learning,mainduty_pro,mainduty_post,mainduty_performduty,mainduty_total) values (#{applyId},#{userId},#{mainduty_learning},#{mainduty_pro},#{mainduty_post},#{mainduty_performduty},#{mainduty_total})
+        insert into lackpersonnel_mainduty
+        (applyid,userid,mainduty_learning,mainduty_pro,mainduty_post,mainduty_performduty,mainduty_total) values
+        (#{applyId},#{userId},#{mainduty_learning},#{mainduty_pro},#{mainduty_post},#{mainduty_performduty},#{mainduty_total})
     </insert>
     <update id="resetmaindutyscore">
-        UPDATE  i6rlc_lackpersonnelannassess set mainduty_learning = null ,mainduty_pro =null,mainduty_post=null,mainduty_performduty=null,mainduty_total=null where id = #{applyId}
+        UPDATE i6rlc_lackpersonnelannassess set mainduty_learning = null ,mainduty_pro
+        =null,mainduty_post=null,mainduty_performduty=null,mainduty_total=null where id = #{applyId}
     </update>
     <update id="countscore">
-        update i6rlc_lackpersonnelannassess la, (SELECT applyid,ROUND(AVG(mainduty_learning),2) avglearning,ROUND(AVG(mainduty_pro),2) avgpro,ROUND(AVG(mainduty_post),2) avgpost,ROUND(AVG(mainduty_performduty),2) avgperformduty,ROUND(AVG(mainduty_total),2) avgtotal from lackpersonnel_mainduty GROUP BY applyid HAVING applyid = #{applyId}) re set la.mainduty_learning = re.avglearning,la.mainduty_pro = re.avgpro,la.mainduty_post=re.avgpost,la.mainduty_performduty=re.avgperformduty,la.mainduty_total=re.avgtotal where la.id = re.applyid
+        update i6rlc_lackpersonnelannassess la, (SELECT applyid,ROUND(AVG(mainduty_learning),2)
+        avglearning,ROUND(AVG(mainduty_pro),2) avgpro,ROUND(AVG(mainduty_post),2)
+        avgpost,ROUND(AVG(mainduty_performduty),2) avgperformduty,ROUND(AVG(mainduty_total),2) avgtotal from
+        lackpersonnel_mainduty GROUP BY applyid HAVING applyid = #{applyId}) re set la.mainduty_learning =
+        re.avglearning,la.mainduty_pro =
+        re.avgpro,la.mainduty_post=re.avgpost,la.mainduty_performduty=re.avgperformduty,la.mainduty_total=re.avgtotal
+        where la.id = re.applyid
     </update>
-    <select id="countfinalscore" resultType="com.authine.cloudpivot.web.api.bean.FinalTotalResult" parameterType="java.lang.String">
-        SELECT id,ann_trainexamination_score,dept_total,tutor_total,executive_total,mainduty_total from i6rlc_lackpersonnelannassess where id = #{applyId}
+    <select id="countfinalscore" resultType="com.authine.cloudpivot.web.api.bean.FinalTotalResult"
+            parameterType="java.lang.String">
+        SELECT id,ann_trainexamination_score,dept_total,tutor_total,executive_total,mainduty_total from
+        i6rlc_lackpersonnelannassess where id = #{applyId}
     </select>
     <update id="updateFinalscore">
-      update i6rlc_lackpersonnelannassess set final_total_score = #{result} where id = #{applyId}
+        update i6rlc_lackpersonnelannassess set final_total_score = #{result} where id = #{applyId}
     </update>
 </mapper>

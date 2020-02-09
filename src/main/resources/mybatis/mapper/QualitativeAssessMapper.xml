@@ -11,20 +11,23 @@
         (id, parentId, sortKey, evaluation_content, evaluation_score, evaluation_kps)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.id}, #{item.parentId}, #{item.sortKey}, #{item.evaluationContent}, #{item.evaluationScore}, #{item.evaluationKps})
+            (#{item.id}, #{item.parentId}, #{item.sortKey}, #{item.evaluationContent}, #{item.evaluationScore},
+            #{item.evaluationKps})
         </foreach>
     </insert>
 
-    <select id="getqualitativeAssessById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssess">
+    <select id="getqualitativeAssessById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssess">
         select * from i6rlc_qualitative_assess where id = #{id}
     </select>
 
     <select id="getAssessmentContent" parameterType="java.lang.String">
         select i6rlc_qualitative_assess_content from i6rlc_qualitative_assess_content where id = #{id}
     </select>
-    
+
     <!-- 获取定性考核打分表考核内容 -->
-    <select id="getQualitativeAssessContentById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssessContent">
+    <select id="getQualitativeAssessContentById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.QualitativeAssessContent">
         select * from i6rlc_qualitative_assess_content where parentId = #{id}
     </select>
 

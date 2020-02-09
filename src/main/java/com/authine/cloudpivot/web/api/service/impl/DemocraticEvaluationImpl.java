@@ -22,10 +22,10 @@ public class DemocraticEvaluationImpl implements IDemocraticEvaluation {
     DemocraticEvaluationMapper democraticEvaluationMapper;
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/5 2:15
      * @param id : 发起工作发起工作民主评议表id
      * @return : com.authine.cloudpivot.web.api.bean.SDemocraticEvaluation
+     * @Author: wangyong
+     * @Date: 2020/1/5 2:15
      * @Description: 获取发起工作民主评议表所有信息
      */
     @Override
@@ -34,11 +34,11 @@ public class DemocraticEvaluationImpl implements IDemocraticEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/5 2:16
      * @param map : 参数
      * @return : java.util.List<com.authine.cloudpivot.web.api.bean.DemocraticEvaluation>
-     * @Description: 根据传递过去的参数,获取符合规则的工作民主评议表
+     * @Author: wangyong
+     * @Date: 2020/1/5 2:16
+     * @Description: 根据传递过去的参数, 获取符合规则的工作民主评议表
      */
     @Override
     public List<DemocraticEvaluation> getAllDemocraticEvaluationData(Map map) {
@@ -46,10 +46,10 @@ public class DemocraticEvaluationImpl implements IDemocraticEvaluation {
     }
 
     /**
-     * @Author: wangyong
-     * @Date: 2020/1/5 2:16
      * @param sd : 发起工作民主评议表
      * @return : void
+     * @Author: wangyong
+     * @Date: 2020/1/5 2:16
      * @Description: 更新发起工作民主评议表所有信息
      */
     @Override

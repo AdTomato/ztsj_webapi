@@ -27,7 +27,7 @@ public class EvaluatingCadresList {
     private String sortKey;
 
     /**
-     *姓名
+     * 姓名
      */
     private String userName;
 

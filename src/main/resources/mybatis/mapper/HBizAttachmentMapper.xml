@@ -3,7 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.authine.cloudpivot.web.api.mapper.HBizAttachmentMapper">
-    <select id="getAttachment" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
+    <select id="getAttachment" parameterType="java.util.Map"
+            resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
         select * from h_biz_attachment
         where
         <if test="bizObjectId != null">
@@ -39,7 +40,8 @@
         </if>
     </select>
 
-    <select id="getAttachmentById" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
+    <select id="getAttachmentById" parameterType="java.lang.String"
+            resultType="com.authine.cloudpivot.web.api.bean.HBizAttachment">
         select * from h_biz_attachment where id = #{id}
     </select>
 </mapper>

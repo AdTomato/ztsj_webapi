@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class DeptName {
-    private  String id;
+    private String id;
     private int type;
 }

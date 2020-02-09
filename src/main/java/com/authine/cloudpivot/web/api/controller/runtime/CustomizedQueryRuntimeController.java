@@ -28,63 +28,63 @@ import java.util.List;
 @CustomizedOrigin(level = 1)
 public class CustomizedQueryRuntimeController extends QueryRuntimeController {
 
-	/**
-	 * 列表查询方法
-	 * 如果需要定制查询方法，
-	 * 需要将QueryDataVO.customized设置为true
-	 * （即前端接口参数中将需要将QueryDataVO.customized设置为true）
-	 *
-	 * @param queryData 查询对象
-	 * @return page
-	 */
-	@ApiOperation(value = "查询数据接口")
-	@PostMapping("/list")
-	@Override
-	public ResponseResult<PageVO<BizObjectModel>> list(@RequestBody QueryDataVO queryData) {
+    /**
+     * 列表查询方法
+     * 如果需要定制查询方法，
+     * 需要将QueryDataVO.customized设置为true
+     * （即前端接口参数中将需要将QueryDataVO.customized设置为true）
+     *
+     * @param queryData 查询对象
+     * @return page
+     */
+    @ApiOperation(value = "查询数据接口")
+    @PostMapping("/list")
+    @Override
+    public ResponseResult<PageVO<BizObjectModel>> list(@RequestBody QueryDataVO queryData) {
 
-		if(log.isDebugEnabled()) {
-			log.debug("query list. customized = [{}]", queryData.isCustomized());
-		}
+        if (log.isDebugEnabled()) {
+            log.debug("query list. customized = [{}]", queryData.isCustomized());
+        }
 
-		// 默认执行云枢产品列表查询方法, 请勿修改
-		if(!queryData.isCustomized()) {
-			return super.list(queryData);
-		}
+        // 默认执行云枢产品列表查询方法, 请勿修改
+        if (!queryData.isCustomized()) {
+            return super.list(queryData);
+        }
 
-		// TODO 二次开发定制列表查询 ^-^
+        // TODO 二次开发定制列表查询 ^-^
         // 如果需要定制列表查询方法，请在此处添加具体的实现
-		// queryData.getSchemaCode() 数据模型编码
-		// queryData.getQueryCode()  列表查询编码
-		// 例： 自定义 模型编码schemaCode=test01, 列表查询编码queryCode=qu01 的查询方法
-		// 则可以:
-		if(log.isDebugEnabled()) {
-			log.debug("二次开发代码.");
-		}
+        // queryData.getSchemaCode() 数据模型编码
+        // queryData.getQueryCode()  列表查询编码
+        // 例： 自定义 模型编码schemaCode=test01, 列表查询编码queryCode=qu01 的查询方法
+        // 则可以:
+        if (log.isDebugEnabled()) {
+            log.debug("二次开发代码.");
+        }
 
-		String schemaCode = "test01";
-		String queryCode = "qu01";
-		if(schemaCode.equals(queryData.getSchemaCode()) && queryCode.equals(queryData.getQueryCode())) {
+        String schemaCode = "test01";
+        String queryCode = "qu01";
+        if (schemaCode.equals(queryData.getSchemaCode()) && queryCode.equals(queryData.getQueryCode())) {
 
-			// TODO 自定义查询代码
-			return null;
+            // TODO 自定义查询代码
+            return null;
 
-		} else {
+        } else {
 
-			// TODO 其他自定义代码
-			Page<BizObjectModel> data = new Page<BizObjectModel>() {
-				@Override
-				public long getTotal() {
-					return 0;
-				}
+            // TODO 其他自定义代码
+            Page<BizObjectModel> data = new Page<BizObjectModel>() {
+                @Override
+                public long getTotal() {
+                    return 0;
+                }
 
-				@Override
-				public List<? extends BizObjectModel> getContent() {
-					return Lists.newArrayList();
-				}
-			};
-			return this.getOkResponseResult(new PageVO<>(data), "获取数据成功");
-		}
-	}
+                @Override
+                public List<? extends BizObjectModel> getContent() {
+                    return Lists.newArrayList();
+                }
+            };
+            return this.getOkResponseResult(new PageVO<>(data), "获取数据成功");
+        }
+    }
 
 //	@Override
 //	public ResponseResult<PageVO<BizObjectModel>> listReverseSheet(@RequestBody QueryDataVO queryData) {

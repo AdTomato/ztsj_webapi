@@ -51,7 +51,7 @@ public class LeadpersonController extends BaseController {
         }
         personList = LeadpersonService.getBydeptId(deptId);
         for (int i = 0; i < personList.size(); i++) {
-           int j = i+1;
+            int j = i + 1;
             personList.get(i).setNum(j);
         }
         return getOkResponseResult(personList, "success");

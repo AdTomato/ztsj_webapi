@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AssessmentDetail implements IAssessmentDetail{
+public class AssessmentDetail implements IAssessmentDetail {
 
 
     @Resource
@@ -49,6 +49,7 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 根据部门和年度获取部门年度总结的id值
+     *
      * @param department
      * @param annual
      * @return
@@ -60,7 +61,8 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 批量创建机关部门考核评价表
-     * @param evaluationTables  机关部门考核评价表
+     *
+     * @param evaluationTables 机关部门考核评价表
      */
     @Override
     public void insertEvaluationTable(List<EvaluationTable> evaluationTables) {
@@ -69,7 +71,8 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 获取机关部门考核的流程状态
-     * @param id    表单id
+     *
+     * @param id 表单id
      * @return
      */
     @Override
@@ -79,7 +82,8 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 清空机关部门考核的每个人的打分项
-     * @param parentId  父id
+     *
+     * @param parentId 父id
      */
     @Override
     public void cleanAssessmentScore(String parentId) {
@@ -88,6 +92,7 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 获取机关部门考核表
+     *
      * @param id id值
      * @return 机关部门考核表
      */
@@ -97,6 +102,7 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 根据年度获取年度获取年度考核汇总表的id值
+     *
      * @param annual 年度
      * @return 年度考核汇总表的id
      */
@@ -107,7 +113,8 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 根据年度考核汇总表的id以及部门来获取汇总明细
-     * @param parentId 年度考核汇总表的id
+     *
+     * @param parentId   年度考核汇总表的id
      * @param department 部门
      * @return 年度考核汇总表明细
      */
@@ -118,6 +125,7 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 根据年度考核汇总表的id值来更新年度考核汇总表明细
+     *
      * @param assessmentSummaryDetail 年度考核汇总表明细
      */
     @Override
@@ -127,6 +135,7 @@ public class AssessmentDetail implements IAssessmentDetail{
 
     /**
      * 新增年度考核汇总表明细
+     *
      * @param assessmentSummaryDetail 年度考核汇总表明细
      */
     @Override

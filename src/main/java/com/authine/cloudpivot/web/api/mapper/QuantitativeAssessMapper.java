@@ -14,6 +14,7 @@ public interface QuantitativeAssessMapper {
 
     /**
      * 创建定量考核里面的存储评委的子表
+     *
      * @param qaJudgesList 评委列表
      */
     void insertQaJudges(List<QaJudges> qaJudgesList);
