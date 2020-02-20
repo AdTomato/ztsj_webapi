@@ -62,7 +62,11 @@
     </select>
     
     <select id="getDldsAssessmentDetail" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail">
-        select id, user_name, position FROM i6rlc_dlds_assessment_detail WHERE parentId = #{id}
+        SELECT id, user_name, position FROM i6rlc_dlds_assessment_detail WHERE parentId = #{id}
+    </select>
+    
+    <select id="isCanSubmit" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM i6rlc_deputy_leadership_assess WHERE ip_check = #{ip}
     </select>
 
 </mapper>

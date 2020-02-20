@@ -19,4 +19,6 @@ public interface DeputyLeadershipService {
     public DeputyLeadershipDateSet getDeputyLeadershipDateSet();
 
     public DeputyLeadershipDateSet getDeputyLeadershipDateSetById(String id);
+
+    public Integer isCanSubmit(String ip);
 }

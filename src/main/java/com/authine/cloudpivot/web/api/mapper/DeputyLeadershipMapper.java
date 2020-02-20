@@ -21,4 +21,6 @@ public interface DeputyLeadershipMapper {
 
     public DeputyLeadershipDateSet getDeputyLeadershipDateSetById(String id);
 
+    public Integer isCanSubmit(String ip);
+
 }

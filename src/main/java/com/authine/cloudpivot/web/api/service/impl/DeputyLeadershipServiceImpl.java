@@ -40,5 +40,12 @@ public class DeputyLeadershipServiceImpl implements DeputyLeadershipService {
     public DeputyLeadershipDateSet getDeputyLeadershipDateSetById(String id) {
         return deputyLeadershipMapper.getDeputyLeadershipDateSetById(id);
     }
+
+    @Override
+    public Integer isCanSubmit(String ip) {
+        return deputyLeadershipMapper.isCanSubmit(ip);
+    }
+
+
 }
 

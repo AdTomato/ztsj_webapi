@@ -63,6 +63,22 @@ public class DeputyLeadershipController extends BaseController {
         return this.getErrResponseResult(null, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
+    @GetMapping("/check")
+    public ResponseResult<Object> isCanSubmit(@RequestParam String ip) {
+
+        if (StringUtils.isEmpty(ip)) {
+            return this.getErrResponseResult(0, 404L, "ip为空，允许提交");
+        }
+
+        Integer count = deputyLeadershipService.isCanSubmit(ip);
+        if (null != count && 0 != count) {
+            return this.getErrResponseResult(0, 404L, "不允许重复提交");
+        }
+
+        return this.getErrResponseResult(1, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+
+    }
+
     @GetMapping("/getDeputyLeadershipDataSet")
     public ResponseResult<Object> getDeputyLeadershipDateSet() {
         DeputyLeadershipDateSet deputyLeadershipDateSet = deputyLeadershipService.getDeputyLeadershipDateSet();
