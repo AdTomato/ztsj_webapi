@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.service;
 
+import com.authine.cloudpivot.web.api.bean.OrgRoleUser;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 
 import java.util.List;
@@ -56,4 +57,8 @@ public interface IOrgUserService {
 
     public String getRoleIdByName(String roleName);
 
+
+    public void insertRoleUser(List<OrgRoleUser> orgRoleUsers);
+
+    public void deleteRoleUser(String roleId);
 }

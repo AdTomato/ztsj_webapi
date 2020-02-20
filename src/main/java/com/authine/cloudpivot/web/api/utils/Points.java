@@ -11,6 +11,9 @@ public abstract class Points {
     public static final String PREFERABLY_POINT = "较好";
     public static final String EXCELLENT_POINT = "优秀";
     public static final String ORDINARY_POINT = "一般";
+    public static final String COMPETENT_POINT = "称职";
+    public static final String BASIC_COMPETENCE_POINT = "基本称职";
+    public static final String INCOMPETENT_POINT = "不称职";
     public static final String BAD_POINT = "差";
     public static final String POOL_POINT = "较差";
     public static final String WAIVER_POINT = "弃权";

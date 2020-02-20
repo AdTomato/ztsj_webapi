@@ -6,24 +6,27 @@ import com.authine.cloudpivot.engine.api.model.organization.UserModel;
 import com.authine.cloudpivot.engine.enums.ErrCode;
 import com.authine.cloudpivot.engine.enums.status.UserStatus;
 import com.authine.cloudpivot.engine.enums.type.UnitType;
+import com.authine.cloudpivot.web.api.bean.OrgRoleUser;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.service.IOrgUserService;
+import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import com.dingtalk.api.request.OapiCallRemoveuserlistRequest;
 import jodd.util.BCrypt;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.spi.ErrorCode;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
+import org.thymeleaf.util.StringUtils;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/ext/orgUser")
+@Slf4j
 public class OrgUserController extends BaseController {
 
     @Autowired
@@ -124,21 +127,65 @@ public class OrgUserController extends BaseController {
 
     @PostMapping("/addAllUser")
     public ResponseResult<String> addAllUser(@RequestParam String roleName) {
+
+        if (StringUtils.isEmpty(this.getUserId())) {
+            return getErrResponseResult(null, 404L, "数据异常");
+        }
+
         String roleId = orgUserService.getRoleIdByName(roleName);
         if (null == roleId) {
             return getErrResponseResult("失败", 404L, "获取角色id失败");
         }
+
+        log.info("清空" + roleName + "的角色人员");
+        orgUserService.deleteRoleUser(roleId);
+
+        String creater = this.getUserId();
         List<String> userIds = orgUserService.getAllUserId();
-        OrganizationFacade organizationFacade = getOrganizationFacade();
+//        OrganizationFacade organizationFacade = getOrganizationFacade();
+        int insertNum = 0;
+        List<OrgRoleUser> orgRoleUsers = new ArrayList<>();
         for (String userId :
                 userIds) {
-            RoleUserModel roleUserModel = new RoleUserModel();
-            roleUserModel.setRoleId(roleId);
-            roleUserModel.setUserId(userId);
-            roleUserModel.setUnitType(UnitType.USER);
-            organizationFacade.addRoleUser(roleUserModel);
+            orgRoleUsers.add(getRoleUser(userId, roleId, creater));
+            insertNum++;
+            if (insertNum == 1000) {
+                log.info("添加角色数据 + " + orgRoleUsers);
+                orgUserService.insertRoleUser(orgRoleUsers);
+                orgRoleUsers.clear();
+                insertNum = 0;
+            }
+        }
+        if (orgRoleUsers.size() != 0) {
+            log.info("添加角色数据 + " + orgRoleUsers);
+            orgUserService.insertRoleUser(orgRoleUsers);
+            orgRoleUsers.clear();
         }
         return getErrResponseResult("成功", ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    private OrgRoleUser getRoleUser(String userId, String roleId, String creater) {
+        OrgRoleUser orgRoleUser = new OrgRoleUser();
+        orgRoleUser.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        orgRoleUser.setCreatedTime(new Date());
+        orgRoleUser.setCreater(creater);
+        orgRoleUser.setDeleted(false);
+        orgRoleUser.setExtend1(null);
+        orgRoleUser.setExtend2(null);
+        orgRoleUser.setExtend3(null);
+        orgRoleUser.setExtend4(null);
+        orgRoleUser.setExtend5(null);
+        orgRoleUser.setModifiedTime(new Date());
+        orgRoleUser.setModifier(null);
+        orgRoleUser.setRemarks(null);
+        orgRoleUser.setOuScope(null);
+        orgRoleUser.setRoleId(roleId);
+        orgRoleUser.setUserId(userId);
+        orgRoleUser.setUserSourceId(null);
+        orgRoleUser.setRoleSourceId(null);
+        orgRoleUser.setUnitType("USER");
+        orgRoleUser.setDeptId(null);
+        return orgRoleUser;
     }
 
     /**

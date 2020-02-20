@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.DeputyLeadershipMapper">
+
+    <!-- 根据父id获取副职及以上领导人员数据设置里面的人员考核明细 -->
+    <select id="getAssessmentDetailByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail">
+        SELECT * FROM i6rlc_dlds_assessment_detail WHERE parentId = #{parentId}
+    </select>
+
+    <update id="updateAssessmentDetail" parameterType="java.util.List">
+        UPDATE i6rlc_dlds_assessment_detail
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="excellent_point = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.excellentPoint != null">
+                        when id = #{item.id} then #{item.excellentPoint}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="competent_point = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.competentPoint != null">
+                        when id = #{item.id} then #{item.competentPoint}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="basic_competence_point = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.basicCompetencePoint != null">
+                        when id = #{item.id} then #{item.basicCompetencePoint}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="incompetent_point = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.incompetentPoint != null">
+                        when id = #{item.id} then #{item.incompetentPoint}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where
+        <foreach collection="list" item="item" index="index" separator="or">
+            id = #{item.id}
+        </foreach>
+    </update>
+
+
+    <resultMap id="deputyLeadershipDateSet" type="com.authine.cloudpivot.web.api.bean.DeputyLeadershipDateSet">
+        <id column="id" property="id"></id>
+        <collection property="dldsAssessmentDetails" select="com.authine.cloudpivot.web.api.mapper.DeputyLeadershipMapper.getDldsAssessmentDetail" column="id"></collection>
+    </resultMap>
+    <select id="getDeputyLeadershipDateSet" resultMap="deputyLeadershipDateSet">
+        SELECT id, name, assessment_title, assessment_date FROM i6rlc_deputy_leadership_date_set WHERE is_close = 0 GROUP BY createdTime DESC LIMIT 0, 1
+    </select>
+
+    <select id="getDeputyLeadershipDateSetById" parameterType="java.lang.String" resultMap="deputyLeadershipDateSet">
+        SELECT id, name, assessment_title, assessment_date FROM i6rlc_deputy_leadership_date_set WHERE id = #{id}
+    </select>
+    
+    <select id="getDldsAssessmentDetail" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail">
+        select id, user_name, position FROM i6rlc_dlds_assessment_detail WHERE parentId = #{id}
+    </select>
+
+</mapper>

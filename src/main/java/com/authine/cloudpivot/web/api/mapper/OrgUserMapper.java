@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.mapper;
 
+import com.authine.cloudpivot.web.api.bean.OrgRoleUser;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 
 import java.util.List;
@@ -61,5 +62,9 @@ public interface OrgUserMapper {
 
     public String getRoleIdByName(String roleName);
 
+
+    public void insertRoleUser(List<OrgRoleUser> roleUsers);
+
+    public void deleteRoleUser(String roleId);
 
 }

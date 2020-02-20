@@ -35,4 +35,17 @@
     <select id="getRoleIdByName" resultType="java.lang.String">
         select id from h_org_role where name = #{roleName}
     </select>
+
+    <insert id="insertRoleUser" parameterType="java.util.List">
+        INSERT INTO h_org_role_user(id, createdTime, creater, deleted, extend1, extend2, extend3, extend4, extend5, modifiedTime, modifier, remarks, ouScope, roleId, userId, userSourceId, roleSourceId)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.createdTime}, #{item.creater}, #{item.deleted}, #{item.extend1}, #{item.extend2}, #{item.extend3}, #{item.extend4}, #{item.extend5}, #{item.modifiedTime}, #{item.modifier}, #{item.remarks}, #{item.ouScope}, #{item.roleId}, #{item.userId}, #{item.userSourceId}, #{item.roleSourceId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteRoleUser" parameterType="java.lang.String">
+        DELETE FROM h_org_role_user WHERE roleId = #{roleId}
+    </delete>
+
 </mapper>

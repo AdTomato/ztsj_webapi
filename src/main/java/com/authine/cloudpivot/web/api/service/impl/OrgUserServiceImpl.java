@@ -1,5 +1,6 @@
 package com.authine.cloudpivot.web.api.service.impl;
 
+import com.authine.cloudpivot.web.api.bean.OrgRoleUser;
 import com.authine.cloudpivot.web.api.bean.OrgUser;
 import com.authine.cloudpivot.web.api.mapper.OrgUserMapper;
 import com.authine.cloudpivot.web.api.service.IOrgUserService;
@@ -54,5 +55,15 @@ public class OrgUserServiceImpl implements IOrgUserService {
     @Override
     public String getRoleIdByName(String roleName) {
         return orgUserMapper.getRoleIdByName(roleName);
+    }
+
+    @Override
+    public void insertRoleUser(List<OrgRoleUser> orgRoleUsers) {
+        orgUserMapper.insertRoleUser(orgRoleUsers);
+    }
+
+    @Override
+    public void deleteRoleUser(String roleId) {
+        orgUserMapper.deleteRoleUser(roleId);
     }
 }
