@@ -58,12 +58,14 @@ public class OrgUserController extends BaseController {
         }
 
         String oldPwd = orgUserService.getPasswordByUserId(userId);
+        log.info("oldPassword:" + oldPassword + ";oldPwd:" + oldPwd);
         oldPwd = oldPwd.substring(8);
         if (!BCrypt.checkpw(oldPassword, oldPwd)) {
             return getErrResponseResult(ErrCode.SYS_PASSWORD_ERROR.getErrCode(), "密码错误");
         }
 
         String pwd = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+        log.info("newPassword:" + newPassword + ";newPwd:" + pwd);
 //        BCrypt.checkpw()
         pwd = "{bcrypt}" + pwd;
         Map map = new HashMap();
