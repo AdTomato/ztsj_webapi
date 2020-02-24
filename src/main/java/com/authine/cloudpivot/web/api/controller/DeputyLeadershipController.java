@@ -34,32 +34,56 @@ public class DeputyLeadershipController extends BaseController {
 
     @PostMapping("/updateAssessmentDetail")
     public ResponseResult<Object> updateAssessmentDetail(@RequestBody DeputyLeadershipUpdateAssessmentDetail params) {
-        synchronized (DeputyLeadershipController.class) {
-            if (params == null || StringUtils.isEmpty(params.getParentId()) || params.getDlaAssessmentDetails() == null || params.getDlaAssessmentDetails().size() == 0) {
-                return this.getErrResponseResult(null, 404L, "参数为空");
-            }
-            String parentId = params.getParentId();
-            List<DlaAssessmentDetail> dlaAssessmentDetails = params.getDlaAssessmentDetails();
-            log.info("开始更新副职及以上领导人员考核数据");
-            // 获取数据设置里面的明细
-            List<DldsAssessmentDetail> assessmentDetails = deputyLeadershipService.getAssessmentDetailByParentId(parentId);
-            // 用一个map存储明细，方便查询
-            Map<String, DldsAssessmentDetail> data = new HashMap<>();
-            for (DldsAssessmentDetail assessmentDetail : assessmentDetails) {
-                data.put(assessmentDetail.getId(), assessmentDetail);
-            }
-
-            for (DlaAssessmentDetail assessmentDetail : dlaAssessmentDetails) {
-                DldsAssessmentDetail assessmentDetail1 = data.get(assessmentDetail.getPid());
-                if (null != assessmentDetail1) {
-                    dataSet(assessmentDetail1, assessmentDetail.getEvaluationOpinion());
-                }
-            }
-
-            // 将结果更新回去
-            deputyLeadershipService.updateAssessmentDetail(assessmentDetails);
-            log.info("更新成功");
+        log.info("进入更新副职及以上领导人员考核数据");
+        if (params == null || StringUtils.isEmpty(params.getParentId()) || params.getDlaAssessmentDetails() == null || params.getDlaAssessmentDetails().size() == 0) {
+            return this.getErrResponseResult(null, 404L, "参数为空");
         }
+        String parentId = params.getParentId();
+        log.info("开始更新副职及以上领导人员考核数据");
+        List<DlaAssessmentDetail> dlaAssessmentDetails = params.getDlaAssessmentDetails();
+
+        deputyLeadershipService.updateData(parentId, dlaAssessmentDetails);
+
+        log.info("更新成功");
+
+//        synchronized (DeputyLeadershipController.class) {
+//            // 获取数据设置里面的明细
+//            List<DldsAssessmentDetail> assessmentDetails = deputyLeadershipService.getAssessmentDetailByParentId(parentId);
+//            // 用一个map存储明细，方便查询
+//            Map<String, DldsAssessmentDetail> data = new HashMap<>();
+//            for (DldsAssessmentDetail assessmentDetail : assessmentDetails) {
+//                data.put(assessmentDetail.getId(), assessmentDetail);
+//            }
+//
+//            for (DlaAssessmentDetail assessmentDetail : dlaAssessmentDetails) {
+//                DldsAssessmentDetail assessmentDetail1 = data.get(assessmentDetail.getPid());
+//                if (null != assessmentDetail1) {
+//                    dataSet(assessmentDetail1, assessmentDetail.getEvaluationOpinion());
+//                }
+//            }
+//            // 将结果更新回去
+//            deputyLeadershipService.updateAssessmentDetail(assessmentDetails);
+//            log.info("更新成功");
+//        }
+        return this.getErrResponseResult(null, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    @PostMapping("/calculation")
+    public ResponseResult<Object> updateAssessmentDetail(@RequestParam(required = true) String did) {
+        List<DldsAssessmentDetail> dldsAssessmentDetails = deputyLeadershipService.getAssessmentDetailByParentId(did);
+        Map<String, DldsAssessmentDetail> data = new HashMap<>();
+        for (DldsAssessmentDetail dldsAssessmentDetail : dldsAssessmentDetails) {
+            data.put(dldsAssessmentDetail.getId(), dldsAssessmentDetail);
+        }
+        List<DlaAssessmentDetail> dlaAssessmentDetails = deputyLeadershipService.getAllDlaAssessmentDetail(did);
+        DldsAssessmentDetail dldsAssessmentDetail;
+        for (DlaAssessmentDetail dlaAssessmentDetail : dlaAssessmentDetails) {
+            dldsAssessmentDetail = data.get(dlaAssessmentDetail.getPid());
+            if (dldsAssessmentDetail != null) {
+                dataSet(dldsAssessmentDetail, dlaAssessmentDetail.getEvaluationOpinion());
+            }
+        }
+        deputyLeadershipService.updateAssessmentDetail(dldsAssessmentDetails);
         return this.getErrResponseResult(null, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
@@ -80,8 +104,19 @@ public class DeputyLeadershipController extends BaseController {
     }
 
     @GetMapping("/getDeputyLeadershipDataSet")
-    public ResponseResult<Object> getDeputyLeadershipDateSet() {
+    public ResponseResult<Object> getDeputyLeadershipDataSet() {
         DeputyLeadershipDateSet deputyLeadershipDateSet = deputyLeadershipService.getDeputyLeadershipDateSet();
+        return this.getErrResponseResult(deputyLeadershipDateSet, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
+    }
+
+    @GetMapping("getDeputyLeadershipDataSetNew")
+    public ResponseResult<Object> getDeputyLeadershipDataSetNew() {
+        String id = deputyLeadershipService.getNewDeputyLeadershipDateSetId();
+        if (StringUtils.isEmpty(id)) {
+            return this.getErrResponseResult(null, 401L, "没有获取数据");
+        }
+        DeputyLeadershipDateSet deputyLeadershipDateSet = deputyLeadershipService.getDeputyLeadershipDateSetById(id);
+
         return this.getErrResponseResult(deputyLeadershipDateSet, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
     }
 
@@ -111,5 +146,7 @@ public class DeputyLeadershipController extends BaseController {
                 break;
         }
     }
+
+
 
 }

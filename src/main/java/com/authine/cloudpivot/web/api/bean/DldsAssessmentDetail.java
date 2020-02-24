@@ -2,13 +2,15 @@ package com.authine.cloudpivot.web.api.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @Author: wangyong
  * @Date: 2020-02-18 13:46
  * @Description: 副职及以上领导人员测评数据设置详情
  */
 @Data
-public class DldsAssessmentDetail {
+public class DldsAssessmentDetail implements Serializable {
 
     /**
      * id

@@ -1,6 +1,7 @@
 package com.authine.cloudpivot.web.api.mapper;
 
 import com.authine.cloudpivot.web.api.bean.DeputyLeadershipDateSet;
+import com.authine.cloudpivot.web.api.bean.DlaAssessmentDetail;
 import com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public interface DeputyLeadershipMapper {
     public DeputyLeadershipDateSet getDeputyLeadershipDateSetById(String id);
 
     public Integer isCanSubmit(String ip);
+
+    public List<DlaAssessmentDetail> getAllDlaAssessmentDetail(String did);
+
+    public String getNewDeputyLeadershipDateSetId();
 
 }

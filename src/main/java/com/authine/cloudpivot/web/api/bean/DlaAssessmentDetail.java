@@ -14,5 +14,6 @@ public class DlaAssessmentDetail {
     private String position;
     private String evaluationOpinion;
     private String pid;
+    private String did;
 
 }

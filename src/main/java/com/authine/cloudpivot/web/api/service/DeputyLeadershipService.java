@@ -1,7 +1,10 @@
 package com.authine.cloudpivot.web.api.service;
 
 import com.authine.cloudpivot.web.api.bean.DeputyLeadershipDateSet;
+import com.authine.cloudpivot.web.api.bean.DlaAssessmentDetail;
 import com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +24,11 @@ public interface DeputyLeadershipService {
     public DeputyLeadershipDateSet getDeputyLeadershipDateSetById(String id);
 
     public Integer isCanSubmit(String ip);
+
+    @Transactional
+    void updateData(String parentId, List<DlaAssessmentDetail> dlaAssessmentDetails);
+
+    public List<DlaAssessmentDetail> getAllDlaAssessmentDetail(String did);
+
+    public String getNewDeputyLeadershipDateSetId();
 }

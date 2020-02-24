@@ -48,7 +48,6 @@
         </foreach>
     </update>
 
-
     <resultMap id="deputyLeadershipDateSet" type="com.authine.cloudpivot.web.api.bean.DeputyLeadershipDateSet">
         <id column="id" property="id"></id>
         <collection property="dldsAssessmentDetails" select="com.authine.cloudpivot.web.api.mapper.DeputyLeadershipMapper.getDldsAssessmentDetail" column="id"></collection>
@@ -57,16 +56,31 @@
         SELECT id, name, assessment_title, assessment_date FROM i6rlc_deputy_leadership_date_set WHERE is_close = 0 GROUP BY createdTime DESC LIMIT 0, 1
     </select>
 
+    <select id="getNewDeputyLeadershipDateSetId" resultType="java.lang.String">
+        SELECT id FROM i6rlc_deputy_leadership_date_set WHERE is_close = 0 GROUP BY createdTime DESC LIMIT 0, 1
+    </select>
+
     <select id="getDeputyLeadershipDateSetById" parameterType="java.lang.String" resultMap="deputyLeadershipDateSet">
         SELECT id, name, assessment_title, assessment_date FROM i6rlc_deputy_leadership_date_set WHERE id = #{id}
     </select>
     
     <select id="getDldsAssessmentDetail" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.DldsAssessmentDetail">
-        SELECT id, user_name, position FROM i6rlc_dlds_assessment_detail WHERE parentId = #{id}
+        SELECT id, user_name, position FROM i6rlc_dlds_assessment_detail WHERE parentId = #{id} GROUP BY sortKey ASC
     </select>
     
     <select id="isCanSubmit" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(1) FROM i6rlc_deputy_leadership_assess WHERE ip_check = #{ip}
+    </select>
+
+    <resultMap id="dlaAssessmentDetail" type="com.authine.cloudpivot.web.api.bean.DlaAssessmentDetail">
+        <id column="id" property="id"></id>
+        <result property="userName" column="user_name"></result>
+        <result property="position" column="position"></result>
+        <result property="evaluationOpinion" column="evaluation_opinion"></result>
+        <result property="pid" column="p_id"></result>
+    </resultMap>
+    <select id="getAllDlaAssessmentDetail" parameterType="java.lang.String" resultMap="dlaAssessmentDetail">
+        SELECT id, user_name, position, evaluation_opinion, p_id FROM i6rlc_dla_assessment_detail WHERE d_id = #{did}
     </select>
 
 </mapper>

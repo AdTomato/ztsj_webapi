@@ -2,6 +2,7 @@ package com.authine.cloudpivot.web.api.bean;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @Description: 副职及以上领导人员数据设置表
  */
 @Data
-public class DeputyLeadershipDateSet {
+public class DeputyLeadershipDateSet implements Serializable {
 
     private String id;
     private String name;

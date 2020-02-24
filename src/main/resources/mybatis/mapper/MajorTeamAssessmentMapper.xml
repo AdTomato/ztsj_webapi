@@ -8,7 +8,7 @@
     <!--获取发起班子考核中主表的所有信息-->
     <select id="getMajorTeamAssessmentInfo" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.MajorTeamAssessment">
-        select * from i6rlc_smajorteamassessment where id = #{id}
+        select * from i6rlc_SMajorTeamAssessment where id = #{id}
     </select>
 
     <!-- 根据unit获取从0到最大投票人数的班子考核表的id -->
@@ -18,7 +18,7 @@
 
     <!--/更新发起班子考核主表的信息-->
     <update id="updatemajorTeamAssessmentInfo" parameterType="java.util.Map">
-        update i6rlc_smajorteamassessment set vote_peoples = #{votoPeoples},is_or_not_close_vote = '是' where id =#{id}
+        update i6rlc_SMajorTeamAssessment set vote_peoples = #{votoPeoples},is_or_not_close_vote = '是' where id =#{id}
     </update>
 
     <!--领导班子民主测评表-->
