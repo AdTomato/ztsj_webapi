@@ -12,6 +12,7 @@ import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.controller.base.BaseController;
 import com.authine.cloudpivot.web.api.mapper.QuantitativeAssessMapper;
 import com.authine.cloudpivot.web.api.service.IControlGroupAssessment;
+import com.authine.cloudpivot.web.api.service.IQuantitativeAssessService;
 import com.authine.cloudpivot.web.api.utils.CreateAssessmentScoreSheetUtils;
 import com.authine.cloudpivot.web.api.utils.DoubleUtils;
 import com.authine.cloudpivot.web.api.utils.Points;
@@ -40,6 +41,9 @@ public class QuantitativeAssessController extends BaseController {
 
     @Resource
     QuantitativeAssessMapper quantitativeAssessMapper;
+
+    @Autowired
+    IQuantitativeAssessService quantitativeAssessService;
 
     @Autowired
     IControlGroupAssessment controlGroupAssessment;
@@ -117,34 +121,34 @@ public class QuantitativeAssessController extends BaseController {
                 aList = aMap.get(key);
                 switch (key) {
                     case "安全管理":
-                        quantitativeAssessMapper.insertQuantitativeSafeManage(aList);
+                        quantitativeAssessService.insertQuantitativeSafeManage(aList);
                         break;
                     case "质量管理":
-                        quantitativeAssessMapper.insertQuantitativeQualityManage(aList);
+                        quantitativeAssessService.insertQuantitativeQualityManage(aList);
                         break;
                     case "进度及施工组织管理":
-                        quantitativeAssessMapper.insertQuantitativeScManage(aList);
+                        quantitativeAssessService.insertQuantitativeScManage(aList);
                         break;
                     case "技术管理":
-                        quantitativeAssessMapper.insertQuantitativeSkillManage(aList);
+                        quantitativeAssessService.insertQuantitativeSkillManage(aList);
                         break;
                     case "工程分包管理":
-                        quantitativeAssessMapper.insertQuantitativeEngineManag(aList);
+                        quantitativeAssessService.insertQuantitativeEngineManag(aList);
                         break;
                     case "铁路、公路信用评价":
-                        quantitativeAssessMapper.insertQuantitativeCreditEvaluat(aList);
+                        quantitativeAssessService.insertQuantitativeCreditEvaluat(aList);
                         break;
                     case "沟通协调、重大问题报告":
-                        quantitativeAssessMapper.insertQuantitativeProblem(aList);
+                        quantitativeAssessService.insertQuantitativeProblem(aList);
                         break;
                     case "管控工作规范性":
-                        quantitativeAssessMapper.insertQuantitativeControl(aList);
+                        quantitativeAssessService.insertQuantitativeControl(aList);
                         break;
                     case "对片区内在建项目的服务、指导":
-                        quantitativeAssessMapper.insertQuantitativeService(aList);
+                        quantitativeAssessService.insertQuantitativeService(aList);
                         break;
                     case "稽查纪律":
-                        quantitativeAssessMapper.insertQuantitativeDiscipline(aList);
+                        quantitativeAssessService.insertQuantitativeDiscipline(aList);
                         break;
 
                 }

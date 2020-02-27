@@ -3,6 +3,7 @@ package com.authine.cloudpivot.web.api.service.impl;
 import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.mapper.QuantitativeAssessMapper;
 import com.authine.cloudpivot.web.api.service.IQuantitativeAssessService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  * @Date: 2020-01-08 11:18
  * @Description: 管控组负责人年度定量考核Service
  */
+@Service
 public class QuantitativeAssessImpl implements IQuantitativeAssessService {
 
     @Resource

@@ -7,12 +7,10 @@ import com.authine.cloudpivot.web.api.mapper.AssessmentResultMapper;
 import com.authine.cloudpivot.web.api.service.ICreateAssessmentResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: wangyong
@@ -32,20 +30,21 @@ public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
 
         for (AssessmentResult ar :
                 arList) {
-            BizObjectModel model = new BizObjectModel();
-            model.setSchemaCode("AssessmentResult");
-            model.setSequenceStatus("COMPLETED");
-            Map data = new HashMap();
-            data.put("leadershipPerson", ar.getLeadershipPerson());
-            data.put("assess_content", ar.getAssessContent());
-            data.put("assess_time", ar.getAssessTime());
-            data.put("assess_result", ar.getAssessResult());
-//            data.put("time", ar.getTime());
-            data.put("p_id", ar.getPId());
-            model.put(data);
-            bizObjects.add(model);
+            bizObjects.add(getBizObjectModel(ar));
         }
         return objectFacade.addBizObjects(userId, bizObjects, "id");
+    }
+
+    @Override
+    public void createAssessmentResult(BizObjectFacade objectFacade, String userId, AssessmentResult assessmentResult) {
+        String id = isHaveAssessmentResult(assessmentResult);
+        if (StringUtils.isEmpty(id)) {
+            // 创建一条
+            objectFacade.saveBizObjectModel(userId, getBizObjectModel(assessmentResult), "id");
+        } else {
+            // 更新
+            updateAssessmentResult(Arrays.asList(assessmentResult));
+        }
     }
 
     @Override
@@ -56,5 +55,19 @@ public class CreateAssessmentResultImpl implements ICreateAssessmentResult {
     @Override
     public void updateAssessmentResult(List<AssessmentResult> arList) {
         assessmentResultMapper.updateAssessmentResult(arList);
+    }
+
+    private BizObjectModel getBizObjectModel(AssessmentResult assessmentResult) {
+        BizObjectModel model = new BizObjectModel();
+        model.setSchemaCode("AssessmentResult");
+        model.setSequenceStatus("COMPLETED");
+        Map data = new HashMap();
+        data.put("leadershipPerson", assessmentResult.getLeadershipPerson());
+        data.put("assess_content", assessmentResult.getAssessContent());
+        data.put("assess_time", assessmentResult.getAssessTime());
+        data.put("assess_result", assessmentResult.getAssessResult());
+        data.put("p_id", assessmentResult.getPId());
+        model.put(data);
+        return model;
     }
 }

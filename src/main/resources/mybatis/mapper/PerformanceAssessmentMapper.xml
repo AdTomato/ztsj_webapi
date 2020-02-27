@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.PerformanceAssessmentMapper">
+
+    <insert id="insertPerformanceAssessments" parameterType="java.util.List">
+        INSERT INTO i6rlc_performance_assessment
+        (id, name, creater, createdDeptId, owner, ownerDeptId, createdTime, modifier, modifiedTime, workflowInstanceId,
+        sequenceNo, sequenceStatus, ownerDeptQueryCode,
+        unit, user_name, position, assessment_content, total_score, result, annual, date, judges, spa_assessment_people_id)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.name}, #{item.creater}, #{item.createdDeptId}, #{item.owner},#{item.ownerDeptId},
+            #{item.createdTime}, #{item.modifier}, #{item.modifiedTime}, #{item.workflowInstanceId},
+            #{item.sequenceNo}, #{item.sequenceStatus}, #{item.ownerDeptQueryCode},
+            #{item.unit}, #{item.userName}, #{item.position}, #{item.assessmentContent}, #{item.totalScore}, #{item.result}, #{item.annual}, #{item.date}, #{item.judges}, #{item.spaAssessmentPeopleId})
+        </foreach>
+    </insert>
+
+    <insert id="insertPaContents" parameterType="java.util.List">
+        INSERT INTO i6rlc_pa_content
+        (id, parentId, sortKey, survey_content, evaluation_score, final_score)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.parentId}, #{item.sortKey}, #{item.surveyContent}, #{item.evaluationScore}, #{item.finalScore})
+        </foreach>
+    </insert>
+
+    <insert id="insertPerformanceAssessmentDets" parameterType="java.util.List">
+        INSERT INTO i6rlc_performance_assessment_det(id, name, creater, createdDeptId, owner, ownerDeptId, createdTime, modifier,
+        modifiedTime, workflowInstanceId, sequenceNo, sequenceStatus, ownerDeptQueryCode,
+        performance_assessment, pa_content_id, survey_content, evaluation_score)
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id}, #{item.name}, #{item.creater}, #{item.createdDeptId}, #{item.owner},#{item.ownerDeptId},
+            #{item.createdTime}, #{item.modifier}, #{item.modifiedTime},#{item.workflowInstanceId},
+            #{item.sequenceNo}, #{item.sequenceStatus}, #{item.ownerDeptQueryCode},
+            #{item.performanceAssessment}, #{item.paContentId}, #{item.surveyContent}, #{item.evaluationScore})
+        </foreach>
+    </insert>
+
+    <select id="getSpaAssessmentPeoples" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.SpaAssessmentPeople">
+        SELECT * FROM i6rlc_spa_assessment_people WHERE parentId = #{parentId}
+    </select>
+
+    <resultMap id="performanceAssessmentDto" type="com.authine.cloudpivot.web.api.dto.PerformanceAssessmentDto">
+        <id column="id" property="id"></id>
+        <collection property="paContents" select="com.authine.cloudpivot.web.api.mapper.PerformanceAssessmentMapper.getPaContentsByParentId" column="id"></collection>
+    </resultMap>
+    <select id="getPerformanceAssessmentDto" parameterType="java.lang.String" resultMap="performanceAssessmentDto">
+        SELECT * FROM i6rlc_performance_assessment WHERE id = #{id}
+    </select>
+    <select id="getPaContentsByParentId" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.PaContent">
+        SELECT * FROM i6rlc_pa_content WHERE parentId = #{id}
+    </select>
+
+    <select id="getPerformanceAssessmentDets" parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.PerformanceAssessmentDet">
+        SELECT * FROM i6rlc_performance_assessment_det WHERE performance_assessment = #{id}
+    </select>
+
+    <update id="updatePerformanceAssessment" parameterType="com.authine.cloudpivot.web.api.dto.PerformanceAssessmentDto">
+        UPDATE i6rlc_performance_assessment SET total_score = #{totalScore}, result = #{result} WHERE id = #{id}
+    </update>
+
+    <update id="updatePaContent" parameterType="java.util.List">
+        UPDATE i6rlc_pa_content
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="final_score = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.finalScore != null">
+                        WHEN id = #{item.id} THEN #{item.finalScore}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+    </update>
+
+    <update id="updateSpaAssessmentPeople" parameterType="com.authine.cloudpivot.web.api.dto.PerformanceAssessmentDto">
+        UPDATE i6rlc_spa_assessment_people SET final_score = #{totalScore}, result = #{result} WHERE id = #{spaAssessmentPeopleId}
+    </update>
+
+</mapper>

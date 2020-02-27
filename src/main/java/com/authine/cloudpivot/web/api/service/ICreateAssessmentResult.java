@@ -14,6 +14,9 @@ public interface ICreateAssessmentResult {
 
     public List<String> createAssessmentResults(BizObjectFacade objectFacade, String userId, List<AssessmentResult> arList);
 
+    public void createAssessmentResult(BizObjectFacade objectFacade, String userId, AssessmentResult assessmentResult);
+
+
     public String isHaveAssessmentResult(AssessmentResult ar);
 
     public void updateAssessmentResult(List<AssessmentResult> arList);

@@ -1,5 +1,7 @@
 package com.authine.cloudpivot.web.api.utils;
 
+import org.thymeleaf.util.StringUtils;
+
 import java.math.RoundingMode;
 import java.text.NumberFormat;
 
@@ -43,6 +45,14 @@ public class DoubleUtils {
             return 0D;
         } else {
             return d;
+        }
+    }
+
+    public static Double stringToDouble(String s) {
+        if (StringUtils.isEmpty(s)) {
+            return 0D;
+        } else {
+            return Double.parseDouble(s);
         }
     }
 
