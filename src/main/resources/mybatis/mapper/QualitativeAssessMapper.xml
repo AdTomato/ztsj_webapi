@@ -63,5 +63,9 @@
         select sequenceStatus from i6rlc_qualitative_assess where id = #{id}
     </select>
 
+    <select id="getQualitativeAssessDetails" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT creater FROM i6rlc_qualitative_assess_detail WHERE qualitative_assess = #{id} GROUP BY creater
+    </select>
+
 
 </mapper>

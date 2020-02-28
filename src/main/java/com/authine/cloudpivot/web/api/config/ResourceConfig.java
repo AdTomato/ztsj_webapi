@@ -130,6 +130,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                     .antMatchers("/ext/lackpersonnelannual/**").permitAll()
                     .antMatchers("/ext/externalTalentIntroducti/**").permitAll()
                     .antMatchers("/ext/performanceAssessment/**").permitAll()
+                    .antMatchers("/ext/accurateTalentDeclare/**").permitAll()
                     .antMatchers("/api/organization/department/tree").permitAll()
                     //test
                     .antMatchers("/api/licenseExt/**").permitAll()

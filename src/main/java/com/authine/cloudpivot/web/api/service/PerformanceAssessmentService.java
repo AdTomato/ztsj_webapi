@@ -31,4 +31,8 @@ public interface PerformanceAssessmentService {
     List<SpaAssessmentPeople> getSpaAssessmentPeoples(String id);
 
     void updateSpaAssessmentPeople(PerformanceAssessmentDto performanceAssessmentDto);
+
+    void clearPaContent(String id);
+
+    List<String> getPerformanceAssessmentDetNum(String id);
 }

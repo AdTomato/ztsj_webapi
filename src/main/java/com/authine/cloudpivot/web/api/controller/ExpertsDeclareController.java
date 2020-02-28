@@ -11,7 +11,6 @@ import com.authine.cloudpivot.web.api.utils.SequenceStatusUtils;
 import com.authine.cloudpivot.web.api.utils.UserUtils;
 import com.authine.cloudpivot.web.api.view.ResponseResult;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,7 +80,7 @@ public class ExpertsDeclareController extends BaseController {
 
     //计算每个专家的结果
     @RequestMapping("/calculationExpertResult")
-    public ResponseResult<String> calculationAssessmentResult(@RequestParam("edoId") String edoId, @RequestParam Integer passPerson, @RequestParam Integer passPoll, @RequestParam String oexpertsDeclareRank) {
+    public ResponseResult<String> calculationAssessmentResult(@RequestParam String edoId, @RequestParam Integer passPerson, @RequestParam Integer passPoll, @RequestParam String oexpertsDeclareRank) {
         //清空每个专家的表决结果
         expertsDeclareService.clearExpertsReult(edoId);
 
@@ -241,60 +240,52 @@ public class ExpertsDeclareController extends BaseController {
 
     //获取专家参评人选基本情况
     @RequestMapping("/getExpertsInfoList")
-    public ResponseResult<List> getExpertsInfoList(@Param("expertDeclareName") String expertDeclareName, @Param("expertsDeclareOrganization") String expertsDeclareOrganization) {
+    // public ResponseResult<List> getExpertsInfoList(@Param("expertDeclareName") String expertDeclareName, @Param("expertsDeclareOrganization") String expertsDeclareOrganization){
+    public ResponseResult<String> getExpertsInfoList(@RequestBody ExpertDeclareInfo expertDeclareInfo) {
 
-        List<ExpertsInfo> errorList = new ArrayList<>();
+        // List<ExpertsInfo> errorList = new ArrayList<>();
         //根据专家名称和单位查询一览表中是否有这个专家信息
-        List<ExpertsInfoList> expertsDeclareInfoList = expertsDeclareService.findExpertsFromInfoList(expertDeclareName, expertsDeclareOrganization);
+        ExpertsInfoList expertsInfoList = expertsDeclareService.findExpertsFromInfoList(expertDeclareInfo.getExpertsDeclareName(), expertDeclareInfo.getExpertsDeclareOrganization());
         //通过专家姓名和单位在一览表没查到专家申报信息
-        if (expertsDeclareInfoList.size() == 0 || expertsDeclareInfoList == null) {
+        if (expertsInfoList == null) {
             //将专家信息添加到一览表
-            //从专家申报表中获取专家信息，同名不同单位可能会获取多个人
-            List<ExpertDeclareInfo> expertsList = expertsDeclareService.findExpertsFromExpertDeclare(expertDeclareName, expertsDeclareOrganization);
-            //批量插入一览表主表数据
-            List<BizObjectModel> models = new ArrayList<>();
-            for (ExpertDeclareInfo expertDeclareInfo : expertsList) {
-                //将每个专家的信息封装到专家信息一览表
-                BizObjectModel model = new BizObjectModel();
-                model.setSchemaCode("expertsInfoList");
-                Map<String, Object> map = new HashMap<>();
-                String id = UUID.randomUUID().toString().replace("-", "");
-                map.put("id", id);
-                map.put("userName", expertDeclareInfo.getExpertsDeclareName());
-                map.put("unit", expertDeclareInfo.getExpertsDeclareOrganization());
-                map.put("birth", expertDeclareInfo.getDateOfBirth());
-                map.put("post", expertDeclareInfo.getTechnicalPosts());
-                map.put("positionalTitles", expertDeclareInfo.getPositionalTitles());
-                map.put("firstEducation", expertDeclareInfo.getFirstEducation());
-                map.put("graduatesAndMajors", expertDeclareInfo.getGraduationSchool() + " " + expertDeclareInfo.getFirstMajor());
-                map.put("theHighestEducationDegree", expertDeclareInfo.getOfficialAcademicCredentials() + " " + expertDeclareInfo.getHighestMajor());
-                map.put("nowMajorIn", expertDeclareInfo.getNowMajorIn());
-                map.put("declareSessionDeptGrade", expertDeclareInfo.getAnnual() + " " + expertDeclareInfo.getDeclareDept() + " " + expertDeclareInfo.getExpertsDeclareRank());
-                map.put("mainAchievements", expertDeclareInfo.getKeyPerformance());
-                model.put(map);
-                model.setSequenceStatus("COMPLETED");
-                models.add(model);
-                //从专家申报的子表查询参评条件，可能存在多个
-                List<ConditionsParticipations> conditionsParticipations = expertsDeclareService.getConditionsParticipations(expertDeclareInfo.getId());
-                for (ConditionsParticipations conditionsParticipation : conditionsParticipations) {
-                    conditionsParticipation.setId(UUID.randomUUID().toString().replace("-", ""));
-                    conditionsParticipation.setParentId(id);
-                }
-                //在一栏表中批量插入参评条件
-                expertsDeclareService.insertConditions(conditionsParticipations);
-            }
+            //将每个专家的信息封装到专家信息一览表
+            BizObjectModel model = new BizObjectModel();
+            model.setSchemaCode("expertsInfoList");
+            Map<String, Object> map = new HashMap<>();
+            map.put("userName", expertDeclareInfo.getExpertsDeclareName());
+            map.put("unit", expertDeclareInfo.getExpertsDeclareOrganization());
+            map.put("gender",expertDeclareInfo.getGender() );
+            map.put("birth", expertDeclareInfo.getDateOfBirth());
+            map.put("post", expertDeclareInfo.getTechnicalPosts());
+            map.put("positionalTitles", expertDeclareInfo.getPositionalTitles());
+            map.put("firstEducation", expertDeclareInfo.getFirstEducation());
+            map.put("graduatesAndMajors", expertDeclareInfo.getGraduationSchool() + " " + expertDeclareInfo.getFirstMajor());
+            map.put("theHighestEducationDegree", expertDeclareInfo.getOfficialAcademicCredentials() + " " + expertDeclareInfo.getHighestMajor());
+            map.put("nowMajorIn", expertDeclareInfo.getNowMajorIn());
+            map.put("declareSessionDeptGrade", expertDeclareInfo.getAnnual() + " " + expertDeclareInfo.getDeclareDept() + " " + expertDeclareInfo.getExpertsDeclareRank());
+            map.put("mainAchievements", expertDeclareInfo.getKeyPerformance());
+            model.put(map);
+            model.setSequenceStatus("COMPLETED");
+
             //创建数据的引擎类
             BizObjectFacade bizObjectFacade = super.getBizObjectFacade();
             String userId = UserUtils.getUserId(getUserId());
             log.info("当前操作的用户id为" + userId);
             //使用引擎方法批量创建数据
-            bizObjectFacade.addBizObjects(userId, models, "id");
-            return this.getOkResponseResult(errorList, "将专家信息添加到一览表成功");
-        } else {
-            if (expertsDeclareInfoList.size() > 1) {
-                return this.getOkResponseResult(errorList, "查询到多个专家信息，手动输入数据");
+            String id = bizObjectFacade.saveBizObjectModel(userId, model, "id");
+            //从专家申报的子表查询参评条件，可能存在多个
+            List<ConditionsParticipations> conditionsParticipations = expertsDeclareService.getConditionsParticipations(expertDeclareInfo.getId());
+            for (ConditionsParticipations conditionsParticipation : conditionsParticipations) {
+                conditionsParticipation.setId(UUID.randomUUID().toString().replace("-", ""));
+                conditionsParticipation.setParentId(id);
             }
-            return this.getOkResponseResult(expertsDeclareInfoList, "返回结果成功");
+            //在一栏表中批量插入参评条件
+            expertsDeclareService.insertConditions(conditionsParticipations);
+
+            return this.getOkResponseResult("success", "将专家信息添加到一览表成功");
+        } else {
+            return this.getOkResponseResult("error", "专家已在一览表中");
         }
     }
 }

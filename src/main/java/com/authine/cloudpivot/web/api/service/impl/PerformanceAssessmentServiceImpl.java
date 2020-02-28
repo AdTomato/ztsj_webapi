@@ -8,6 +8,7 @@ import com.authine.cloudpivot.web.api.dto.PerformanceAssessmentDto;
 import com.authine.cloudpivot.web.api.mapper.PerformanceAssessmentMapper;
 import com.authine.cloudpivot.web.api.service.PerformanceAssessmentService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -66,5 +67,16 @@ public class PerformanceAssessmentServiceImpl implements PerformanceAssessmentSe
     @Override
     public void updateSpaAssessmentPeople(PerformanceAssessmentDto performanceAssessmentDto) {
         performanceAssessmentMapper.updateSpaAssessmentPeople(performanceAssessmentDto);
+    }
+
+    @Override
+    public void clearPaContent(String id) {
+        performanceAssessmentMapper.clearPaContent(id);
+    }
+
+    @Override
+    @Transactional
+    public List<String> getPerformanceAssessmentDetNum(String id) {
+        return performanceAssessmentMapper.getPerformanceAssessmentDetNum(id);
     }
 }

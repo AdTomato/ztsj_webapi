@@ -7,28 +7,25 @@
 
     <!--在紧缺人在重点培养对象信息表中通过单位查询紧缺人才重点培养对象-->
     <select id="findAccurateTalentInfoList"  parameterType="java.lang.String" resultType="com.authine.cloudpivot.web.api.bean.AccurateTalentInfoList">
-        select * from i4hp1_persontraininfosheet where placeTheUnit = #{workUnit}
+        select * from i4hp1_PersonTrainInfoSheet where placeTheUnit = #{placeTheUnit} and userName= #{userName}
     </select>
 
-    <!--从紧缺人才申报表中获取紧缺人才信息，不同单位可能获取多个人-->
-    <select id="findTalentsFromAccurateTalent" parameterType="java.lang.String"  resultType="com.authine.cloudpivot.web.api.bean.AccurateTalentInfo">
-        select * from itsfr_accuratetalentinfodeclare where workUnit = #{workUnit}
-    </select>
+
 
     <!--从工作经历表中获取工作时间-->
     <select id="findWorkTimeFromAtWorkExperience" resultType="java.util.Date">
-        select startTime from itsfr_atworkexperience where parentId = #{id}
+        select startTime from itsfr_atWorkExperience where parentId = #{id}
     </select>
 
     <!--查询紧缺人才申报的子表学习经历-->
     <select id="getStudyExperience" resultType="com.authine.cloudpivot.web.api.bean.AtStudyExperience">
-        select * from itsfr_atstudyexperience where parentId = #{id}
+        select * from itsfr_atStudyExperience where parentId = #{id}
     </select>
 
 
     <!--在信息表中批量插入学习经历-->
     <insert id="insertEducationException">
-        insert into i4hp1_educationexception (id,graduateInstitutions,timeOfGraduation,major,parentId)
+        insert into i4hp1_educationException (id,graduateInstitutions,timeOfGraduation,major,parentId)
         values
         <foreach collection="list" index="index" item="item" separator=",">
             (#{item.id},#{item.graduateInstitutions},#{item.timeOfGraduation},#{item.major},#{item.parentId})

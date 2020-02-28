@@ -547,4 +547,8 @@
     <select id="getQuantitativeAssessStatus" parameterType="java.lang.String" resultType="java.lang.String">
         select sequenceStatus from i6rlc_quantitative_assess where id = #{id}
     </select>
+
+    <select id="getQuantitativeAssessDetailsNum" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT creater FROM i6rlc_quantitative_assess_detail WHERE quantitative_assess = #{id} GROUP BY creater
+    </select>
 </mapper>

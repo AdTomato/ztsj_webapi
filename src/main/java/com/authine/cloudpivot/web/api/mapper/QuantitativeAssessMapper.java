@@ -107,4 +107,5 @@ public interface QuantitativeAssessMapper {
 
     void cleanQuantitativeSafeManageById(String id);
 
+    List<String> getQuantitativeAssessDetailsNum(String id);
 }

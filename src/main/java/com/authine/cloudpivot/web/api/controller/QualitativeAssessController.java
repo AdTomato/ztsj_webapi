@@ -73,6 +73,7 @@ public class QualitativeAssessController extends BaseController {
             model.put(map);
             models.add(model);
         }
+//        bizObjectFacad
         List<String> ids = bizObjectFacade.addBizObjects(userId, models, "id");
         List<QualitativeAssessContent> qualitativeAssessContentList = new ArrayList<>();
         if (0 != ids.size()) {
@@ -126,7 +127,7 @@ public class QualitativeAssessController extends BaseController {
     }
 
     @PutMapping("/calculateQualitativeAssess")
-    public ResponseResult<Void> calculateQualitativeAssess(@RequestParam String id) {
+    public ResponseResult<Void> calculateQualitativeAssess(@RequestParam String id, @RequestParam Integer num) {
 
         iQualitativeAssess.cleanQualitativeAssessContent(id);
         log.info("清空考核明细成功");
@@ -135,13 +136,21 @@ public class QualitativeAssessController extends BaseController {
         if (null == id) {
             return getErrResponseResult(ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
         }
-
-        String sequenceStatus = iQualitativeAssess.getQualitativeAssessStatus(id);
-        log.info("当前数据状态：" + sequenceStatus);
-        if (!SequenceStatusUtils.isCompleted(sequenceStatus)) {  // COMPLETED
+//        synchronized (QualitativeAssessController.class) {
+//            List<String> peoples = iQualitativeAssess.getQualitativeAssessDetails(id);
+//            log.info("评委人数：" + num + "；当前提交人数：" + peoples.size());
+//            if (peoples.size() != num) {
+//                log.info("流程尚未结束，无需计算");
+//                return getErrResponseResult(ErrCode.PERMISSION_MANAGER_TYPE_ERR.getErrCode(), "流程尚未结束，无需计算");  // 参数为空
+//            }
+//        }
+        List<String> peoples = iQualitativeAssess.getQualitativeAssessDetails(id);
+        log.info("评委人数：" + num + "；当前提交人数：" + peoples.size());
+        if (peoples.size() != num) {
             log.info("流程尚未结束，无需计算");
             return getErrResponseResult(ErrCode.PERMISSION_MANAGER_TYPE_ERR.getErrCode(), "流程尚未结束，无需计算");  // 参数为空
         }
+
 
         String userId = getUserId();
         if (StringUtil.isEmpty(userId)) {

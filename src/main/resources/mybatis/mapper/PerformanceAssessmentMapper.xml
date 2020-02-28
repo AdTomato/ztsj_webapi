@@ -80,4 +80,12 @@
         UPDATE i6rlc_spa_assessment_people SET final_score = #{totalScore}, result = #{result} WHERE id = #{spaAssessmentPeopleId}
     </update>
 
+    <update id="clearPaContent" parameterType="java.lang.String">
+        UPDATE i6rlc_pa_content SET evaluation_score = NULL WHERE parentId = #{id}
+    </update>
+
+    <select id="getPerformanceAssessmentDetNum" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT creater FROM i6rlc_performance_assessment_det WHERE performance_assessment = #{id} GROUP BY creater
+    </select>
+
 </mapper>

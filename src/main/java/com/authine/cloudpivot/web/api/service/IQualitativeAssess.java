@@ -27,4 +27,6 @@ public interface IQualitativeAssess {
     QualitativeAssess getqualitativeAssessById(String id);
 
     String getQualitativeAssessStatus(String id);
+
+    List<String> getQualitativeAssessDetails(String id);
 }

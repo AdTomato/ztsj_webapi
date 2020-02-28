@@ -5,6 +5,7 @@ import com.authine.cloudpivot.web.api.bean.QualitativeAssessContent;
 import com.authine.cloudpivot.web.api.mapper.QualitativeAssessMapper;
 import com.authine.cloudpivot.web.api.service.IQualitativeAssess;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -58,5 +59,11 @@ public class QualitativeAssessImpl implements IQualitativeAssess {
     @Override
     public String getQualitativeAssessStatus(String id) {
         return qualitativeAssessMapper.getQualitativeAssessStatus(id);
+    }
+
+    @Override
+    @Transactional
+    public List<String> getQualitativeAssessDetails(String id) {
+        return qualitativeAssessMapper.getQualitativeAssessDetails(id);
     }
 }

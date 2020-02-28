@@ -13,7 +13,7 @@
 
     <!-- 根据unit获取从0到最大投票人数的班子考核表的id -->
     <select id="getMajorTeamIdByUnit" parameterType="java.util.Map" resultType="java.lang.String">
-        select id from i6rlc_majorteamassessment where unit = #{id} order by #{createdTime} limit 0,#{max}
+        select id from i6rlc_MajorTeamAssessment where unit = #{id} order by #{createdTime} limit 0,#{max}
     </select>
 
     <!--/更新发起班子考核主表的信息-->
@@ -27,17 +27,17 @@
     <!--获取全部的发起班子考核的领导班子民主测评表-->
     <select id="getAllEvaluationData" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.SMTALeaderBodyAppraisal">
-        select * from i6rlc_smtaleaderbodyappraisal where parentId = #{id}
+        select * from i6rlc_SMTALeaderBodyAppraisal where parentId = #{id}
     </select>
 
     <!--获取全部的班子考核的领导班子民主测评表-->
     <select id="getAllDemocracyEvaluationByPId" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.MTALeaderBodyAppraisal">
-        select * from i6rlc_mtaleaderbodyappraisal where p_id = #{id}
+        select * from i6rlc_MTALeaderBodyAppraisal where p_id = #{id}
     </select>
     <!--更新所有的发起班子考核的 领导班子民主测评表 -->
     <update id="updateAllSMTALeaderBodyAppraisal" parameterType="java.util.List">
-        update i6rlc_smtaleaderbodyappraisal
+        update i6rlc_SMTALeaderBodyAppraisal
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="good_poll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
@@ -82,18 +82,18 @@
     <!--获取全部的发起班子考核的领导人员及非领导职务人员民主测评表-->
     <select id="getAllSMTADemocracyEvaluationData" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.SMTADemocraticAppraisal">
-        select * from i6rlc_smtademocraticappraisal where parentId = #{id}
+        select * from i6rlc_SMTADemocraticAppraisal where parentId = #{id}
     </select>
 
     <!--获取全部的班子考核的领导人员及非领导职务人员民主测评表-->
     <select id="getAllMTADemocracyEvaluationData" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.MTADemocraticAppraisal">
-        select * from i6rlc_mtademocraticappraisal where p_id = #{id}
+        select * from i6rlc_MTADemocraticAppraisal where p_id = #{id}
     </select>
 
     <!--更新所有的发起班子考核的 领导人员及非领导职务人员民主测评表结果-->
     <update id="updateAllSMTADemocracyEvaluation" parameterType="java.util.List">
-        update i6rlc_smtademocraticappraisal
+        update i6rlc_SMTADemocraticAppraisal
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="excellent_poll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">
@@ -139,20 +139,20 @@
     <!--获取全部的 发起班子考核的 后备干部民主推荐表-->
     <select id="getAllSMTAReserveCadres" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.SMTAReserveCadres">
-        select * from i6rlc_smtareservecadres where parentId = #{id}
+        select * from i6rlc_SMTAReserveCadres where parentId = #{id}
     </select>
 
     <!--获取全部的 班子考核的 后备干部民主推荐表-->
     <select id="getAllMTAReserveCadres" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.MTAReserveCadres">
-        select * from i6rlc_mtareservecadres where p_id = #{id}
+        select * from i6rlc_MTAReserveCadres where p_id = #{id}
     </select>
 
     <!--批量插入班子考核的  后备干部民主推荐表结果-->
 
 
     <insert id="insertAllReserveCadres" parameterType="java.util.List">
-        insert into i6rlc_smtareservecadres
+        insert into i6rlc_SMTAReserveCadres
         (id,parentId,recommend_position,referral_name,referral_now_position,referral_poll)
         VALUES
         <foreach collection="list" index="index" item="item" separator=",">
@@ -161,6 +161,6 @@
     </insert>
 
     <delete id="clearAllReserveCadres" parameterType="java.lang.String">
-        delete from i6rlc_smtareservecadres where parentId = #{id}
+        delete from i6rlc_SMTAReserveCadres where parentId = #{id}
     </delete>
 </mapper>

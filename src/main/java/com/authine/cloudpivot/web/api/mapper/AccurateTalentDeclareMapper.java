@@ -6,6 +6,7 @@ import com.authine.cloudpivot.web.api.bean.AtStudyExperience;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author:lfh
@@ -18,10 +19,10 @@ public interface AccurateTalentDeclareMapper {
     /**
      * //在紧缺人在重点培养对象信息表中通过单位查询紧缺人才重点培养对象 可能会获取多个
      *
-     * @param workUnit 工作单位
+     * @param map 姓名和工作单位
      * @return 从紧缺人才信息表中获取紧缺人才信息
      */
-    List<AccurateTalentInfoList> findAccurateTalentInfoList(String workUnit);
+    AccurateTalentInfoList findAccurateTalentInfoList(Map map);
 
     /**
      * 从工作经历表中获取工作时间

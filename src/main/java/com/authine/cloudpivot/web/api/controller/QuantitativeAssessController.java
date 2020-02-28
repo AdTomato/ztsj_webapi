@@ -198,7 +198,7 @@ public class QuantitativeAssessController extends BaseController {
     }
 
     @PutMapping("/calculateQuantitativeAssess")
-    public ResponseResult<Void> calculateQuantitativeAssess(@RequestParam String id) {
+    public ResponseResult<Void> calculateQuantitativeAssess(@RequestParam String id, @RequestParam Integer num) {
 
         if (null == id) {
             return getErrResponseResult(ErrCode.SYS_PARAMETER_EMPTY.getErrCode(), ErrCode.SYS_PARAMETER_EMPTY.getErrMsg());
@@ -217,11 +217,14 @@ public class QuantitativeAssessController extends BaseController {
 
         String userId = UserUtils.getUserId(getUserId());
 
-        String sequenceStatus = quantitativeAssessMapper.getQuantitativeAssessStatus(id);
-        log.info("当前数据状态：" + sequenceStatus);
-        if (!"COMPLETED".equals(sequenceStatus)) {  // COMPLETED
-            log.info("流程尚未结束，无需计算");
-            return getErrResponseResult(ErrCode.PERMISSION_MANAGER_TYPE_ERR.getErrCode(), "流程尚未结束，无需计算");  // 参数为空
+        synchronized (QuantitativeAssessController.class) {
+            log.info("开始查询当前提交人数");
+            List<String> peoples = quantitativeAssessMapper.getQuantitativeAssessDetailsNum(id);
+            log.info("当前提交人数：" + peoples.size());
+            if (peoples.size() != num) {
+                log.info("流程尚未结束，无需计算");
+                return getErrResponseResult(ErrCode.PERMISSION_MANAGER_TYPE_ERR.getErrCode(), "流程尚未结束，无需计算");  // 参数为空
+            }
         }
 
         // 获取定量考核主表内容

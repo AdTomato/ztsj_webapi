@@ -1,6 +1,5 @@
 package com.authine.cloudpivot.web.api.service;
 
-import com.authine.cloudpivot.web.api.bean.AccurateTalentInfo;
 import com.authine.cloudpivot.web.api.bean.AccurateTalentInfoList;
 import com.authine.cloudpivot.web.api.bean.AtStudyExperience;
 
@@ -15,17 +14,12 @@ import java.util.List;
 public interface AccurateTalentDeclareService {
     /**
      * //在紧缺人在重点培养对象信息表中通过单位查询紧缺人才重点培养对象 可能会获取多个
-     * @param workUnit
+     * @param userName,placeUnit
      * @return 从紧缺人才信息表中获取紧缺人才信息
      */
-    List<AccurateTalentInfoList> findAccurateTalentInfoList(String workUnit);
+    AccurateTalentInfoList findAccurateTalentInfoList(String userName, String placeTheUnit);
 
-    /**
-     * //从紧缺人才申报表中获取紧缺人才信息，不同单位可能获取多个人
-     * @param workUnit
-     * @return 从紧缺人才申报表中获取紧缺人才信息
-     */
-    List<AccurateTalentInfo> findTalentsFromAccurateTalent(String workUnit);
+
 
     /**
      * 从工作经历表中获取工作时间

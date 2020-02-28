@@ -32,4 +32,8 @@ public interface PerformanceAssessmentMapper {
     List<SpaAssessmentPeople> getSpaAssessmentPeoples(String parentId);
 
     void updateSpaAssessmentPeople(PerformanceAssessmentDto performanceAssessmentDto);
+
+    void clearPaContent(String id);
+
+    List<String> getPerformanceAssessmentDetNum(String id);
 }

@@ -151,16 +151,25 @@ public class PerformanceAssessmentController extends BaseController {
     }
 
     @PutMapping("/calculation")
-    public ResponseResult<Object> calculation(@RequestParam(required = true) String id) {
+    public ResponseResult<Object> calculation(@RequestParam(required = true) String id, @RequestParam(required = true) Integer num) {
         log.info("--------------------------");
         log.info("计算履职考核：" + id);
         String userId = UserUtils.getUserId(this.getUserId());
-        PerformanceAssessmentDto performanceAssessmentDto = performanceAssessmentService.getPerformanceAssessmentDto(id);
-        if (!Constants.COMPLETED_STATUS.equals(performanceAssessmentDto.getSequenceStatus())) {
-            // 流程尚未结束，无需计算
+
+        log.info("清空子表");
+        performanceAssessmentService.clearPaContent(id);
+
+        List<String> peoples = performanceAssessmentService.getPerformanceAssessmentDetNum(id);
+
+        if (peoples.size() != num) {
             log.info("流程尚未结束，无需计算");
             return this.getErrResponseResult(null, ErrCode.OK.getErrCode(), ErrCode.OK.getErrMsg());
         }
+
+        PerformanceAssessmentDto performanceAssessmentDto = performanceAssessmentService.getPerformanceAssessmentDto(id);
+//        if (!Constants.COMPLETED_STATUS.equals(performanceAssessmentDto.getSequenceStatus())) {
+//            // 流程尚未结束，无需计算
+//            }
         if (null == performanceAssessmentDto || null == performanceAssessmentDto.getPaContents() || 0 == performanceAssessmentDto.getPaContents().size()) {
             return this.getErrResponseResult(null, 404L, "异常（获取的考核表为空）");
         }

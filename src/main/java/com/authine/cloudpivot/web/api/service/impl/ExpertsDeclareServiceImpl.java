@@ -23,7 +23,6 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
 
     /**
      * 根据条件获取符合条件的全部专家信息
-     *
      * @param expertsInfo
      * @return
      */
@@ -34,7 +33,6 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
 
     /**
      * 清空每个专家的表决结果
-     *
      * @param parentId
      */
     @Override
@@ -44,7 +42,6 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
 
     /**
      * 查询全部专家明细信息
-     *
      * @param id
      * @return
      */
@@ -60,7 +57,6 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
 
     /**
      * 更新每个专家的投票结果
-     *
      * @param expertsDeclareList
      */
     @Override
@@ -70,21 +66,19 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
 
     /**
      * 通过姓名和单位获取全部通过的专家
-     *
      * @param expertDeclareName,expertsDeclareOrganization
      * @return
      */
     @Override
-    public List<ExpertsInfoList> findExpertsFromInfoList(String expertDeclareName, String expertsDeclareOrganization) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("userName", expertDeclareName);
+    public ExpertsInfoList findExpertsFromInfoList(String expertDeclareName,String expertsDeclareOrganization) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("userName",expertDeclareName );
         map.put("unit", expertsDeclareOrganization);
         return expertsDeclareMapper.findExpertsFromInfoList(map);
     }
 
     /**
      * 通过专家id获取专家的参评条件
-     *
      * @param parentId
      * @return
      */
@@ -92,21 +86,6 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
     public List<ConditionsParticipations> getConditionsParticipations(String parentId) {
         return expertsDeclareMapper.getConditionsParticipations(parentId);
     }
-
-
-    /**
-     * @param expertDeclareName          专家姓名
-     * @param expertsDeclareOrganization 单位
-     * @return 专家信息
-     */
-    @Override
-    public List<ExpertDeclareInfo> findExpertsFromExpertDeclare(String expertDeclareName, String expertsDeclareOrganization) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("expertDeclareName", expertDeclareName);
-        map.put("expertsDeclareOrganization", expertsDeclareOrganization);
-        return expertsDeclareMapper.findExpertsFromExpertDeclare(map);
-    }
-
 
     //插入参评条件子表信息
     @Override

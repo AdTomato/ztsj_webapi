@@ -29,4 +29,5 @@ public interface QualitativeAssessMapper {
 
     String getQualitativeAssessStatus(String id);
 
+    List<String> getQualitativeAssessDetails(String id);
 }

@@ -1,6 +1,5 @@
 package com.authine.cloudpivot.web.api.service.impl;
 
-import com.authine.cloudpivot.web.api.bean.AccurateTalentInfo;
 import com.authine.cloudpivot.web.api.bean.AccurateTalentInfoList;
 import com.authine.cloudpivot.web.api.bean.AtStudyExperience;
 import com.authine.cloudpivot.web.api.mapper.AccurateTalentDeclareMapper;
@@ -9,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author:lfh
@@ -24,24 +25,19 @@ public class AccurateTalentDeclareServiceImpl implements AccurateTalentDeclareSe
 
     /**
      * //在紧缺人在重点培养对象信息表中通过单位查询紧缺人才重点培养对象 可能会获取多个
-     * @param workUnit 工作单位
+     * @param  userName placeTheUnit 姓名和工作单位
      * @return 从紧缺人才信息表中获取紧缺人才信息
      */
     @Override
-    public List<AccurateTalentInfoList> findAccurateTalentInfoList(String workUnit) {
+    public AccurateTalentInfoList findAccurateTalentInfoList(String userName,String placeTheUnit) {
 
-        return accurateTalentDeclareMapper.findAccurateTalentInfoList(workUnit);
+        Map<String,Object> map = new HashMap();
+        map.put("userName",userName );
+        map.put("placeUnit",placeTheUnit );
+        return accurateTalentDeclareMapper.findAccurateTalentInfoList(map);
     }
 
-    /**
-     * //从紧缺人才申报表中获取紧缺人才信息，不同单位可能获取多个人
-     * @param workUnit
-     * @return 从紧缺人才申报表中获取紧缺人才信息
-     */
-    @Override
-    public List<AccurateTalentInfo> findTalentsFromAccurateTalent(String workUnit) {
-        return accurateTalentDeclareMapper.findTalentsFromAccurateTalent(workUnit);
-    }
+
 
     /**
      * 从工作经历表中获取工作时间
