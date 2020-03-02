@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.authine.cloudpivot.web.api.mapper.ExpertsAnnualAssMapper">
+    <resultMap id="expertsInfoResult" type="com.authine.cloudpivot.web.api.bean.ExpertsInfos">
+        <result property="u_id" column="id"/>
+        <result property="user_name" column="exportsname"/>
+        <result property="unit" column="deptName"/>
+        <result property="expert_level" column="exports_level"/>
+    </resultMap>
+    <resultMap id="avgFinanceResult" type="com.authine.cloudpivot.web.api.bean.ExpertAnnualAvgScore">
+        <result property="expert_ann_score" column="expert_ann_score"/>
+        <result property="expert_ann_apply" column="expert_ann_apply"/>
+        <result property="rowId" column="row_id"/>
+        <result property="avgWorkAchievement" column="AVG(work_achievement)"/>
+        <result property="avgTopicResearch" column="AVG(topic_research)"/>
+        <result property="avgStudyTrain" column="AVG(study_train)"/>
+        <result property="avgEchangeTeach" column="AVG(echange_teach)"/>
+        <result property="avgFinanceTotal" column="AVG(finance_total)"/>
+    </resultMap>
+    <resultMap id="avgTechResult" type="com.authine.cloudpivot.web.api.bean.ExpertAnnualAvgScore">
+        <result property="expert_ann_score" column="expert_ann_score"/>
+        <result property="expert_ann_apply" column="expert_ann_apply"/>
+        <result property="rowId" column="row_id"/>
+        <result property="avgReviewDiscussion" column="AVG(review_discussion)"/>
+        <result property="avgPoserFieldService" column="AVG(poser_field_service)"/>
+        <result property="avgTrainTeaching" column="AVG(train_teaching)"/>
+        <result property="avgTechnologyInnovate" column="AVG(technology_innovate)"/>
+        <result property="avgEngineerTechTotal" column="AVG(engineer_tech_total)"/>
+    </resultMap>
+    <resultMap id="avgEconomicResult" type="com.authine.cloudpivot.web.api.bean.ExpertAnnualAvgScore">
+        <result property="expert_ann_score" column="expert_ann_score"/>
+        <result property="expert_ann_apply" column="expert_ann_apply"/>
+        <result property="rowId" column="row_id"/>
+        <result property="avgSolveProblems" column="AVG(solve_problems)"/>
+        <result property="avgConstructionPromotion" column="AVG(construction_promotion)"/>
+        <result property="avgSpecialEvents" column="AVG(special_events)"/>
+        <result property="avgCultureTeaching" column="AVG(culture_teaching)"/>
+        <result property="avgEngineerEconomicTotal" column="AVG(engineer_economic_total)"/>
+    </resultMap>
+    <select id="findExportsList" resultMap="expertsInfoResult">
+        SELECT a.id,a.exportsname,b.name deptName,a.exports_level FROM
+        (select  id,exportsname,exports_level,work_unit,exports_major FROM i6rlc_experts_annual_assessment  where exportsassess_year = #{annual} AND assessment_type =#{assessment_type} AND assessment_content = '所在公司' ) a
+        INNER JOIN
+        (select  name,id from i4l46_work_unit where  id = #{work_unit}) b
+        ON a.work_unit = b.id
+    </select>
+
+    <select id="findAllExportsList" resultMap="expertsInfoResult">
+        SELECT a.id,a.exportsname,b.name deptName,a.exports_level FROM
+        (select  id,exportsname,exports_level,work_unit,exports_major FROM i6rlc_experts_annual_assessment  where exportsassess_year = #{annual} AND assessment_type =#{assessment_type} AND assessment_content = '局评委会') a
+        INNER JOIN
+        (select  name,id from i4l46_work_unit where  1=1) b
+        ON a.work_unit = b.id
+    </select>
+
+    <update id="resetFinancialauditannual">
+        update  i6rlc_financial_audit_annual set work_achievement = null,topic_research = null,study_train = null,echange_teach = null,total_score = null where parentId = #{parentId}
+    </update>
+    <update id="resetEngineerTechAnnual">
+        update  i6rlc_engineer_technology_annual set review_discussion = null,poser_field_service = null,train_teaching = null,technology_innovate = null,total_score = null where parentId = #{parentId}
+    </update>
+    <update id="resetEngineerEconomicAnnual">
+        update  i6rlc_engineer_economy_annual set solve_problems = null,construction_promotion = null,special_events = null,culture_teaching = null,total_score = null where parentId = #{parentId}
+    </update>
+    <select id="countFinanceAvg" resultMap="avgFinanceResult">
+        SELECT expert_ann_score,expert_ann_apply,row_id,AVG(work_achievement),AVG(topic_research),AVG(study_train),AVG(echange_teach),AVG(finance_total)FROM i6rlc_expert_ann_score_detail where expert_ann_score =#{id} GROUP BY expert_ann_apply
+    </select>
+    <select id="countTechAvg" resultMap="avgTechResult">
+        SELECT expert_ann_score,expert_ann_apply,row_id,AVG(review_discussion),AVG(poser_field_service),AVG(train_teaching),AVG(technology_innovate),AVG(engineer_tech_total)FROM i6rlc_expert_ann_score_detail where expert_ann_score =#{id} GROUP BY expert_ann_apply
+    </select>
+    <select id="countEconomicAvg" resultMap="avgEconomicResult">
+        SELECT expert_ann_score,expert_ann_apply,row_id,AVG(solve_problems),AVG(construction_promotion),AVG(special_events),AVG(culture_teaching),AVG(engineer_economic_total)FROM i6rlc_expert_ann_score_detail where expert_ann_score =#{id} GROUP BY expert_ann_apply
+    </select>
+
+    <update id="updateFinanceAvg" parameterType="java.util.List">
+        update i6rlc_financial_audit_annual
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="work_achievement =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgWorkAchievement!=null">
+                        when id=#{i.rowId} then #{i.avgWorkAchievement}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="topic_research =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgTopicResearch!=null">
+                        when id=#{i.rowId} then #{i.avgTopicResearch}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="study_train =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgStudyTrain!=null">
+                        when id=#{i.rowId} then #{i.avgStudyTrain}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="echange_teach =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgEchangeTeach!=null">
+                        when id=#{i.rowId} then #{i.avgEchangeTeach}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="total_score =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgFinanceTotal!=null">
+                        when id=#{i.rowId} then #{i.avgFinanceTotal}
+                    </if>
+                </foreach>
+            </trim>
+
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index">
+            parentId=#{i.expert_ann_score}
+        </foreach>
+    </update>
+
+    <update id="updateTechAvg" parameterType="java.util.List">
+        update i6rlc_financial_audit_annual
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="review_discussion =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgReviewDiscussion!=null">
+                        when id=#{i.rowId} then #{i.avgReviewDiscussion}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="poser_field_service =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgPoserFieldService!=null">
+                        when id=#{i.rowId} then #{i.avgPoserFieldService}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="train_teaching =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgTrainTeaching!=null">
+                        when id=#{i.rowId} then #{i.avgTrainTeaching}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="technology_innovate =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgTechnologyInnovate!=null">
+                        when id=#{i.rowId} then #{i.avgTechnologyInnovate}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="engineer_tech_total =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgEngineerTechTotal!=null">
+                        when id=#{i.rowId} then #{i.avgEngineerTechTotal}
+                    </if>
+                </foreach>
+            </trim>
+
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index">
+            parentId=#{i.expert_ann_score}
+        </foreach>
+    </update>
+    <update id="updateEconomicAvg" parameterType="java.util.List">
+        update i6rlc_financial_audit_annual
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="solve_problems =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgSolveProblems!=null">
+                        when id=#{i.rowId} then #{i.avgSolveProblems}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="construction_promotion =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgConstructionPromotion!=null">
+                        when id=#{i.rowId} then #{i.avgConstructionPromotion}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="special_events =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgSpecialEvents!=null">
+                        when id=#{i.rowId} then #{i.avgSpecialEvents}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="culture_teaching =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgCultureTeaching!=null">
+                        when id=#{i.rowId} then #{i.avgCultureTeaching}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="engineer_economic_total =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.avgEngineerEconomicTotal!=null">
+                        when id=#{i.rowId} then #{i.avgEngineerEconomicTotal}
+                    </if>
+                </foreach>
+            </trim>
+
+        </trim>
+        where
+        <foreach collection="list" separator="or" item="i" index="index">
+            parentId=#{i.expert_ann_score}
+        </foreach>
+    </update>
+
+    <update id="updateFinanceDeptJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set dept_judge_score=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgFinanceTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <update id="updateTechDeptJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set dept_judge_score=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgEngineerTechTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateEconomicDeptJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set dept_judge_score=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgEngineerEconomicTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+
+
+
+    <update id="updateFinanceBureauJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set bureauscore=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgFinanceTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateTechBureauJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set bureauscore=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgEngineerTechTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+    <update id="updateEconomicBureauJudgesScore" parameterType="java.util.List">
+        update i6rlc_experts_annual_assessment
+        set bureauscore=
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case" close="end">
+            when id=#{item.expert_ann_apply} then #{item.avgEngineerEconomicTotal}
+        </foreach>
+        where id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.expert_ann_apply,jdbcType=BIGINT}
+        </foreach>
+    </update>
+</mapper>

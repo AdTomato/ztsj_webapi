@@ -9,7 +9,6 @@ import java.util.List;
  * @Date: 2020/1/13 17:15
  * @Description：
  */
-
 public interface ExpertsDeclareService {
     /**
      * 根据条件获取符合条件的全部专家信息
@@ -55,4 +54,6 @@ public interface ExpertsDeclareService {
      * @param conditionsParticipations
      */
     void insertConditions(List<ConditionsParticipations> conditionsParticipations);
+
+    List<String> getExpertsDeclareDetailsNum(String id);
 }

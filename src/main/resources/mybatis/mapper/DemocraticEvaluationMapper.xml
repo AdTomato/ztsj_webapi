@@ -7,18 +7,18 @@
     <!-- 获取发起工作民主评议表所有信息 -->
     <select id="getSDemocraticEvaluationDataById" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.SDemocraticEvaluation">
-        select * from i6rlc_sdemocraticevaluation where id = #{id}
+        select * from i6rlc_SDemocraticEvaluation where id = #{id}
     </select>
 
     <!-- 符合规则的所有的工作民主评议表 -->
     <select id="getAllDemocraticEvaluationData" resultType="com.authine.cloudpivot.web.api.bean.DemocraticEvaluation"
             parameterType="java.util.Map">
-        select * from i6rlc_democraticevaluation where unit = #{id} limit 0, #{max}
+        select * from i6rlc_DemocraticEvaluation where unit = #{id} limit 0, #{max}
     </select>
 
     <!-- 更新发起工作民主评议表所有信息 -->
     <update id="updateSDemocraticEvaluation" parameterType="com.authine.cloudpivot.web.api.bean.SDemocraticEvaluation">
-        update i6rlc_sdemocraticevaluation set
+        update i6rlc_SDemocraticEvaluation set
         g_satisfied_poll = #{gSatisfiedPoll},
         g_basic_satisfied_poll = #{gBasicSatisfiedPoll},
         g_no_satisfied_poll = #{gNoSatisfiedPoll},

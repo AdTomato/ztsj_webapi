@@ -4,6 +4,7 @@ import com.authine.cloudpivot.web.api.bean.*;
 import com.authine.cloudpivot.web.api.mapper.ExpertsDeclareMapper;
 import com.authine.cloudpivot.web.api.service.ExpertsDeclareService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -91,5 +92,11 @@ public class ExpertsDeclareServiceImpl implements ExpertsDeclareService {
     @Override
     public void insertConditions(List<ConditionsParticipations> conditionsParticipations) {
         expertsDeclareMapper.insertConditions(conditionsParticipations);
+    }
+
+    @Override
+    @Transactional
+    public List<String> getExpertsDeclareDetailsNum(String id) {
+         return expertsDeclareMapper.getExpertsDeclareDetailsNum(id);
     }
 }

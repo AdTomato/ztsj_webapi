@@ -57,4 +57,6 @@ public interface ExpertsDeclareMapper {
 
     //插入参评条件子表信息
     void insertConditions(List<ConditionsParticipations> conditionsParticipations);
+
+    List<String> getExpertsDeclareDetailsNum(String id);
 }

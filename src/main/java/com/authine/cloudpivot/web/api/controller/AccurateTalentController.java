@@ -62,7 +62,10 @@ public class AccurateTalentController extends BaseController{
             BizObjectFacade bizObjectFacade = super.getBizObjectFacade();
             String userId = UserUtils.getUserId(getUserId());
             log.info("当前操作的用户id为：" + userId);
-            String id = bizObjectFacade.saveBizObjectModel(userId, model, "id");
+
+            String id = bizObjectFacade.saveBizObject(userId, model, false);
+
+            log.info("创建成功id为：" + id);
             //查询紧缺人才申报的子表学习经历
             List<AtStudyExperience> atStudyExperiences = accurateTalentDeclareService.getStudyExperience(accurateTalentInfo.getId());
             if (atStudyExperiences != null && !atStudyExperiences.isEmpty()) {

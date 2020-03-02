@@ -80,13 +80,14 @@ public class ExpertsDeclareController extends BaseController {
 
     //计算每个专家的结果
     @RequestMapping("/calculationExpertResult")
-    public ResponseResult<String> calculationAssessmentResult(@RequestParam String edoId, @RequestParam Integer passPerson, @RequestParam Integer passPoll, @RequestParam String oexpertsDeclareRank) {
+    public ResponseResult<String> calculationAssessmentResult(@RequestParam String edoId, @RequestParam Integer passPerson, @RequestParam Integer passPoll, @RequestParam String oexpertsDeclareRank, @RequestParam Integer num) {
         //清空每个专家的表决结果
         expertsDeclareService.clearExpertsReult(edoId);
 
-        //判断流程状态
-        String status = expertsDeclareService.getExpertsDeclareStatus(edoId);
-        if (!SequenceStatusUtils.isCompleted(status)) {
+        List<String> peoples = expertsDeclareService.getExpertsDeclareDetailsNum(edoId);
+        log.info("当前评委数：" + num + "当前已投票数：" + peoples.size());
+        if (peoples.size() != num) {
+            log.info("流程尚未结束，无法计算");
             return getErrResponseResult("失败", 404L, "流程尚未结束无需计算");
         }
 

@@ -7,7 +7,7 @@
     <!--获取发起新选拔干部民主评议表的全部信息-->
     <select id="getEvaluatingCadresInfo" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.EvaluatingCadres">
-        select * from i6rlc_sevaluatingcadres where id = #{id}
+        select * from i6rlc_SEvaluatingCadres where id = #{id}
     </select>
     <!--根据unit获取从0到最大投票人数的新选拔干部民主评议表的id-->
     <select id="getEvaluatingCadresIdByUnit" parameterType="java.util.Map" resultType="java.lang.String">
@@ -16,7 +16,7 @@
 
     <!--更新发起新选拔干部民主评议表主表结果-->
     <update id="updateEvaluatingCadresInfo" parameterType="java.util.Map">
-        update i6rlc_sevaluatingcadres set votePeoples = #{votoPeoples},isOrNotCloseVote = '是' where id =#{id}
+        update i6rlc_SEvaluatingCadres set votePeoples = #{votoPeoples},isOrNotCloseVote = '是' where id =#{id}
     </update>
 
     <!--评测干部表-->
@@ -24,18 +24,18 @@
     <!--获取全部的发起新选拔干部民主评议表的 评测干部表信息-->
     <select id="getAllSEvaluatingCadresListData" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.SEvaluatingCadresList">
-        select * from i6rlc_sevaluatingcadreslist where parentId = #{id}
+        select * from i6rlc_SEvaluatingCadresList where parentId = #{id}
     </select>
 
     <!--获取全部的新选拔干部民主评议表的 评测干部表信息-->
     <select id="getAllEvaluatingCadresListData" parameterType="java.lang.String"
             resultType="com.authine.cloudpivot.web.api.bean.EvaluatingCadresList">
-        select * from i6rlc_evaluatingcadreslist where pId = #{id}
+        select * from i6rlc_EvaluatingCadresList where pId = #{id}
     </select>
 
     <!--更新 发起新选拔干部民主评议表的评测干部表结果-->
     <update id="updateAllEvaluatingCadres" parameterType="java.util.List">
-        update i6rlc_sevaluatingcadreslist
+        update i6rlc_SEvaluatingCadresList
         <trim prefix="set" suffixOverrides=",">
             <trim prefix="satisfiedPoll =case" suffix="end,">
                 <foreach collection="list" item="item" index="index">

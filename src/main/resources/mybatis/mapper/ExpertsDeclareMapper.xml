@@ -79,7 +79,7 @@
 
     <!--通过专家的姓名的单位查询一览表的专家信息-->
     <select id="findExpertsFromInfoList" parameterType="java.util.Map" resultType="com.authine.cloudpivot.web.api.bean.ExpertsInfoList">
-        select * from itsfr_expertsinfolist where userName = #{userName} and unit = #{unit}
+        select * from itsfr_expertsInfoList where userName = #{userName} and unit = #{unit}
   </select>
 
     <!--通过专家id获取专家的参评条件-->
@@ -96,4 +96,9 @@
         (#{item.id},#{item.projectsAndEffect},#{item.reviewOpinions},#{item.unitsOrDeptOpinion},#{item.parentId})
         </foreach>
     </insert>
+
+    <select id="getExpertsDeclareDetailsNum" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT creater FROM itsfr_expertDeclareDetail WHERE edOpinionDetail = #{id} GROUP BY creater
+    </select>
+
 </mapper>
